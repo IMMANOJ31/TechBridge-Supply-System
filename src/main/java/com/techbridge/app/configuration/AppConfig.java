@@ -9,6 +9,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -18,7 +19,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.techbridge.app")
 @EnableWebMvc
 @EnableScheduling
-public class TechBridgeConfig implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public ViewResolver resolver(){
@@ -53,4 +54,14 @@ public class TechBridgeConfig implements WebMvcConfigurer {
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
 }
