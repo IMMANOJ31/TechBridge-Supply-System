@@ -1,22 +1,16 @@
 package com.techbridge.app.dto;
 
-import com.techbridge.app.enums.Gender;
+import com.techbridge.app.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class UserDto {
+public class AdminDto {
     private int id;
     private String firstName;
     private String lastName;
     private String email;
-    private String phoneNumber;
-    private Gender gender;
-    private String dob;
-    private String state;
-    private String city;
-    private String country;
     private String password;
-    private String confirmPassword;
+    private Role role;
 }
