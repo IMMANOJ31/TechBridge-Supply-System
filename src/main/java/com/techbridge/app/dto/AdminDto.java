@@ -13,4 +13,5 @@ public class AdminDto {
     private String email;
     private String password;
     private Role role;
+    private String sumne;
 }
