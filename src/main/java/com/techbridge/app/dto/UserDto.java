@@ -4,19 +4,53 @@ import com.techbridge.app.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class UserDto {
-    private int id;
+    @NotBlank(message = "First name can't be null")
     private String firstName;
+
+    @NotBlank(message = "Last name can't be null")
     private String lastName;
+
+    @Email(message = "Enter a valid email")
     private String email;
+
+    @NotBlank(message = "Phone number can't be null")
+    @Pattern(
+            regexp = "(\\+91[-\\s]?)?[0]?[6-9]\\d{9}",
+            message = "Enter a valid phone number"
+    )
     private String phoneNumber;
+
+    @NotNull(message = "Mention your gender")
     private Gender gender;
-    private String dob;
+
+    @Past(message = "Date of birth must be in the past")
+    private LocalDate dob;
+
+    @NotBlank(message = "State can't be null")
     private String state;
+
+    @NotBlank(message = "City can't be null")
     private String city;
+
+    @NotBlank(message = "Country can't be null")
     private String country;
+
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{6,}$",
+            message = "Password must contain at least 1 uppercase, 1 lowercase, 1 digit, and be 6+ characters long"
+    )
     private String password;
+
+    @NotBlank(message = "Confirm password can't be null")
     private String confirmPassword;
 }
