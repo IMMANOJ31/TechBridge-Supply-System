@@ -137,14 +137,17 @@
     <div class="login-container">
         <h2>User Login</h2>
 
-        <form method="post" action="login">
-
+        <!-- Spring Form -->
+        <form:form method="post" action="login" modelAttribute="loginDto">
+            <!-- Email or Phone -->
             <form:label path="emailOrPhone">Email or Phone</form:label>
             <form:input path="emailOrPhone" placeholder="Enter email or phone number"/>
+            <form:errors path="emailOrPhone" cssClass="error"/>
 
 
             <form:label path="password">Password</form:label>
             <form:password path="password" placeholder="Enter your password"/>
+            <form:errors path="password" cssClass="error"/>
 
             <button type="submit" class="btn">Login</button>
 
@@ -152,7 +155,7 @@
                 <a href="registerPage">Create an account</a> |
                 <a href="forgotPasswordPage">Forgot password?</a>
             </div>
-        </form>
+        </form:form>
 
     </div>
 

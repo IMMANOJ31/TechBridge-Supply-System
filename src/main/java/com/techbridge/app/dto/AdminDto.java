@@ -16,8 +16,12 @@ public class AdminDto {
     private String lastName;
     @NotBlank(message = "email can't be null")
     private String email;
-    @NotBlank(message = "enter the password")
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{6,}$",
+            message = "Password must contain at least 1 uppercase, 1 lowercase, 1 digit, and be 6+ characters long"
+    )
     private String password;
+    @NotBlank(message = "Password can't be null")
+    private String confirmPassword;
     private Role role;
-    private String sumne;
 }
