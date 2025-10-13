@@ -19,4 +19,5 @@ public class AdminDto {
     @NotBlank(message = "enter the password")
     private String password;
     private Role role;
+    private String sumne;
 }
