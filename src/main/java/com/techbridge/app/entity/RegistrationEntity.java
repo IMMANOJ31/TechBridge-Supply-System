@@ -1,14 +1,19 @@
 package com.techbridge.app.entity;
 
 import com.techbridge.app.enums.Gender;
+import com.techbridge.app.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "registration_details")
 @Data
-public class UserEntity {
+
+@NamedQueries(
+        @NamedQuery(name = "doesUserExist",query = "SELECT COUNT(u) FROM RegistrationEntity u WHERE u.email = :emailId OR u.phoneNumber = :phoneId")
+)
+public class RegistrationEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "first_name")
@@ -19,6 +24,7 @@ public class UserEntity {
     @Column(name = "phone")
     private String phoneNumber;
     private Gender gender;
+    private Role role;
     private String dob;
     private String state;
     private String city;

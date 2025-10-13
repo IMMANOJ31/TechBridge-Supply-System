@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,17 +170,17 @@
 
     <section class="laptop-section">
         <div class="card">
-            <img src="https://via.placeholder.com/250x150" alt="Laptop Model 1">
+            <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/r/3/b/-original-imahcd9zj95zxak8.jpeg?q=70&crop=false" alt="Laptop Model 1">
             <h4>HP Pavilion</h4>
             <p>Powerful performance and modern design for showrooms</p>
         </div>
         <div class="card">
-            <img src="https://via.placeholder.com/250x150" alt="Laptop Model 2">
+            <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/e/o/n/thinkpad-e14-business-laptop-lenovo-original-imah7qfvgmgmyzfu.jpeg?q=70&crop=false" alt="Laptop Model 2">
             <h4>Lenovo ThinkPad</h4>
             <p>Business-class reliability and robust build quality</p>
         </div>
         <div class="card">
-            <img src="https://via.placeholder.com/250x150" alt="Laptop Model 3">
+            <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/u/s/a/-original-imahcd9nc6gfaxrz.jpeg?q=70&crop=false" alt="Laptop Model 3">
             <h4>Asus ZenBook</h4>
             <p>Lightweight, fast, and stylish — perfect for display units</p>
         </div>

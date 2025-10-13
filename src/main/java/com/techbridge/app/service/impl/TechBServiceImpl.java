@@ -1,10 +1,9 @@
 package com.techbridge.app.service.impl;
 
-import com.techbridge.app.dto.AdminDto;
-import com.techbridge.app.dto.UserDto;
-import com.techbridge.app.entity.AdminEntity;
+import com.techbridge.app.dto.LoginDto;
+import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.LoginEntity;
-import com.techbridge.app.entity.UserEntity;
+import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.TechBRepo;
 import com.techbridge.app.service.TechBService;
 import org.springframework.beans.BeanUtils;
@@ -25,14 +24,23 @@ public class TechBServiceImpl implements TechBService {
     BCryptPasswordEncoder encoder;
 
     @Override
-    public String  profileRegister(UserDto dto) {
-        if (!dto.getPassword().equals(dto.getConfirmPassword())){
-            return "Password Mismatch";
-        }else {
-            dto.setPassword(encoder.encode(dto.getPassword()));
-            UserEntity entity = new UserEntity();
-            BeanUtils.copyProperties(dto,entity);
-            return repo.saveDetails(entity);
+    public String  profileRegister(RegistrationDto dto) {
+        try {
+            boolean exist = repo.existsEmailOrPhone(dto.getEmail(),dto.getPhoneNumber());
+            if (exist){
+                return "User already exists";
+            }
+
+        RegistrationEntity entity = new RegistrationEntity();
+        BeanUtils.copyProperties(dto,entity);
+        System.err.println(entity);
+        boolean isSaved = repo.saveDetails(entity);
+        if (isSaved){
+            return "User registered successfully";
+        }else return "Something went wrong!!!!!!!";
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return "user details saved";
     }
 }

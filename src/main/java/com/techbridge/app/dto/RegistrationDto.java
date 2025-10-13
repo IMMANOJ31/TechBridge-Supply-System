@@ -10,10 +10,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class UserDto {
+public class RegistrationDto {
     @NotBlank(message = "First name can't be null")
     private String firstName;
 
@@ -34,7 +33,7 @@ public class UserDto {
     private Gender gender;
 
     @Past(message = "Date of birth must be in the past")
-    private LocalDate dob;
+    private String dob;
 
     @NotBlank(message = "State can't be null")
     private String state;

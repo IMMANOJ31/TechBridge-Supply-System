@@ -2,119 +2,107 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login - Vendor Laptop Portal</title>
+    <title>Login</title>
     <style>
-        /* Basic Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
+            margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #00b4db, #0083b0);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #f3f9f4;
         }
 
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
+        /* Header */
         header {
-            text-align: center;
-            margin-bottom: 20px;
+            background-color: #007f5f;
             color: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav a {
-            text-decoration: none;
-            padding: 6px 14px;
-            background: #006b8e;
-            color: white;
-            border-radius: 5px;
-            margin-left: 10px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        nav a:hover {
-            background: #004f63;
-        }
-
-        .login-container {
-            background: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            width: 360px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: 500;
-            color: #333;
-        }
-
-        input, .btn {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            border-radius: 8px;
-            outline: none;
-            transition: border 0.3s ease, background 0.3s ease;
-        }
-
-        input {
-            border: 1px solid #ccc;
-        }
-
-        input:focus {
-            border-color: #0083b0;
-        }
-
-        .error {
-            color: red;
-            font-size: 0.85em;
-            margin-top: -12px;
-            margin-bottom: 12px;
-        }
-
-        .btn {
-            background: #0083b0;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
+        header h1 {
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
+        header .login-btn {
+            background-color: white;
+            color: #007f5f;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        header .login-btn:hover {
+            background-color: #e6f7ef;
+        }
+
+        /* Centered Login Box */
+        .login-container {
+            background: white;
+            width: 380px;
+            margin: 80px auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 40px 35px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007f5f;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #333;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s;
+            margin-bottom: 18px;
+        }
+
+        input:focus {
+            border-color: #007f5f;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007f5f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
         .btn:hover {
-            background: #006b8e;
+            background-color: #005f46;
         }
 
         .note {
-            text-align: center;
+            margin-top: 15px;
             font-size: 0.9em;
-            margin-top: 10px;
         }
 
         .note a {
+            color: #007f5f;
             text-decoration: none;
-            color: #0083b0;
             font-weight: 500;
         }
 
@@ -124,44 +112,42 @@
 
         footer {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.85em;
+            padding: 16px;
+            background-color: #007f5f;
             color: white;
+            margin-top: 100px;
+            font-size: 0.9em;
         }
-
     </style>
 </head>
 <body>
-<div class="wrapper">
 
-    <div class="login-container">
-        <h2>User Login</h2>
+<header>
+    <h1>Vendor Laptop Portal</h1>
+    <a href="index" class="login-btn">Home</a>
+</header>
 
-        <!-- Spring Form -->
-        <form:form method="post" action="login" modelAttribute="loginDto">
-            <!-- Email or Phone -->
-            <form:label path="emailOrPhone">Email or Phone</form:label>
-            <form:input path="emailOrPhone" placeholder="Enter email or phone number"/>
-            <form:errors path="emailOrPhone" cssClass="error"/>
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="post" action="login">
+        <label for="emailOrPhone">Email or Phone</label>
+        <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter email or phone number" required />
 
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
 
-            <form:label path="password">Password</form:label>
-            <form:password path="password" placeholder="Enter your password"/>
-            <form:errors path="password" cssClass="error"/>
+        <button type="submit" class="btn">Login</button>
 
-            <button type="submit" class="btn">Login</button>
-
-            <div class="note">
-                <a href="registerPage">Create an account</a> |
-                <a href="forgotPasswordPage">Forgot password?</a>
-            </div>
-        </form:form>
-
-    </div>
-
-    <footer>
-        &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
-    </footer>
+        <div class="note">
+            <a href="register">Create an account</a> |
+            <a href="forgotPassword">Forgot password?</a>
+        </div>
+    </form>
 </div>
+
+<footer>
+    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+</footer>
+
 </body>
 </html>
