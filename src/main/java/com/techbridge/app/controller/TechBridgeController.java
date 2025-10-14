@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -40,10 +41,10 @@ public class TechBridgeController {
 
     @PostMapping("register")
     public ResponseEntity<String> Register(@Valid RegistrationDto dto, BindingResult result){
+        System.err.println(dto);
         if (result.hasErrors()){
             return ResponseEntity.badRequest().body("Validation failed" + result.getAllErrors());
         }
-        System.err.println(dto);
         String data = service.profileRegister(dto);
         System.err.println(data);
         switch (data){

@@ -21,8 +21,10 @@ public class TechBRepoImpl implements TechBRepo {
 
     @Override
     public boolean saveDetails(RegistrationEntity entity) {
+        System.out.println(entity);
         EntityManager manager = null;
         try{
+            manager = factory.createEntityManager();
             manager.getTransaction().begin();
             manager.persist(entity);
             manager.getTransaction().commit();
@@ -38,12 +40,13 @@ public class TechBRepoImpl implements TechBRepo {
     public boolean existsEmailOrPhone(String email, String phoneNumber) {
         EntityManager manager = null;
         try {
+            manager = factory.createEntityManager();
             manager.getTransaction().begin();
             Query query = manager.createNamedQuery("doesUserExist");
             query.setParameter("emailId",email);
             query.setParameter("phoneId",phoneNumber);
-            Object singleResult = query.getSingleResult();
-            System.err.println(singleResult + "------------------> email&Phone repo");
+            Long count = (Long) query.getSingleResult();
+            return count > 0;
         }catch (Exception e){
             e.printStackTrace();
         }finally {

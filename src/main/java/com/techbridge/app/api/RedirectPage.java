@@ -4,6 +4,7 @@ package com.techbridge.app.api;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -19,9 +20,10 @@ public class RedirectPage {
         return "registerPage";
     }
 
-    @GetMapping("forgotPassword")
+    @PostMapping("forgotPassword")
     public String forgetPassword(){
         return "forgotPasswordPage";
     }
+
 
 }

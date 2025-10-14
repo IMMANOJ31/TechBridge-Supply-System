@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class LoginEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "email_or_phone")
     private String emailOrPhone;
     private String password;
 }

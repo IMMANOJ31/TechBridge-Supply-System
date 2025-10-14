@@ -1,6 +1,7 @@
 package com.techbridge.app.dto;
 
 import com.techbridge.app.enums.Gender;
+import com.techbridge.app.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,15 +12,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data  @AllArgsConstructor
 public class RegistrationDto {
+
+    public RegistrationDto(){
+        System.out.println("Dto invoked");
+    }
+
     @NotBlank(message = "First name can't be null")
     private String firstName;
 
     @NotBlank(message = "Last name can't be null")
     private String lastName;
 
-    @Email(message = "Enter a valid email")
+    @NotBlank(message = "Enter a valid email")
     private String email;
 
     @NotBlank(message = "Phone number can't be null")
@@ -32,11 +38,13 @@ public class RegistrationDto {
     @NotNull(message = "Mention your gender")
     private Gender gender;
 
-    @Past(message = "Date of birth must be in the past")
+    @NotNull(message = "Date of birth must be in the past")
     private String dob;
 
     @NotBlank(message = "State can't be null")
     private String state;
+
+    private Role role;
 
     @NotBlank(message = "City can't be null")
     private String city;
@@ -50,6 +58,4 @@ public class RegistrationDto {
     )
     private String password;
 
-    @NotBlank(message = "Confirm password can't be null")
-    private String confirmPassword;
 }

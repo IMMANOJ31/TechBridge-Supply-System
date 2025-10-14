@@ -25,22 +25,20 @@ public class TechBServiceImpl implements TechBService {
 
     @Override
     public String  profileRegister(RegistrationDto dto) {
-        try {
-            boolean exist = repo.existsEmailOrPhone(dto.getEmail(),dto.getPhoneNumber());
-            if (exist){
-                return "User already exists";
-            }
+        if (dto == null) {
+            return "no data found";
+        }
+        boolean exist = repo.existsEmailOrPhone(dto.getEmail(), dto.getPhoneNumber());
+        if (exist) {
+            return "User already exists";
+        }
 
         RegistrationEntity entity = new RegistrationEntity();
-        BeanUtils.copyProperties(dto,entity);
+        BeanUtils.copyProperties(dto, entity);
         System.err.println(entity);
         boolean isSaved = repo.saveDetails(entity);
-        if (isSaved){
+        if (isSaved) {
             return "User registered successfully";
-        }else return "Something went wrong!!!!!!!";
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return "user details saved";
+        } else return "Something went wrong!!!!!!!";
     }
 }
