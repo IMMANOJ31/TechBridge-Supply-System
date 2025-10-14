@@ -9,12 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -33,12 +31,6 @@ public class TechBridgeController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-//        model.addAttribute("loginDto", new LoginDto());
-        return "login";
-    }
-
     @PostMapping("register")
     public ResponseEntity<String> Register(@Valid RegistrationDto dto, BindingResult result){
         System.err.println(dto);
@@ -55,5 +47,12 @@ public class TechBridgeController {
             default:
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(data);
         }
+    }
+
+    @PostMapping("loginPage")
+    public String showLoginPage(@RequestParam("emailPhone") String emailPhone, @RequestParam("inputpassword") String inputPassword, HttpSession session, Model model) {
+        System.out.println("Login password  "+inputPassword);
+        service.doesUserExist(emailPhone,inputPassword);
+        return "login";
     }
 }

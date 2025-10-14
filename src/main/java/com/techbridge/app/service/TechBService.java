@@ -5,4 +5,6 @@ import com.techbridge.app.dto.RegistrationDto;
 
 public interface TechBService {
     String profileRegister(RegistrationDto dto);
+
+    String  doesUserExist(String emailPhone, String inputPassword);
 }

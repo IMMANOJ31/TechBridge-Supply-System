@@ -112,7 +112,15 @@
     <!--          <artifactId>spring-boot-starter-mail</artifactId>-->
     <!--          <version>2.5.6</version>-->
     <!--      </dependency>-->
+    <!--Mail config-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-mail</artifactId>-->
+<!--      <version>2.6.10</version>-->
+<!--    </dependency>-->
   </dependencies>
+
+
 
   <build>
     <finalName>TechBridge-Supply-System</finalName>
