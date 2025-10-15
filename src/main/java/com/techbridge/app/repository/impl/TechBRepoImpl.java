@@ -39,20 +39,19 @@ public class TechBRepoImpl implements TechBRepo {
     @Override
     public RegistrationEntity existsEmailOrPhone(String email, String phoneNumber) {
         EntityManager manager = null;
-        RegistrationEntity entity = null;
         try {
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
             Query query = manager.createNamedQuery("doesUserExist");
             query.setParameter("emailId",email);
             query.setParameter("phoneId",phoneNumber);
-            entity = (RegistrationEntity) query.getSingleResult();
+            return (RegistrationEntity) query.getSingleResult();
         }catch (Exception e){
             System.err.println("No user found");
         }finally {
             manager.close();
         }
-        return entity;
+        return null;
     }
 
     @Override

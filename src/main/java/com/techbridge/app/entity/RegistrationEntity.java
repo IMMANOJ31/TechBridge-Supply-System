@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 
 @NamedQueries({
-        @NamedQuery(name = "doesUserExist",query = "SELECT COUNT(u) FROM RegistrationEntity u WHERE u.email = :emailId OR u.phoneNumber = :phoneId"),
+        @NamedQuery(name = "doesUserExist",query = "SELECT r FROM RegistrationEntity r WHERE r.email = :emailId OR r.phone = :phoneId"),
         @NamedQuery(name = "passwordExists", query = "select count(p) from RegistrationEntity p where p.password =: pass")
 }
 )
