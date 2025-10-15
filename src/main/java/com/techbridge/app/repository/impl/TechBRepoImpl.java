@@ -37,21 +37,39 @@ public class TechBRepoImpl implements TechBRepo {
     }
 
     @Override
-    public boolean existsEmailOrPhone(String email, String phoneNumber) {
+    public RegistrationEntity existsEmailOrPhone(String email, String phoneNumber) {
         EntityManager manager = null;
+        RegistrationEntity entity = null;
         try {
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
             Query query = manager.createNamedQuery("doesUserExist");
             query.setParameter("emailId",email);
             query.setParameter("phoneId",phoneNumber);
+            entity = (RegistrationEntity) query.getSingleResult();
+        }catch (Exception e){
+            System.err.println("No user found");
+        }finally {
+            manager.close();
+        }
+        return entity;
+    }
+
+    @Override
+    public boolean existsPassword(String password) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("passwordExists");
+            query.setParameter("pass",password);
             Long count = (Long) query.getSingleResult();
-            return count > 0;
+            return count >0;
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             manager.close();
         }
-        return true;
+        return  true;
     }
 }

@@ -7,4 +7,6 @@ public interface TechBService {
     String profileRegister(RegistrationDto dto);
 
     String  doesUserExist(String emailPhone, String inputPassword);
+
+    String passwordExist(LoginDto dto,String inputPassword);
 }

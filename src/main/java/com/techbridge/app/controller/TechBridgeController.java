@@ -50,9 +50,24 @@ public class TechBridgeController {
     }
 
     @PostMapping("loginPage")
-    public String showLoginPage(@RequestParam("emailPhone") String emailPhone, @RequestParam("inputpassword") String inputPassword, HttpSession session, Model model) {
-        System.out.println("Login password  "+inputPassword);
-        service.doesUserExist(emailPhone,inputPassword);
-        return "login";
+    public String showLoginPage(@ModelAttribute LoginDto dto,Model model) {
+        System.out.println("Login password  " + dto.getPassword());
+        System.out.println(dto);
+        String validUser = service.doesUserExist(dto.getEmailOrPhone(), dto.getPassword());
+
+        switch (validUser) {
+            case "no data found":
+            case "User not found":
+                model.addAttribute("error", "Invalid credentials");
+                return "login";
+            case "Invalid password":
+                model.addAttribute("error", "Incorrect password");
+                return "login";
+            case "Valid user":
+                return "profilePage";
+            default:
+                model.addAttribute("error", "Unexpected error");
+                return "login";
+        }
     }
 }

@@ -136,7 +136,7 @@
     <h2>Login</h2>
     <form method="post" action="loginPage" onsubmit="return goToProfile()">
         <label for="emailOrPhone">Email or Phone</label>
-        <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter email or phone number" required />
+        <input type="text" id="emailOrPhone" name="emailOrPhone" value="${email}" placeholder="Enter email or phone number" required />
 
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required />

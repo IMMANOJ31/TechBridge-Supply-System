@@ -10,8 +10,10 @@ import javax.persistence.*;
 @Table(name = "registration_details")
 @Data
 
-@NamedQueries(
-        @NamedQuery(name = "doesUserExist",query = "SELECT COUNT(u) FROM RegistrationEntity u WHERE u.email = :emailId OR u.phoneNumber = :phoneId")
+@NamedQueries({
+        @NamedQuery(name = "doesUserExist",query = "SELECT COUNT(u) FROM RegistrationEntity u WHERE u.email = :emailId OR u.phoneNumber = :phoneId"),
+        @NamedQuery(name = "passwordExists", query = "select count(p) from RegistrationEntity p where p.password =: pass")
+}
 )
 public class RegistrationEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
