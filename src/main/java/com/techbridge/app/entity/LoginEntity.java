@@ -15,4 +15,5 @@ public class LoginEntity{
     @Column(name = "email_or_phone")
     private String emailOrPhone;
     private String password;
+    private Role role;
 }
