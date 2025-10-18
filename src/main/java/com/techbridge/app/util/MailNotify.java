@@ -8,10 +8,13 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class UserNotify {
+public class MailNotify {
 
     @Autowired
     JavaMailSender mailSender;
+
+    @Autowired
+    OtpNotify otpNotify;
 
     public String registerMail(String email){
         SimpleMailMessage message = new SimpleMailMessage();
@@ -63,7 +66,7 @@ public class UserNotify {
                 "Dear User,\n\n" +
                         "We received a request to reset your password for your TechBridge account.\n\n" +
                         "Your One-Time Password (OTP) for password reset is:\n\n" +
-                        "👉  OTP: " + otp + "\n\n" +
+                        "👉  OTP: " + otpNotify.otpGenerate() + "\n\n" +
                         "⚠️ Please note: This OTP is valid for the next 10 minutes only.\n" +
                         "Do NOT share this OTP with anyone for your account’s safety.\n\n" +
                         "If you did not request a password reset, please ignore this email.\n\n" +

@@ -119,9 +119,8 @@
             font-size: 0.9em;
         }
          function goToProfile() {
-                // Optionally, you can validate form fields here
-                window.location.href = "profile.jsp";  // Redirect to profile page
-                return false;  // Prevent actual form submission
+                window.location.href = "profile";
+                return false;
             }
     </style>
 </head>
@@ -135,11 +134,11 @@
 <div class="login-container">
     <h2>Login</h2>
     <form method="post" action="loginPage" onsubmit="return goToProfile()">
-        <label for="emailOrPhone">Email or Phone</label>
-        <input type="text" id="emailOrPhone" name="emailOrPhone" value="${email}" placeholder="Enter email or phone number" required />
+        <label for="User not found">Email or Phone</label>
+        <input type="text" id="User not found" name="emailOrPhone" value="${email}" placeholder="Enter email or phone number" required />
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        <label for="Invalid password">Password</label>
+        <input type="password" id="Invalid password" name="password" placeholder="Enter your password" required />
 
         <button type="submit" class="btn">Login</button>
 

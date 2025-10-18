@@ -1,10 +1,11 @@
 package com.techbridge.app.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -17,6 +18,6 @@ public class LoginDto {
     )
     private String emailOrPhone;
 
-    @NotBlank(message = "Password is required")
-    private String password;
+   private String password;
+
 }

@@ -9,4 +9,6 @@ public interface TechBRepo {
     RegistrationEntity existsEmailOrPhone(String email, String phoneNumber);
 
     boolean existsPassword(String password);
+
+    RegistrationEntity checkMailExist(String email);
 }

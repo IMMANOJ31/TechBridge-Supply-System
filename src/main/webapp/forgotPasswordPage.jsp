@@ -145,8 +145,8 @@
 
     <!-- Send OTP Form -->
     <form action="sendOtp" method="post" id="sendOtpForm">
-        <label for="email">Enter Email</label>
-        <input type="email" id="email" name="email" value="${inputEmail}" placeholder="Enter your registered email" required>
+        <label for="inputEmail">Enter Email</label>
+        <input type="email" id="inputEmail" name="email" value="${email}" placeholder="Enter your registered email" required>
         <button type="submit" class="btn btn-primary">Send OTP</button>
     </form>
 
@@ -154,7 +154,7 @@
 
     <!-- Verify OTP Form -->
     <form action="verifyOtp" method="post" id="verifyOtpForm">
-        <input type="hidden" name="email" value="${inputEmail}">
+        <input type="hidden" name="email" value="${email}">
         <label for="otp">Enter OTP</label>
         <input type="text" id="otp" name="otp" placeholder="Enter the OTP received" required>
         <c:if test="${not empty otpError}">

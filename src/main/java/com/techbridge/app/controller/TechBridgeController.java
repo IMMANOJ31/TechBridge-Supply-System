@@ -2,6 +2,7 @@ package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.LoginDto;
 import com.techbridge.app.dto.RegistrationDto;
+import com.techbridge.app.enums.Role;
 import com.techbridge.app.service.TechBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,6 @@ public class TechBridgeController {
         System.out.println("Login password  " + dto.getPassword());
         System.out.println(dto);
         String validUser = service.doesUserExist(dto.getEmailOrPhone(), dto.getPassword());
-
         switch (validUser) {
             case "no data found":
             case "User not found":
@@ -64,10 +64,28 @@ public class TechBridgeController {
                 model.addAttribute("error", "Incorrect password");
                 return "login";
             case "Valid user":
-                return "profilePage";
+                return decideLoginPage(dto);
             default:
                 model.addAttribute("error", "Unexpected error");
                 return "login";
         }
+    }
+
+    private String decideLoginPage(LoginDto dto) {
+        System.out.println("Logged by------------ "+dto);
+        if (dto == null) {
+            return "no data found";
+        }
+        if (dto.getEmailOrPhone().equals(Role.ADMIN)) {
+            return "adminPage";
+        }
+        return "userPage";
+    }
+
+    @PostMapping("sendOtp")
+    public String sendOtp(String email, Model model){
+        service.otpSending(email);
+        model.addAttribute("inputEmail",email);
+        return "forgotPasswordPage";
     }
 }

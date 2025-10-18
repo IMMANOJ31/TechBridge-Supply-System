@@ -5,10 +5,10 @@ import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.TechBRepo;
 import com.techbridge.app.service.TechBService;
-import com.techbridge.app.util.UserNotify;
+import com.techbridge.app.util.MailNotify;
+import com.techbridge.app.util.OtpNotify;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,10 @@ public class TechBServiceImpl implements TechBService {
     BCryptPasswordEncoder encoder;
 
     @Autowired
-    UserNotify send;
+    MailNotify send;
+
+    @Autowired
+    OtpNotify otpNotify;
 
     @Override
     public String  profileRegister(RegistrationDto dto) {
@@ -43,7 +46,7 @@ public class TechBServiceImpl implements TechBService {
         System.err.println(entity);
         boolean isSaved = repo.saveDetails(entity);
         if (isSaved) {
-            send.registerMail(dto.getEmail());
+//            send.registerMail(dto.getEmail());
             return "User registered successfully";
         } else return "Something went wrong!!!!!!!";
     }
@@ -75,6 +78,40 @@ public class TechBServiceImpl implements TechBService {
         if (dto == null) return "database issue";
         boolean matches = encoder.matches(inputPassword, dto.getPassword());
         return matches ? "password" : "password doesn't exist";
+    }
+
+    @Override
+    public String otpSending(String email) {
+        if (email == null){
+            return "no data found";
+        }
+        if (email.contains("@") && email.contains(".com")){
+            RegistrationDto dto = mailExist(email);
+            if (dto != null){
+                if (dto.getEmail().equals(email)){
+                    String otp = otpNotify.otpGenerate();
+                    dto.setOtp(otp);
+                    RegistrationEntity entity = new RegistrationEntity();
+                    BeanUtils.copyProperties(dto,entity);
+                }
+            }
+
+        }
+        return "allGood";
+    }
+
+    @Override
+    public RegistrationDto mailExist(String email) {
+        RegistrationEntity entity = repo.checkMailExist(email);
+        if (entity == null){
+            System.out.println("email = " + email);
+            return null;
+        }else {
+            RegistrationDto dto = new RegistrationDto();
+            BeanUtils.copyProperties(entity, dto);
+            System.out.println("TechBServiceImpl.mailExist");
+            return dto;
+        }
     }
 
 

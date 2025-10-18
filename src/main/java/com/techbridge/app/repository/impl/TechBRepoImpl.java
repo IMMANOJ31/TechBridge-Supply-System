@@ -71,4 +71,21 @@ public class TechBRepoImpl implements TechBRepo {
         }
         return  true;
     }
+
+    @Override
+    public RegistrationEntity checkMailExist(String email) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("mailExist");
+            query.setParameter("mailId",email);
+            return (RegistrationEntity) query.getSingleResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            manager.close();
+        }
+    }
 }

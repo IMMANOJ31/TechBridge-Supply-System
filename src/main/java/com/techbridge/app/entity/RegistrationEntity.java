@@ -11,8 +11,9 @@ import javax.persistence.*;
 @Data
 
 @NamedQueries({
-        @NamedQuery(name = "doesUserExist",query = "SELECT r FROM RegistrationEntity r WHERE r.email = :emailId OR r.phone = :phoneId"),
-        @NamedQuery(name = "passwordExists", query = "select count(p) from RegistrationEntity p where p.password =: pass")
+        @NamedQuery(name = "doesUserExist",query = "SELECT r FROM RegistrationEntity r WHERE r.email = :emailId OR r.phoneNumber = :phoneId"),
+        @NamedQuery(name = "passwordExists", query = "select count(p) from RegistrationEntity p where p.password =: pass"),
+        @NamedQuery(name = "mailExist",query = "select RegistrationEntity where email = :mailId")
 }
 )
 public class RegistrationEntity {
@@ -34,4 +35,5 @@ public class RegistrationEntity {
     private String city;
     private String country;
     private String password;
+    private String otp;
 }

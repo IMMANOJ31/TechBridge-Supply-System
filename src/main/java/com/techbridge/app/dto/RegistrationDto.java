@@ -57,6 +57,9 @@ public class RegistrationDto {
             message = "Password must contain at least 1 uppercase, 1 lowercase, 1 digit, and be 6+ characters long"
     )
     private String password;
+
     private String ConfirmPassword;
+
+    private String otp;
 
 }
