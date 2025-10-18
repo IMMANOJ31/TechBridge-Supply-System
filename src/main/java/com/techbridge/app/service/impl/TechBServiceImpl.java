@@ -97,7 +97,7 @@ public class TechBServiceImpl implements TechBService {
             }
 
         }
-        return "allGood";
+        return "allGood in sending otp";
     }
 
     @Override
