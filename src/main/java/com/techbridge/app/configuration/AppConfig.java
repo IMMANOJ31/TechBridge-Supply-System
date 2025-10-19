@@ -47,6 +47,7 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public LocalContainerEntityManagerFactoryBean factoryBean(){
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+        bean.setPersistenceUnitName("default");
         bean.setPackagesToScan("com.techbridge.app.entity");
         bean.setDataSource(dataSource());
         bean.setJpaProperties(properties());

@@ -1,5 +1,6 @@
 package com.techbridge.app.repository.impl;
 
+import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.TechBRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,23 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }finally {
+            manager.close();
+        }
+    }
+
+    @Override
+    public boolean saveLoginDetails(LoginEntity entity) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            manager.persist(entity);
+            manager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }finally {
             manager.close();
         }

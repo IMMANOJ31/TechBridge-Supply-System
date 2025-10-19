@@ -1,5 +1,6 @@
 package com.techbridge.app.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.techbridge.app.dto.LoginDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.enums.Role;
@@ -83,9 +84,25 @@ public class TechBridgeController {
     }
 
     @PostMapping("sendOtp")
-    public String sendOtp(String email, Model model){
+    public String sendOtp(@RequestParam  String email, Model model){
         service.otpSending(email);
         model.addAttribute("inputEmail",email);
         return "forgotPasswordPage";
+    }
+
+    @PostMapping("verifyOtp")
+    public String otpVerification(@RequestParam String email, String otp, Model model){
+        String verifiedOtp = service.verifyOtp(email, otp);
+        System.out.println(verifiedOtp);
+         model.addAttribute("invalidOtp",otp);
+        if (verifiedOtp.equals("invalidOtp")){
+            return "forgotPasswordPage";
+        }else if (verifiedOtp.equals("missMatch")){
+            model.addAttribute("otpError", "Invalid OTP. Try again");
+            model.addAttribute("inputEmail", email);
+            return "forgotPasswordPage";
+        }
+        model.addAttribute("inputEmail",email);
+        return "resetPasswordPage";
     }
 }

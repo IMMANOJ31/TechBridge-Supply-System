@@ -11,4 +11,6 @@ public interface TechBRepo {
     boolean existsPassword(String password);
 
     RegistrationEntity checkMailExist(String email);
+
+    boolean saveLoginDetails(LoginEntity entity);
 }

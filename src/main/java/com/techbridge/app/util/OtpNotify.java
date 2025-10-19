@@ -1,7 +1,11 @@
 package com.techbridge.app.util;
 
+
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component
 public class OtpNotify {
 
     public String otpGenerate(){

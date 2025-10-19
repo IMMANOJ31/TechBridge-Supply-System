@@ -154,9 +154,9 @@
 
     <!-- Verify OTP Form -->
     <form action="verifyOtp" method="post" id="verifyOtpForm">
-        <input type="hidden" name="email" value="${email}">
-        <label for="otp">Enter OTP</label>
-        <input type="text" id="otp" name="otp" placeholder="Enter the OTP received" required>
+        <input type="hidden" name="email" value="${inputEmail}">
+        <label for="invalidOtp">Enter OTP</label>
+        <input type="text" id="invalidOtp" name="otp" placeholder="Enter the OTP received" required>
         <c:if test="${not empty otpError}">
             <span class="text-danger">${otpError}</span>
         </c:if>

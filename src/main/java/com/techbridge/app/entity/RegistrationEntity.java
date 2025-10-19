@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "doesUserExist",query = "SELECT r FROM RegistrationEntity r WHERE r.email = :emailId OR r.phoneNumber = :phoneId"),
         @NamedQuery(name = "passwordExists", query = "select count(p) from RegistrationEntity p where p.password =: pass"),
-        @NamedQuery(name = "mailExist",query = "select RegistrationEntity where email = :mailId")
+        @NamedQuery(name = "mailExist",query = "SELECT r FROM RegistrationEntity r WHERE r.email = :mailId")
 }
 )
 public class RegistrationEntity {

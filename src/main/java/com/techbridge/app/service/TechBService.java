@@ -8,9 +8,11 @@ public interface TechBService {
 
     String  doesUserExist(String emailPhone, String inputPassword);
 
-    String passwordExist(LoginDto dto,String inputPassword);
+    LoginDto passwordExist(LoginDto dto,String inputPassword);
 
     String otpSending(String email);
 
     RegistrationDto mailExist(String email);
+
+    String verifyOtp(String email, String otp);
 }
