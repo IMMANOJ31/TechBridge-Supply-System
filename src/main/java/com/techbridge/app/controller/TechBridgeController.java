@@ -105,4 +105,9 @@ public class TechBridgeController {
         model.addAttribute("inputEmail",email);
         return "resetPasswordPage";
     }
+
+    @PostMapping("resetPassword")
+    public String passworReset(String email,String password){
+        return "";
+    }
 }
