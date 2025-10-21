@@ -6,7 +6,7 @@ import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.TechBRepo;
 import com.techbridge.app.service.TechBService;
-//import com.techbridge.app.util.MailNotify;
+import com.techbridge.app.util.MailNotify;
 import com.techbridge.app.util.OtpNotify;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class TechBServiceImpl implements TechBService {
     @Autowired
     BCryptPasswordEncoder encoder;
 
-//    @Autowired
-//    MailNotify send;
+    @Autowired
+    MailNotify send;
 
     @Autowired
     OtpNotify otpNotify;
@@ -47,7 +47,7 @@ public class TechBServiceImpl implements TechBService {
         System.err.println(entity);
         boolean isSaved = repo.saveDetails(entity);
         if (isSaved) {
-//            send.registerMail(dto.getEmail());
+            send.registerMail(dto.getEmail());
             return "User registered successfully";
         } else return "Something went wrong!!!!!!!";
     }
@@ -90,8 +90,8 @@ public class TechBServiceImpl implements TechBService {
         LoginEntity entity = new LoginEntity();
         BeanUtils.copyProperties(loginDto,entity);
         boolean b = repo.saveLoginDetails(entity);
-//        String loginMail = send.LoginMail(dto.getEmailOrPhone());
-//        System.out.println(loginMail);
+        String loginMail = send.LoginMail(dto.getEmailOrPhone());
+        System.out.println(loginMail);
         return b ? "all good" : "not saved";
     }
 
@@ -104,8 +104,8 @@ public class TechBServiceImpl implements TechBService {
             RegistrationDto dto = mailExist(email);
             if (dto != null){
                 if (dto.getEmail().equals(email)){
-//                    String otp = otpNotify.otpGenerate();
-//                    dto.setOtp(otp);
+                    String otp = otpNotify.otpGenerate();
+                    dto.setOtp(otp);
                     RegistrationEntity entity = new RegistrationEntity();
                     BeanUtils.copyProperties(dto,entity);
                 }
