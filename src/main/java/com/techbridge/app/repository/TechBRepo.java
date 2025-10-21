@@ -13,4 +13,8 @@ public interface TechBRepo {
     RegistrationEntity checkMailExist(String email);
 
     boolean saveLoginDetails(LoginEntity entity);
+
+    boolean passwordUpdate(RegistrationEntity entity);
+
+    void clearOtp();
 }

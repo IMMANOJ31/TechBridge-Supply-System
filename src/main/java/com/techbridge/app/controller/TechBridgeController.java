@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -107,7 +105,9 @@ public class TechBridgeController {
     }
 
     @PostMapping("resetPassword")
-    public String passworReset(String email,String password){
-        return "";
+    public String passworReset(@RequestParam String email, @RequestParam String password,Model model){
+        service.passwordUpdate(email,password);
+        model.addAttribute("msg","Password reseted successfully");
+        return "login";
     }
 }

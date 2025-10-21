@@ -131,7 +131,29 @@ public class TechBServiceImpl implements TechBService {
 
     @Override
     public String verifyOtp(String email, String otp) {
-        return "";
+        RegistrationDto dto = mailExist(email);
+        System.out.println(dto.toString());
+        if (email == null){
+            return "no data found";
+        }
+        if (!otp.equals(dto.getOtp())){
+            return "missMatch";
+        }
+        return "otp verified";
+    }
+
+    @Override
+    public String passwordUpdate(String email, String password) {
+        if (email == null){
+            return "no data found";
+        }
+        RegistrationDto dto = mailExist(email);
+        dto.setPassword(encoder.encode(password));
+        RegistrationEntity entity = new RegistrationEntity();
+        BeanUtils.copyProperties(dto,entity);
+        boolean b = repo.passwordUpdate(entity);
+        System.out.println(b);
+        return "password updated";
     }
 
 

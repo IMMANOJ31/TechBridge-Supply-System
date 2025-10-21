@@ -15,4 +15,6 @@ public interface TechBService {
     RegistrationDto mailExist(String email);
 
     String verifyOtp(String email, String otp);
+
+    String passwordUpdate(String email, String password);
 }

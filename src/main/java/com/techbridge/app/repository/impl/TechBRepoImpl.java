@@ -106,4 +106,37 @@ public class TechBRepoImpl implements TechBRepo {
             manager.close();
         }
     }
+
+    @Override
+    public boolean passwordUpdate(RegistrationEntity entity) {
+        EntityManager manager = null;
+        try{
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            manager.merge(entity);
+            manager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            manager.close();
+        }
+    }
+
+    @Override
+    public void clearOtp() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("resetOtp");
+            query.executeUpdate();
+            manager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            manager.close();
+        }
+    }
 }
