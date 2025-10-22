@@ -12,7 +12,7 @@ public class ResetSchedulerImpl implements ResetScheduler {
     @Autowired
     TechBRepo repo;
 
-    @Override @Scheduled(fixedRate = 5000)
+    @Override @Scheduled(fixedRate = 50000)
     public void otpReset() {
         repo.clearOtp();
         System.out.println("Otp reset!!!");
