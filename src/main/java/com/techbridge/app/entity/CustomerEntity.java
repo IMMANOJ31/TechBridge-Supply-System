@@ -8,11 +8,13 @@ import javax.persistence.*;
 
 @Data
 @Table(name = "customer_details")
+@Entity
 public class CustomerEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "customer_name")
     private String customerName;
+    @Enumerated(EnumType.STRING)
     @Column(name = "customer_type")
     private CustomerType customerType;
     @Column(name = "phone_number")
@@ -28,6 +30,7 @@ public class CustomerEntity {
     private String billingAddress;
     @Column(name = "shipping_address")
     private String shippingAddress;
+    @Enumerated(EnumType.STRING)
     @Column(name = "payment_mode")
     private PaymentMode paymentMode;
 }

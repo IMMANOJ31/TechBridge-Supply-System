@@ -47,7 +47,7 @@ public class TechBServiceImpl implements TechBService {
         System.err.println(entity);
         boolean isSaved = repo.saveDetails(entity);
         if (isSaved) {
-            send.registerMail(dto.getEmail());
+//            send.registerMail(dto.getEmail());
             return "User registered successfully";
         } else return "Something went wrong!!!!!!!";
     }
@@ -90,8 +90,7 @@ public class TechBServiceImpl implements TechBService {
         LoginEntity entity = new LoginEntity();
         BeanUtils.copyProperties(loginDto,entity);
         boolean b = repo.saveLoginDetails(entity);
-        String loginMail = send.LoginMail(dto.getEmailOrPhone());
-        System.out.println(loginMail);
+//        send.LoginMail(dto.getEmailOrPhone());
         return b ? "all good" : "not saved";
     }
 
@@ -132,6 +131,7 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String verifyOtp(String email, String otp) {
         RegistrationDto dto = mailExist(email);
+        System.out.println(otp);
         System.out.println(dto.toString());
         if (email == null){
             return "no data found";

@@ -133,9 +133,9 @@
 
 <div class="login-container">
     <h2>Login</h2>
-    <form method="post" action="loginPage" onsubmit="return goToProfile()">
+    <form method="post" action="login" onsubmit="return goToProfile()">
         <label for="User not found">Email or Phone</label>
-        <input type="text" id="User not found" name="emailOrPhone" value="${email}" placeholder="Enter email or phone number" required />
+        <input type="text" id="User not found" name="emailOrPhone" placeholder="Enter email or phone number" required />
 
         <label for="Invalid password">Password</label>
         <input type="password" id="Invalid password" name="password" placeholder="Enter your password" required />

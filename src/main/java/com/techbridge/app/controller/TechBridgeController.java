@@ -31,6 +31,21 @@ public class TechBridgeController {
         return "index";
     }
 
+    @GetMapping("login")
+    public String showLoginForm() {
+        return "login";
+    }
+
+    @GetMapping("forgotPassword")
+    public String showPasswordPage(){
+        return "forgotPasswordPage";
+    }
+
+    @GetMapping("register")
+    public String showAccountPage(){
+        return "registerPage";
+    }
+
     @PostMapping("register")
     public ResponseEntity<String> Register(@Valid RegistrationDto dto, BindingResult result){
         System.err.println(dto);
@@ -49,7 +64,7 @@ public class TechBridgeController {
         }
     }
 
-    @PostMapping("loginPage")
+    @PostMapping("login")
     public String showLoginPage(@ModelAttribute LoginDto dto,Model model) {
         System.out.println("Login password  " + dto.getPassword());
         System.out.println(dto);
@@ -63,19 +78,20 @@ public class TechBridgeController {
                 model.addAttribute("error", "Incorrect password");
                 return "login";
             case "Valid user":
-                return decideLoginPage(dto);
+                return decideLoginPage(dto1,dto);
             default:
                 model.addAttribute("error", "Unexpected error");
                 return "login";
         }
     }
 
-    private String decideLoginPage(LoginDto dto) {
-        System.out.println("Logged by------------ "+dto);
+    private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {
+        System.err.println(registrationDto);
+        System.err.println("Logged by------------ "+dto);
         if (dto == null) {
             return "no data found";
         }
-        if (dto.getEmailOrPhone().equals(Role.ADMIN)) {
+        if (registrationDto.getRole() == Role.ADMIN) {
             return "adminPage";
         }
         return "userPage";
