@@ -57,16 +57,18 @@ public class TechBServiceImpl implements TechBService {
         if (emailPhone == null || inputPassword == null ){
             return "no data found";
         }
-        RegistrationEntity entity = repo.existsEmailOrPhone(emailPhone,inputPassword);
+        RegistrationEntity entity = repo.checkMailExist(emailPhone);
+
         if (entity == null) {
+            entity = repo.checkPhoneExist(emailPhone);
+        }if (entity == null){
             return "User not found";
         }
 
-        LoginDto dto = new LoginDto();
-        dto.setEmailOrPhone(entity.getEmail());
-        dto.setPassword(entity.getPassword());
-
-        return loginDetails(dto,inputPassword);
+        if (!encoder.matches(inputPassword,entity.getPassword())){
+            return "Invalid password";
+        }
+        return entity.getRole().name();
     }
 
     @Override
@@ -75,24 +77,23 @@ public class TechBServiceImpl implements TechBService {
         boolean matches = encoder.matches(inputPassword, dto.getPassword());
         return matches ? dto : null;
     }
-    private String loginDetails(LoginDto dto,String inputPassword){
+    private String loginDetails(LoginDto dto, String inputPassword) {
         System.out.println("TechBServiceImpl.loginDetails");
-        if (dto == null){
+
+        if (dto == null) {
             return "no data found";
         }
-        boolean matches = encoder.matches(dto.getPassword(), inputPassword);
-        System.out.println(matches);
 
-        if (!encoder.matches(inputPassword,dto.getPassword())){
+        if (!encoder.matches(inputPassword, dto.getPassword())) {
             return "Invalid password";
         }
-        LoginDto loginDto = passwordExist(dto, inputPassword);
         LoginEntity entity = new LoginEntity();
-        BeanUtils.copyProperties(loginDto,entity);
-        boolean b = repo.saveLoginDetails(entity);
-//        send.LoginMail(dto.getEmailOrPhone());
-        return b ? "all good" : "not saved";
+        BeanUtils.copyProperties(dto, entity);
+        boolean saved = repo.saveLoginDetails(entity);
+        // send.LoginMail(dto.getEmailOrPhone());
+        return saved ? "all good" : "not saved";
     }
+
 
     @Override
     public String otpSending(String email) {
@@ -124,6 +125,19 @@ public class TechBServiceImpl implements TechBService {
             RegistrationDto dto = new RegistrationDto();
             BeanUtils.copyProperties(entity, dto);
             System.out.println("TechBServiceImpl.mailExist");
+            return dto;
+        }
+    }
+
+    @Override
+    public RegistrationDto mailNPhoneExist(String email, String phoneNumber) {
+        RegistrationEntity entity = repo.existsEmailOrPhone(email, phoneNumber);
+        if (entity == null){
+            return null;
+        }else {
+            RegistrationDto dto = new RegistrationDto();
+            BeanUtils.copyProperties(entity,dto);
+            System.out.println("email = " + email + ", phoneNumber = " + phoneNumber);
             return dto;
         }
     }

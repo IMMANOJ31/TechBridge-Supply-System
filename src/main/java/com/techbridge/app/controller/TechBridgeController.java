@@ -1,6 +1,5 @@
 package com.techbridge.app.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.techbridge.app.dto.LoginDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.enums.Role;
@@ -13,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -25,6 +25,7 @@ public class TechBridgeController {
 
     @Autowired
     TechBService service;
+
 
     @GetMapping("index")
     public String showHomePage() {
@@ -65,10 +66,11 @@ public class TechBridgeController {
     }
 
     @PostMapping("login")
-    public String showLoginPage(@ModelAttribute LoginDto dto,Model model) {
+    public String showLoginPage(@ModelAttribute LoginDto dto, Model model) {
         System.out.println("Login password  " + dto.getPassword());
         System.out.println(dto);
-        String validUser = service.doesUserExist(dto.getEmailOrPhone(), dto.getPassword());
+        String input = dto.getEmailOrPhone().trim();
+        String validUser = service.doesUserExist(input, dto.getPassword().trim());
         switch (validUser) {
             case "no data found":
             case "User not found":
@@ -77,10 +79,12 @@ public class TechBridgeController {
             case "Invalid password":
                 model.addAttribute("error", "Incorrect password");
                 return "login";
-            case "Valid user":
-                return decideLoginPage(dto1,dto);
+            case "ADMIN":
+                return "adminPage";
+            case "USER":
+                return "userPage";
             default:
-                model.addAttribute("error", "Unexpected error");
+                model.addAttribute("error", "Unexpected error occurred");
                 return "login";
         }
     }

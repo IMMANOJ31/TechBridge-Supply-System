@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 @Repository
@@ -82,8 +83,23 @@ public class TechBRepoImpl implements TechBRepo {
             Query query = manager.createNamedQuery("mailExist");
             query.setParameter("mailId",email);
             return (RegistrationEntity) query.getSingleResult();
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (NoResultException e){
+            return null;
+        }finally {
+            manager.close();
+        }
+    }
+
+    @Override
+    public RegistrationEntity checkPhoneExist(String phoneNumber) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("phoneExist");
+            query.setParameter("phone",phoneNumber);
+            return (RegistrationEntity) query.getSingleResult();
+        }catch (NoResultException e){
             return null;
         }finally {
             manager.close();
