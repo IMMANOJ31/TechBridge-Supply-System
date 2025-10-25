@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <div class="card p-4 shadow-lg">
     <h4 class="text-center mb-3">Reset Your Password</h4>
