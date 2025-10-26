@@ -1,18 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <title>Login</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            background-color: #f4f7f5;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f3f9f4;
         }
 
+        /* Header */
         header {
             background-color: #007f5f;
             color: white;
@@ -27,45 +28,92 @@
             font-weight: 600;
         }
 
-        .user-info {
-            background: white;
-            width: 280px;
-            margin: 40px;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .user-info h3 {
-            margin-top: 0;
+        header .login-btn {
+            background-color: white;
             color: #007f5f;
-        }
-
-        .links {
-            margin-top: 20px;
-        }
-
-        .links a {
-            display: block;
-            color: #007f5f;
+            padding: 8px 18px;
+            border-radius: 20px;
             text-decoration: none;
-            font-weight: 500;
-            margin: 8px 0;
-            padding: 8px 12px;
-            border-radius: 6px;
+            font-weight: 600;
             transition: background 0.3s;
         }
 
-        .links a:hover {
+        header .login-btn:hover {
             background-color: #e6f7ef;
         }
 
-        .dashboard {
+        /* Centered Login Box */
+        .login-container {
             background: white;
-            margin: 40px;
+            width: 380px;
+            margin: 80px auto;
             border-radius: 16px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 30px;
+            padding: 40px 35px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007f5f;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #333;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s;
+            margin-bottom: 18px;
+        }
+
+        input:focus {
+            border-color: #007f5f;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007f5f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #005f46;
+        }
+
+        .note {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .note a {
+            color: #007f5f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .note a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 15px;
         }
 
         footer {
@@ -73,7 +121,7 @@
             padding: 16px;
             background-color: #007f5f;
             color: white;
-            margin-top: 50px;
+            margin-top: 100px;
             font-size: 0.9em;
         }
     </style>
@@ -81,23 +129,33 @@
 <body>
 
 <header>
-    <h1>Dashboard</h1>
-    <div>Welcome, <strong>${sessionScope.loggedInUser.firstName}</strong></div>
+    <h1>Vendor Laptop Portal</h1>
+    <a href="index" class="login-btn">Home</a>
 </header>
 
-<div class="user-info">
-    <h3>User Info</h3>
-    <p><strong>Role:</strong> ${sessionScope.loggedInUser.role}</p>
+<div class="login-container">
+    <h2>Login</h2>
 
-    <div class="links">
-        <a href="addCustomer">Add Customer</a>
-        <a href="viewCustomer">View Customer</a>
-    </div>
-</div>
+    <!-- Display error message if login fails -->
+    <c:if test="${not empty error}">
+        <p class="error">${error}</p>
+    </c:if>
 
-<div class="dashboard">
-    <h2>Dashboard</h2>
-    <p>This section can display analytics, reports, or customer summaries.</p>
+    <!-- Login Form -->
+    <form method="post" action="authenticate">
+        <label for="emailOrPhone">Email or Phone</label>
+        <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter email or phone number" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+        <button type="submit" class="btn">Login</button>
+
+        <div class="note">
+            <a href="register">Create an account</a> |
+            <a href="forgotPassword">Forgot password?</a>
+        </div>
+    </form>
 </div>
 
 <footer>

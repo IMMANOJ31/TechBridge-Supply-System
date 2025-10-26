@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
+    <title>Admin</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -83,6 +83,7 @@
 <header>
     <h1>Dashboard</h1>
     <div>Welcome, <strong>${sessionScope.loggedInUser.firstName}</strong></div>
+    <a href="logout">Logout</a>
 </header>
 
 <div class="user-info">
