@@ -13,6 +13,6 @@ public class OtpNotify {
         int randomNumber = random.nextInt(9999);
         String otp = String.valueOf(randomNumber);
         System.out.println(otp);
-        return "Otp generated!!";
+        return otp;
     }
 }

@@ -97,22 +97,31 @@ public class TechBServiceImpl implements TechBService {
 
     @Override
     public String otpSending(String email) {
-        if (email == null){
+        if (email == null || !email.contains("@") || !email.contains(".com")){
             return "no data found";
         }
-        if (email.contains("@") && email.contains(".com")){
-            RegistrationDto dto = mailExist(email);
-            if (dto != null){
-                if (dto.getEmail().equals(email)){
-                    String otp = otpNotify.otpGenerate();
-                    dto.setOtp(otp);
-                    RegistrationEntity entity = new RegistrationEntity();
-                    BeanUtils.copyProperties(dto,entity);
-                }
-            }
-
+//        if (email.contains("@") && email.contains(".com")){
+//            RegistrationDto dto = mailExist(email);
+//            if (dto != null){
+//                if (dto.getEmail().equals(email)){
+//                    String otp = otpNotify.otpGenerate();
+//                    dto.setOtp(otp);
+//                    RegistrationEntity entity = new RegistrationEntity();
+//                    BeanUtils.copyProperties(dto,entity);
+//                    System.out.println(entity);
+//                    boolean otpSaved = repo.saveOtp(entity);
+//                    System.out.println(otpSaved);
+//                }
+//            }
+//        }
+        RegistrationDto dto = mailExist(email);
+        if (dto == null){
+            return "User not found";
         }
-        return "allGood in sending otp";
+        String otp = otpNotify.otpGenerate();
+        dto.setOtp(otp);
+        repo.saveOtp(email,otp);
+        return "OTP sent successfully";
     }
 
     @Override
@@ -145,8 +154,8 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String verifyOtp(String email, String otp) {
         RegistrationDto dto = mailExist(email);
-        System.out.println(otp);
-        System.out.println(dto.toString());
+        System.err.println(otp);
+        System.err.println(dto.toString());
         if (email == null){
             return "no data found";
         }

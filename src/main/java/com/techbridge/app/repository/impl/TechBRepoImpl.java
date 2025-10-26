@@ -155,4 +155,24 @@ public class TechBRepoImpl implements TechBRepo {
             manager.close();
         }
     }
+
+    @Override
+    public boolean saveOtp(String email, String otp) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("saveOtp");
+            query.setParameter("email",email);
+            query.setParameter("otp",otp);
+            query.executeUpdate();
+            manager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            return false;
+        }finally {
+            manager.close();
+        }
+
+    }
 }

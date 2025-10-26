@@ -19,4 +19,6 @@ public interface TechBRepo {
     boolean passwordUpdate(RegistrationEntity entity);
 
     void clearOtp();
+
+    boolean saveOtp(String email, String otp);
 }

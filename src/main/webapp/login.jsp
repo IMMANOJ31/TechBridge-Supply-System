@@ -142,7 +142,7 @@
     </c:if>
 
     <!-- Login Form -->
-    <form method="post" action="authenticate">
+    <form method="post" action="login">
         <label for="emailOrPhone">Email or Phone</label>
         <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter email or phone number" required />
 

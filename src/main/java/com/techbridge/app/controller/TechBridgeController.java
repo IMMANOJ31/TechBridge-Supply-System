@@ -112,7 +112,7 @@ public class TechBridgeController {
     public String otpVerification(@RequestParam String email, String otp, Model model){
         String verifiedOtp = service.verifyOtp(email, otp);
         System.out.println(verifiedOtp);
-         model.addAttribute("invalidOtp",otp);
+         model.addAttribute("otp",otp);
         if (verifiedOtp.equals("invalidOtp")){
             return "forgotPasswordPage";
         }else if (verifiedOtp.equals("missMatch")){
@@ -121,10 +121,10 @@ public class TechBridgeController {
             return "forgotPasswordPage";
         }
         model.addAttribute("inputEmail",email);
-        return "resetPasswordPage";
+        return "resetPassword";
     }
 
-    @PostMapping("resetPassword")
+    @GetMapping("updatePass")
     public String passworReset(@RequestParam String email, @RequestParam String password,Model model){
         service.passwordUpdate(email,password);
         model.addAttribute("msg","Password reseted successfully");
