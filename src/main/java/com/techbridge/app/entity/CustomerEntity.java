@@ -26,6 +26,7 @@ public class CustomerEntity {
     @Column(name = "gst_number")
     private String gstNumber;
     private String country;
+    private String email;
     private String state;
     private String city;
     private String pincode;

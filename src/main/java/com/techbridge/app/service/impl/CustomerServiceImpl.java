@@ -33,10 +33,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDto> fetchCustomerDetails(){
-       CustomerDto customerDto = new CustomerDto();
-       List<CustomerEntity> entity = repo.fecthDetails();
-       BeanUtils.copyProperties(entity,customerDto);
-       return (List<CustomerDto>) customerDto;
+        List<CustomerEntity> entity = repo.fecthDetails();
+       List<CustomerDto> customerDto = new ArrayList<>();
+        for (CustomerEntity ls : entity) {
+            CustomerDto dto = new CustomerDto();
+            BeanUtils.copyProperties(ls, dto);
+            customerDto.add(dto);
+        }
+        return customerDto;
     }
 
 }

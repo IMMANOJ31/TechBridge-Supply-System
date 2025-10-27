@@ -107,15 +107,15 @@
     <label>Customer Type</label>
     <select name="customerType" required>
         <option value="">--Select--</option>
-        <option value="creditor">Creditor</option>
-        <option value="debtor">Debtor</option>
+        <option value="Creditors">Creditor</option>
+        <option value="Debitors">Debitor</option>
     </select>
 
     <label>Email</label>
     <input type="email" name="email" required />
 
     <label>Contact Number</label>
-    <input type="text" name="contactNumber" required />
+    <input type="text" name="phoneNumber" required />
 
     <label>GST Number</label>
     <input type="text" name="gstNumber" />
@@ -200,6 +200,29 @@
             }).catch(error => console.error("Error fetching cities:", error));
         }
     });
+
+    // Populate Pin Code based on City
+    document.getElementById('city').addEventListener('change', function () {
+        const cityName = this.value;
+
+        if (cityName) {
+            axios.post("https://countriesnow.space/api/v0.1/countries/state/cities", {
+                country: "India",
+                state: document.getElementById('state').value
+            }).then(() => {
+                // Now fetch postal codes
+                axios.post("https://countriesnow.space/api/v0.1/countries/city", {
+                    country: "India",
+                    city: cityName
+                }).then(response => {
+                    const pincodeField = document.querySelector('input[name="pincode"]');
+                    // API may return multiple postal codes — take first one
+                    pincodeField.value = response.data.data.postalCodes?.[0] || "";
+                }).catch(error => console.error("Error fetching pincode:", error));
+            });
+        }
+    });
+
 
     function copyAddress(isSame) {
         const billing = document.getElementById('billingAddress');

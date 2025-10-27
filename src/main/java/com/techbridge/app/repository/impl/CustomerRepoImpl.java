@@ -50,6 +50,4 @@ public class CustomerRepoImpl implements CustomerRepo {
             manager.close();
         }
     }
-
-
 }

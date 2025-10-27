@@ -1,7 +1,6 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
-import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class CustomerController {
+public class AdminController {
 
     @Autowired
     CustomerService service;
@@ -26,8 +25,9 @@ public class CustomerController {
     }
 
     @GetMapping("viewCustomer")
-    public String viewCustomerPage(){
+    public String viewCustomerPage(Model model){
         List<CustomerDto> dtos = service.fetchCustomerDetails();
+        model.addAttribute("listOfCustomers",dtos);
         return "viewCustomer";
     }
 
@@ -35,7 +35,7 @@ public class CustomerController {
     public String saveCustomerDetails(@Valid CustomerDto dto){
         service.saveCustomerDetail(dto);
         System.out.println(dto);
-        return "saveCustomer";
+        return "adminPage";
     }
 
 
