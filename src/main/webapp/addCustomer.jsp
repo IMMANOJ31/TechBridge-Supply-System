@@ -154,9 +154,9 @@
     <label>Payment Mode</label>
     <select name="paymentMode" required>
         <option value="">--Select--</option>
-        <option value="online">Online</option>
-        <option value="cash">Cash</option>
-        <option value="cheque">Cheque</option>
+        <option value="UPI">UPI</option>
+        <option value="Cash">Cash</option>
+        <option value="Cheque">Cheque</option>
     </select>
 
     <button type="submit" class="btn">Submit</button>
@@ -167,37 +167,37 @@
 </footer>
 
 <script>
-    axios.get('https://cdn.jsdelivr.net/npm/country-state-city@1.0.4/lib/state.json')
-        .then(response => {
-            const stateDropdown = document.getElementById('state');
-            const indianStates = response.data.filter(s => s.country_code === "IN");
-            indianStates.forEach(s => {
-                const option = document.createElement('option');
-                option.value = s.name;
-                option.textContent = s.name;
-                stateDropdown.appendChild(option);
-            });
-        })
-        .catch(error => console.error("Error fetching states:", error));
+    // Populate States
+    axios.post("https://countriesnow.space/api/v0.1/countries/states", {
+        country: "India"
+    }).then(response => {
+        const stateDropdown = document.getElementById('state');
+        response.data.data.states.forEach(s => {
+            const option = document.createElement('option');
+            option.value = s.name;
+            option.textContent = s.name;
+            stateDropdown.appendChild(option);
+        });
+    }).catch(error => console.error("Error fetching states:", error));
 
+    // Populate Cities based on State
     document.getElementById('state').addEventListener('change', function() {
         const stateName = this.value;
         const cityDropdown = document.getElementById('city');
         cityDropdown.innerHTML = '<option value="">--Select City--</option>';
 
         if (stateName) {
-            axios.get(`https://api.api-ninjas.com/v1/city?country=IN&state=${stateName}`, {
-                headers: { 'X-Api-Key': 'YOUR_API_KEY' } // replace with your free API key
-            })
-            .then(response => {
-                response.data.forEach(city => {
+            axios.post("https://countriesnow.space/api/v0.1/countries/state/cities", {
+                country: "India",
+                state: stateName
+            }).then(response => {
+                response.data.data.forEach(city => {
                     const option = document.createElement('option');
-                    option.value = city.name;
-                    option.textContent = city.name;
+                    option.value = city;
+                    option.textContent = city;
                     cityDropdown.appendChild(option);
                 });
-            })
-            .catch(error => console.error("Error fetching cities:", error));
+            }).catch(error => console.error("Error fetching cities:", error));
         }
     });
 

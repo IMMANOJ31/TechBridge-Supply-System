@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class CustomerRepoImpl implements CustomerRepo {
@@ -32,7 +35,21 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public boolean fetchDetails(CustomerEntity entity) {
-        return false;
+    public List<CustomerEntity> fecthDetails() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("getAllCustomers");
+            manager.getTransaction().commit();
+            return query.getResultList();
+        }catch (NoResultException e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            manager.close();
+        }
     }
+
+
 }

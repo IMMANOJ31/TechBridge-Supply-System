@@ -8,6 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -27,12 +32,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto fetchCustomerDetails(CustomerEntity entity) {
-        if (entity == null){
-            return null;
-        }CustomerDto customerDto = new CustomerDto();
-        BeanUtils.copyProperties(entity,customerDto);
-        repo.fetchDetails(entity);
-        return customerDto;
+    public List<CustomerDto> fetchCustomerDetails(){
+       CustomerDto customerDto = new CustomerDto();
+       List<CustomerEntity> entity = repo.fecthDetails();
+       BeanUtils.copyProperties(entity,customerDto);
+       return (List<CustomerDto>) customerDto;
     }
+
 }

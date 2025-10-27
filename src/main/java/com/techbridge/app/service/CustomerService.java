@@ -4,9 +4,11 @@ import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.entity.CustomerEntity;
 
 import javax.validation.Valid;
+import java.util.List;
 
 public interface CustomerService {
     boolean saveCustomerDetail(@Valid CustomerDto dto);
 
-    CustomerDto fetchCustomerDetails(CustomerEntity entity);
+
+    List<CustomerDto> fetchCustomerDetails();
 }
