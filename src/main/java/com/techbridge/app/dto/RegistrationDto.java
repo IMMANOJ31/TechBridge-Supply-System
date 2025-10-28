@@ -19,6 +19,8 @@ public class RegistrationDto {
         System.out.println("Dto invoked");
     }
 
+    private int id;
+
     @NotBlank(message = "First name can't be null")
     private String firstName;
 

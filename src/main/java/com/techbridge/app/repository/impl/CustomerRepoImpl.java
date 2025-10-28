@@ -1,6 +1,7 @@
 package com.techbridge.app.repository.impl;
 
 import com.techbridge.app.entity.CustomerEntity;
+import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -43,6 +45,23 @@ public class CustomerRepoImpl implements CustomerRepo {
             Query query = manager.createNamedQuery("getAllCustomers");
             manager.getTransaction().commit();
             return query.getResultList();
+        }catch (NoResultException e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            manager.close();
+        }
+    }
+
+    @Override
+    public List<RegistrationEntity> fecthUserDetails() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("getByRole");
+            manager.getTransaction().commit();
+           return query.getResultList();
         }catch (NoResultException e){
             e.printStackTrace();
             return null;

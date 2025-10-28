@@ -1,6 +1,7 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
+import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,5 +39,16 @@ public class AdminController {
         return "adminPage";
     }
 
+    @GetMapping("viewUser")
+    public String  viewUserPage(Model model){
+        List<RegistrationDto>  dtoList = service.fetchUserDetails();
+        model.addAttribute("listOfUsers",dtoList);
+        return "viewUser";
+    }
+
+    @GetMapping("logout")
+    public String logout(){
+        return "index";
+    }
 
 }

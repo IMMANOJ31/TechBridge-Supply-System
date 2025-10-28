@@ -16,7 +16,8 @@ import javax.persistence.*;
         @NamedQuery(name = "mailExist",query = "SELECT r FROM RegistrationEntity r WHERE r.email = :mailId"),
         @NamedQuery(name = "phoneExist",query = "SELECT p FROM RegistrationEntity p WHERE p.phoneNumber = :phone"),
         @NamedQuery(name = "resetOtp",query = "UPDATE RegistrationEntity o set o.otp = NULL"),
-        @NamedQuery(name = "saveOtp",query = "UPDATE RegistrationEntity r SET r.otp = :otp WHERE r.email = :email")
+        @NamedQuery(name = "saveOtp",query = "UPDATE RegistrationEntity r SET r.otp = :otp WHERE r.email = :email"),
+        @NamedQuery(name = "getByRole",query = "from RegistrationEntity where role = 'USER'")
 }
 )
 public class RegistrationEntity {

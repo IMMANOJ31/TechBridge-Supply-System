@@ -36,11 +36,29 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
-        .user-info h3 {
+        .customer-info h3 {
             margin-top: 0;
             color: #007f5f;
         }
+        .customer-info {
+                    background: white;
+                    width: 280px;
+                    margin: 40px;
+                    padding: 20px;
+                    border-radius: 12px;
+                    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                }
 
+                .user-info h3 {
+                    margin-left: 0;
+                    color: #007f5f;
+                }
+
+           .section-container {
+               display: flex;
+               gap: 40px;
+               margin: 40px;
+           }
         .links {
             margin-top: 20px;
         }
@@ -76,25 +94,43 @@
             margin-top: 50px;
             font-size: 0.9em;
         }
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        header a:hover {
+            text-decoration: underline; /* optional hover effect */
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Dashboard</h1>
+    <h1>TechBridge</h1>
     <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
     <a href="logout">Logout</a>
 </header>
 
-<div class="user-info">
-    <h3>User Info</h3>
-    <p><strong>Role:</strong> ${sessionScope.loggedInUser.role}</p>
+<div class="section-container">
+    <div class="customer-info">
+        <h3>Customer Info</h3>
+        <div class="links">
+            <a href="addCustomer">Add Customer</a>
+            <a href="viewCustomer">View Customer</a>
+        </div>
+    </div>
 
-    <div class="links">
-        <a href="addCustomer">Add Customer</a>
-        <a href="viewCustomer">View Customer</a>
+    <div class="user-info">
+        <h3>User Info</h3>
+        <div class="links">
+            <a href="addUser">Add User</a>
+            <a href="viewUser">View Users</a>
+        </div>
     </div>
 </div>
+
 
 <div class="dashboard">
     <h2>Dashboard</h2>

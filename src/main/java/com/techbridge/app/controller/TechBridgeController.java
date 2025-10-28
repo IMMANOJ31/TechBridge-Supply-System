@@ -82,11 +82,11 @@ public class TechBridgeController {
                 model.addAttribute("error", "Incorrect password");
                 return "login";
             case "ADMIN":
-//                session.setAttribute("loggedInUser",dto);
+                session.setAttribute("loggedInUser",dto);
                 service.saveLoginDetails(dto);
                 return "adminPage";
             case "USER":
-//                session.setAttribute("loggedInUser",dto);
+                session.setAttribute("loggedInUser",dto);
                 service.saveLoginDetails(dto);
                 return "userPage";
             default:

@@ -1,7 +1,9 @@
 package com.techbridge.app.service.impl;
 
 import com.techbridge.app.dto.CustomerDto;
+import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
+import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.CustomerRepo;
 import com.techbridge.app.service.CustomerService;
 import org.springframework.beans.BeanUtils;
@@ -41,6 +43,18 @@ public class CustomerServiceImpl implements CustomerService {
             customerDto.add(dto);
         }
         return customerDto;
+    }
+
+    @Override
+    public List<RegistrationDto> fetchUserDetails() {
+        List<RegistrationEntity> entityList = repo.fecthUserDetails();
+        List<RegistrationDto>  dtoList = new ArrayList<>();
+        for (RegistrationEntity entity : entityList){
+            RegistrationDto dto = new RegistrationDto();
+            BeanUtils.copyProperties(entity,dto);
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 
 }

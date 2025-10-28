@@ -1,6 +1,7 @@
 package com.techbridge.app.service;
 
 import com.techbridge.app.dto.CustomerDto;
+import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
 
 import javax.validation.Valid;
@@ -11,4 +12,6 @@ public interface CustomerService {
 
 
     List<CustomerDto> fetchCustomerDetails();
+
+    List<RegistrationDto> fetchUserDetails();
 }
