@@ -19,4 +19,6 @@ public interface TechBService {
     String verifyOtp(String email, String otp);
 
     String passwordUpdate(String email, String password);
+
+    String saveLoginDetails(LoginDto dto);
 }

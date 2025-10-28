@@ -179,5 +179,17 @@ public class TechBServiceImpl implements TechBService {
         return "password updated";
     }
 
+    @Override
+    public String saveLoginDetails(LoginDto dto) {
+        if (dto == null){
+            return "no data found";
+        }
+        LoginEntity entity = new LoginEntity();
+        BeanUtils.copyProperties(dto,entity);
+        boolean loginDetails = repo.saveLoginDetails(entity);
+        System.err.println(loginDetails);
+        return "login data stored!";
+    }
+
 
 }

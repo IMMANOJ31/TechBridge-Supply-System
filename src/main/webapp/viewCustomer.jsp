@@ -105,61 +105,22 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-        <c:forEach items="${listOfCustomers}" var="dto">
+        <c:forEach var="dto" items="${listOfCustomers}">
             <tr>
                 <td>${dto.customerName}</td>
                 <td>${dto.customerType}</td>
                 <td>${dto.email}</td>
                 <td>${dto.phoneNumber}</td>
                 <td>
-                    <a href="viewCustomer"><i class="bi bi-eye"></i></a>
-                    <a href="editCustomer"><i class="bi bi-pencil-square"></i></a>
-                    <a href="deleteCustomer"class="ms-3" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
+                    <a href="viewCustomer?id=${dto.id}"><i class="bi bi-eye"></i></a>
+                    <a href="editCustomer?id=${dto.id}"><i class="bi bi-pencil-square"></i></a>
+                    <a href="deleteCustomer?id=${dto.id}" class="ms-3"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         </c:forEach>
+
     </tbody>
 </table>
-
-<nav>
-    <ul class="pagination" id="pagination"></ul>
-</nav>
-
-<script>
-    const rowsPerPage = 10;
-    let currentPage = 1;
-    const table = document.getElementById('customerTable');
-    const tbody = document.getElementById('tableBody');
-    const searchInput = document.getElementById('search');
-
-    function filterRows() {
-        const q = searchInput.value.toLowerCase();
-        Array.from(tbody.rows).forEach(row => {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(q) ? '' : 'none';
-        });
-        paginate();
-    }
-
-    function paginate() {
-        const visible = Array.from(tbody.rows).filter(r => r.style.display !== 'none');
-        const total = Math.ceil(visible.length / rowsPerPage);
-        document.getElementById('pagination').innerHTML = '';
-        visible.forEach((row, i) => {
-            row.style.display = (i >= (currentPage - 1) * rowsPerPage && i < currentPage * rowsPerPage) ? '' : 'none';
-        });
-        for (let i = 1; i <= total; i++) {
-            const li = document.createElement('li');
-            li.className = 'page-item' + (i === currentPage ? ' active' : '');
-            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-            li.onclick = () => { currentPage = i; paginate(); };
-            document.getElementById('pagination').appendChild(li);
-        }
-    }
-
-    searchInput.addEventListener('input', () => { currentPage = 1; filterRows(); });
-    paginate();
-</script>
 
 <footer>
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions

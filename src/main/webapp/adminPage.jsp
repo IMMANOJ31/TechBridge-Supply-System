@@ -82,7 +82,7 @@
 
 <header>
     <h1>Dashboard</h1>
-    <div>Welcome, <strong>${sessionScope.loggedInUser.firstName}</strong></div>
+    <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
     <a href="logout">Logout</a>
 </header>
 

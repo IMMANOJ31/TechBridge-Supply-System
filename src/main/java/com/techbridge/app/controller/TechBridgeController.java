@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -66,10 +67,11 @@ public class TechBridgeController {
     }
 
     @PostMapping("login")
-    public String showLoginPage(@ModelAttribute LoginDto dto, Model model) {
+    public String showLoginPage(@ModelAttribute LoginDto dto, Model model, HttpSession session) {
         System.out.println("Login password  " + dto.getPassword());
         System.out.println(dto);
         String input = dto.getEmailOrPhone().trim();
+
         String validUser = service.doesUserExist(input, dto.getPassword().trim());
         switch (validUser) {
             case "no data found":
@@ -80,13 +82,18 @@ public class TechBridgeController {
                 model.addAttribute("error", "Incorrect password");
                 return "login";
             case "ADMIN":
+//                session.setAttribute("loggedInUser",dto);
+                service.saveLoginDetails(dto);
                 return "adminPage";
             case "USER":
+//                session.setAttribute("loggedInUser",dto);
+                service.saveLoginDetails(dto);
                 return "userPage";
             default:
                 model.addAttribute("error", "Unexpected error occurred");
                 return "login";
         }
+
     }
 
     private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {
