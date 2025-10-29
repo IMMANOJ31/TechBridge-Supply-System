@@ -2,6 +2,7 @@ package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
+import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,24 @@ public class AdminController {
     @GetMapping("logout")
     public String logout(){
         return "index";
+    }
+
+    @GetMapping("deleteUser")
+    public String deleteUser(int id){
+        service.remove(id);
+        return "viewCustomer";
+    }
+
+    @GetMapping("deleteCustomer")
+    public String deleteCustomer(int id){
+        service.removeCustomer(id);
+        return "viewCustomer";
+    }
+
+    @GetMapping("editUser")
+    public String updateUser(int id){
+        service.update(id);
+        return "updateUser";
     }
 
 }

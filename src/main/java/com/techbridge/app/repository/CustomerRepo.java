@@ -11,4 +11,10 @@ public interface CustomerRepo {
    List<CustomerEntity> fecthDetails();
 
     List<RegistrationEntity> fecthUserDetails();
+
+    boolean remove(int id);
+
+    boolean update(int id);
+
+    boolean removeCustomer(int id);
 }

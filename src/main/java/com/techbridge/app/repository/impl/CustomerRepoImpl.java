@@ -69,4 +69,65 @@ public class CustomerRepoImpl implements CustomerRepo {
             manager.close();
         }
     }
+
+    @Override
+    public boolean remove(int id) {
+        EntityManager manager = null;
+        try{
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("remove");
+            query.setParameter("id",id);
+            query.executeUpdate();
+            manager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean update(int id) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            manager.merge(id);
+            manager.getTransaction().commit();
+            return  true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean removeCustomer(int id) {
+        EntityManager manager = null;
+        try{
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("removeCustomer");
+            query.setParameter("id",id);
+            query.executeUpdate();
+            manager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
 }

@@ -57,4 +57,32 @@ public class CustomerServiceImpl implements CustomerService {
         return dtoList;
     }
 
+    @Override
+    public boolean remove(int id) {
+        if (id == 0){
+            return false;
+        }
+        repo.remove(id);
+        return true;
+    }
+
+
+    @Override
+    public boolean removeCustomer(int id) {
+        if (id == 0){
+            return false;
+        }
+        repo.removeCustomer(id);
+        return true;
+    }
+
+    @Override
+    public boolean update(int id) {
+        if (id == 0){
+            return false;
+        }repo.update(id);
+        return true;
+    }
+
+
 }
