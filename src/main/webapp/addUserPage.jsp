@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>User Registration</title>
     <style>
         body {
             margin: 0;
@@ -123,7 +123,7 @@
 
     <div id="message"></div>
 
-    <form id="registerForm" method="post" action="registration">
+    <form id="userForm" method="post" action="addUser">
 
         <label>First Name</label>
         <input type="text" name="firstName" required />
@@ -148,6 +148,9 @@
         <label>Date of Birth</label>
         <input type="date" name="dob" required />
 
+        <label>Role</label>
+        <input type="text" name="role" value="USER" readonly/>
+
         <label>State</label>
         <input type="text" name="state" required />
 
@@ -160,9 +163,6 @@
         <label>Password</label>
         <input type="password" name="password" required />
 
-        <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" required />
-
         <button type="submit" class="btn">Register</button>
     </form>
 </div>
@@ -172,7 +172,7 @@
 </footer>
 
 <script>
-document.getElementById("registerForm").addEventListener("submit", async function(event) {
+document.getElementById("userForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const formData = new FormData(this);

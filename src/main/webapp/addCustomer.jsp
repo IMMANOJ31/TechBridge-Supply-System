@@ -167,63 +167,43 @@
 </footer>
 
 <script>
-    // Populate States
-    axios.post("https://countriesnow.space/api/v0.1/countries/states", {
-        country: "India"
+    const apiKey = "YjZkOGM5ZTQ4Y2NkNGZlYWI0ZDUzYjBkYjQ5YmNkNTg3ZGE3Yzc3NTlkNGUwMzMyNzA1Njc2MWVmM2ViZDE3YQ==";
+
+    // Fetch Indian States
+    axios.get("https://api.countrystatecity.in/v1/countries/IN/states", {
+        headers: { "X-CSCAPI-KEY": apiKey }
     }).then(response => {
+        const states = response.data;
         const stateDropdown = document.getElementById('state');
-        response.data.data.states.forEach(s => {
+        states.forEach(state => {
             const option = document.createElement('option');
-            option.value = s.name;
-            option.textContent = s.name;
+            option.value = state.iso2;
+            option.textContent = state.name;
             stateDropdown.appendChild(option);
         });
     }).catch(error => console.error("Error fetching states:", error));
 
-    // Populate Cities based on State
+    // Fetch Cities based on selected state
     document.getElementById('state').addEventListener('change', function() {
-        const stateName = this.value;
+        const stateCode = this.value;
         const cityDropdown = document.getElementById('city');
         cityDropdown.innerHTML = '<option value="">--Select City--</option>';
 
-        if (stateName) {
-            axios.post("https://countriesnow.space/api/v0.1/countries/state/cities", {
-                country: "India",
-                state: stateName
+        if (stateCode) {
+            axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/${stateCode}/cities`, {
+                headers: { "X-CSCAPI-KEY": apiKey }
             }).then(response => {
-                response.data.data.forEach(city => {
+                response.data.forEach(city => {
                     const option = document.createElement('option');
-                    option.value = city;
-                    option.textContent = city;
+                    option.value = city.name;
+                    option.textContent = city.name;
                     cityDropdown.appendChild(option);
                 });
             }).catch(error => console.error("Error fetching cities:", error));
         }
     });
 
-    // Populate Pin Code based on City
-    document.getElementById('city').addEventListener('change', function () {
-        const cityName = this.value;
-
-        if (cityName) {
-            axios.post("https://countriesnow.space/api/v0.1/countries/state/cities", {
-                country: "India",
-                state: document.getElementById('state').value
-            }).then(() => {
-                // Now fetch postal codes
-                axios.post("https://countriesnow.space/api/v0.1/countries/city", {
-                    country: "India",
-                    city: cityName
-                }).then(response => {
-                    const pincodeField = document.querySelector('input[name="pincode"]');
-                    // API may return multiple postal codes — take first one
-                    pincodeField.value = response.data.data.postalCodes?.[0] || "";
-                }).catch(error => console.error("Error fetching pincode:", error));
-            });
-        }
-    });
-
-
+    // Copy billing address to shipping
     function copyAddress(isSame) {
         const billing = document.getElementById('billingAddress');
         const shipping = document.getElementById('shippingAddress');

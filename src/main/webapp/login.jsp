@@ -152,7 +152,6 @@
         <button type="submit" class="btn">Login</button>
 
         <div class="note">
-            <a href="register">Create an account</a> |
             <a href="forgotPassword">Forgot password?</a>
         </div>
     </form>

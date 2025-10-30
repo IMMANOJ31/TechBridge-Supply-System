@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -70,4 +71,8 @@ public class AdminController {
         return "updateUser";
     }
 
+    @GetMapping("addUser")
+    public String addUser(){
+        return "addUserPage";
+    }
 }
