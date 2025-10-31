@@ -101,7 +101,7 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-        <c:forEach var="dto" items="${listOfUsers}">
+        <c:forEach var="dto" items="${listOfUser}">
             <tr>
                 <td>${dto.firstName}</td>
                 <td>${dto.lastName}</td>

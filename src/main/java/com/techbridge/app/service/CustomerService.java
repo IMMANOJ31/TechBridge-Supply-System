@@ -18,7 +18,10 @@ public interface CustomerService {
 
     boolean remove(int id);
 
-    boolean update(int id);
 
     boolean removeCustomer(int id);
+
+    CustomerDto displayUser(String email);
+
+    boolean updateCustomer(int id);
 }

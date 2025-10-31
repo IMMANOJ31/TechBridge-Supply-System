@@ -92,14 +92,16 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public boolean update(int id) {
+    public boolean removeCustomer(int id) {
         EntityManager manager = null;
-        try {
+        try{
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            manager.merge(id);
+            Query query = manager.createNamedQuery("removeCustomer");
+            query.setParameter("id",id);
+            query.executeUpdate();
             manager.getTransaction().commit();
-            return  true;
+            return true;
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -111,16 +113,54 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public boolean removeCustomer(int id) {
+    public CustomerEntity checkEmail(String email) {
         EntityManager manager = null;
-        try{
+        try {
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            Query query = manager.createNamedQuery("removeCustomer");
-            query.setParameter("id",id);
-            query.executeUpdate();
+            Query query = manager.createNamedQuery("checkEmail");
+            query.setParameter("email", email);
             manager.getTransaction().commit();
-            return true;
+            return (CustomerEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public CustomerEntity checkCustomerId(int id) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("checkCustomerId");
+            query.setParameter("id", id);
+            manager.getTransaction().commit();
+            return (CustomerEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean updateCustomer(int id) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            manager.merge(id);
+            manager.getTransaction().commit();
+            return  true;
         }catch (Exception e){
             e.printStackTrace();
             return false;

@@ -105,16 +105,16 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-        <c:forEach var="dto" items="${listOfCustomers}">
+        <c:forEach var="dtoList" items="${listOfCustomer}">
             <tr>
-                <td>${dto.customerName}</td>
-                <td>${dto.customerType}</td>
-                <td>${dto.email}</td>
-                <td>${dto.phoneNumber}</td>
+                <td>${dtoList.customerName}</td>
+                <td>${dtoList.customerType}</td>
+                <td>${dtoList.email}</td>
+                <td>${dtoList.phoneNumber}</td>
                 <td>
-                    <a href="viewCustomer?id=${dto.id}"><i class="bi bi-eye"></i></a>
-                    <a href="editCustomer?id=${dto.id}"><i class="bi bi-pencil-square"></i></a>
-                    <a href="deleteCustomer?id=${dto.id}" class="ms-3"><i class="bi bi-trash"></i></a>
+                    <a href="customerProfile?id=${dtoList.id}"><i class="bi bi-eye"></i></a>
+                    <a href="editCustomer?id=${dtoList.id}"><i class="bi bi-pencil-square"></i></a>
+                    <a href="deleteCustomer?id=${dtoList.id}" class="ms-3"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         </c:forEach>

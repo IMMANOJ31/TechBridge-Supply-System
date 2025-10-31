@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
     <title>Add Customer</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -14,18 +13,15 @@
             margin: 0;
             padding: 0;
         }
-
         header {
             background-color: #007f5f;
             color: white;
             padding: 16px 40px;
         }
-
         h2 {
             text-align: center;
             color: #007f5f;
         }
-
         form {
             background-color: white;
             width: 70%;
@@ -34,13 +30,11 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
         label {
             font-weight: 500;
             display: block;
             margin-bottom: 6px;
         }
-
         input, select, textarea {
             width: 100%;
             padding: 10px;
@@ -50,25 +44,20 @@
             outline: none;
             transition: border 0.3s;
         }
-
         input:focus, select:focus, textarea:focus {
             border-color: #007f5f;
         }
-
         textarea {
             resize: none;
             height: 70px;
         }
-
         .radio-group {
             margin-bottom: 16px;
         }
-
         .radio-group label {
             display: inline-block;
             margin-right: 20px;
         }
-
         .btn {
             background-color: #007f5f;
             color: white;
@@ -78,11 +67,9 @@
             font-weight: 600;
             cursor: pointer;
         }
-
         .btn:hover {
             background-color: #005f46;
         }
-
         footer {
             text-align: center;
             padding: 16px;
@@ -123,6 +110,9 @@
     <label>Country</label>
     <input type="text" name="country" value="India" readonly />
 
+    <label>Pin Code</label>
+    <input type="text" id="pincode" name="pincode" maxlength="6" required oninput="autoFillStateCity()" />
+
     <label>State</label>
     <select id="state" name="state" required>
         <option value="">--Select State--</option>
@@ -132,9 +122,6 @@
     <select id="city" name="city" required>
         <option value="">--Select City--</option>
     </select>
-
-    <label>Pin Code</label>
-    <input type="text" name="pincode" required />
 
     <label>Address</label>
     <textarea name="address"></textarea>
@@ -167,47 +154,87 @@
 </footer>
 
 <script>
-    const apiKey = "YjZkOGM5ZTQ4Y2NkNGZlYWI0ZDUzYjBkYjQ5YmNkNTg3ZGE3Yzc3NTlkNGUwMzMyNzA1Njc2MWVmM2ViZDE3YQ==";
+    // ✅ Static state-city list
+    const stateCityData = {
+        "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
+        "Karnataka": ["Bengaluru", "Mysuru", "Hubballi"],
+        "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+        "Telangana": ["Hyderabad", "Warangal"],
+        "Delhi": ["New Delhi"],
+        "Gujarat": ["Ahmedabad", "Surat", "Vadodara"]
+    };
 
-    // Fetch Indian States
-    axios.get("https://api.countrystatecity.in/v1/countries/IN/states", {
-        headers: { "X-CSCAPI-KEY": apiKey }
-    }).then(response => {
-        const states = response.data;
-        const stateDropdown = document.getElementById('state');
-        states.forEach(state => {
-            const option = document.createElement('option');
-            option.value = state.iso2;
-            option.textContent = state.name;
+    // ✅ Sample Pincode Mapping (Add more easily)
+    const pinCodeData = {
+        "600001": { state: "Tamil Nadu", city: "Chennai" },
+        "641001": { state: "Tamil Nadu", city: "Coimbatore" },
+        "110001": { state: "Delhi", city: "New Delhi" },
+        "560001": { state: "Karnataka", city: "Bengaluru" },
+        "500001": { state: "Telangana", city: "Hyderabad" },
+        "400001": { state: "Maharashtra", city: "Mumbai" },
+        "395003": { state: "Gujarat", city: "Surat" }
+    };
+
+    const stateDropdown = document.getElementById("state");
+    const cityDropdown = document.getElementById("city");
+
+    // Load states into dropdown
+    function loadStates() {
+        for (const state in stateCityData) {
+            const option = document.createElement("option");
+            option.value = state;
+            option.textContent = state;
             stateDropdown.appendChild(option);
-        });
-    }).catch(error => console.error("Error fetching states:", error));
+        }
+    }
 
-    // Fetch Cities based on selected state
-    document.getElementById('state').addEventListener('change', function() {
-        const stateCode = this.value;
-        const cityDropdown = document.getElementById('city');
+    // Load cities when state changes
+    stateDropdown.addEventListener("change", function() {
+        const selectedState = this.value;
         cityDropdown.innerHTML = '<option value="">--Select City--</option>';
-
-        if (stateCode) {
-            axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/${stateCode}/cities`, {
-                headers: { "X-CSCAPI-KEY": apiKey }
-            }).then(response => {
-                response.data.forEach(city => {
-                    const option = document.createElement('option');
-                    option.value = city.name;
-                    option.textContent = city.name;
-                    cityDropdown.appendChild(option);
-                });
-            }).catch(error => console.error("Error fetching cities:", error));
+        if (selectedState && stateCityData[selectedState]) {
+            stateCityData[selectedState].forEach(city => {
+                const option = document.createElement("option");
+                option.value = city;
+                option.textContent = city;
+                cityDropdown.appendChild(option);
+            });
         }
     });
 
-    // Copy billing address to shipping
+    loadStates();
+
+    // ✅ Auto-fill State & City from PIN
+    function autoFillStateCity() {
+        const pin = document.getElementById("pincode").value.trim();
+        if (pin.length === 6 && pinCodeData[pin]) {
+            const { state, city } = pinCodeData[pin];
+            stateDropdown.value = state;
+
+            // Refresh city dropdown for that state
+            cityDropdown.innerHTML = '<option value="">--Select City--</option>';
+            stateCityData[state].forEach(c => {
+                const option = document.createElement("option");
+                option.value = c;
+                option.textContent = c;
+                cityDropdown.appendChild(option);
+            });
+            cityDropdown.value = city;
+        }
+    }
     function copyAddress(isSame) {
         const billing = document.getElementById('billingAddress');
         const shipping = document.getElementById('shippingAddress');
-        shipping.value = isSame ? billing.value : '';
+        if (isSame) {
+            shipping.value = billing.value;
+            billing.addEventListener('input', () => {
+                if (document.querySelector('input[name="sameAddress"][value="yes"]').checked) {
+                    shipping.value = billing.value;
+                }
+            });
+        } else {
+            shipping.value = '';
+        }
     }
 </script>
 

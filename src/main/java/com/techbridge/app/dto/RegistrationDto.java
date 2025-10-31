@@ -27,7 +27,7 @@ public class RegistrationDto {
     @NotBlank(message = "Last name can't be null")
     private String lastName;
 
-    @NotBlank(message = "Enter a valid email")
+    @Email(message = "Enter a valid email")
     private String email;
 
     @NotBlank(message = "Phone number can't be null")
@@ -40,7 +40,7 @@ public class RegistrationDto {
     @NotNull(message = "Mention your gender")
     private Gender gender;
 
-    @NotNull(message = "Date of birth must be in the past")
+    @NotBlank(message = "Date of birth must be in the past")
     private String dob;
 
     @NotBlank(message = "State can't be null")
@@ -60,8 +60,7 @@ public class RegistrationDto {
     )
     private String password;
 
-    private String ConfirmPassword;
+    private String confirmPassword;
 
     private String otp;
-
 }

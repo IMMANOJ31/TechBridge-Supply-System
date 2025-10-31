@@ -41,11 +41,18 @@ public class AdminController {
         return "adminPage";
     }
 
-    @GetMapping("viewUser")
+    @GetMapping("listOfUsers")
     public String  viewUserPage(Model model){
         List<RegistrationDto>  dtoList = service.fetchUserDetails();
-        model.addAttribute("listOfUsers",dtoList);
-        return "viewUser";
+        model.addAttribute("listOfUser",dtoList);
+        return "usersList";
+    }
+
+    @GetMapping("listOfCustomers")
+    public String viewCustomersPage(Model model){
+        List<CustomerDto> dtoList = service.fetchCustomerDetails();
+        model.addAttribute("listOfCustomer",dtoList);
+        return "customerList";
     }
 
     @GetMapping("logout")
@@ -56,23 +63,31 @@ public class AdminController {
     @GetMapping("deleteUser")
     public String deleteUser(int id){
         service.remove(id);
-        return "viewCustomer";
+        return "listOfCustomers";
     }
 
     @GetMapping("deleteCustomer")
     public String deleteCustomer(int id){
         service.removeCustomer(id);
-        return "viewCustomer";
-    }
-
-    @GetMapping("editUser")
-    public String updateUser(int id){
-        service.update(id);
-        return "updateUser";
+        return "listOfCustomers";
     }
 
     @GetMapping("addUser")
     public String addUser(){
         return "addUserPage";
+    }
+
+    @GetMapping("editCustomer")
+    public String updateCustomer(int id){
+        service.updateCustomer(id);
+        return "updateCustomer";
+    }
+
+    @PostMapping("customerProfile")
+    public String viewCustomerDetail(HttpSession session,Model model){
+       String email = session.getAttribute("email").toString();
+        CustomerDto customerDto = service.displayUser(email);
+        model.addAttribute("dto",customerDto);
+        return "customerPage";
     }
 }

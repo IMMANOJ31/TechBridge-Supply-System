@@ -118,7 +118,7 @@
         <h3>Customer Info</h3>
         <div class="links">
             <a href="addCustomer">Add Customer</a>
-            <a href="viewCustomer">View Customer</a>
+            <a href="listOfCustomers">View Customer</a>
         </div>
     </div>
 
@@ -126,7 +126,7 @@
         <h3>User Info</h3>
         <div class="links">
             <a href="addUser">Add User</a>
-            <a href="viewUser">View Users</a>
+            <a href="listOfUsers">View Users</a>
         </div>
     </div>
 </div>

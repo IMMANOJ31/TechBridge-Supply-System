@@ -14,7 +14,13 @@ public interface CustomerRepo {
 
     boolean remove(int id);
 
-    boolean update(int id);
+
 
     boolean removeCustomer(int id);
+
+    CustomerEntity checkEmail(String email);
+
+    CustomerEntity checkCustomerId(int id);
+
+    boolean updateCustomer(int id);
 }

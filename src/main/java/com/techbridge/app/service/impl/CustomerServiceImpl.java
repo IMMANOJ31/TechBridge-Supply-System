@@ -77,12 +77,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean update(int id) {
+    public CustomerDto displayUser(String email) {
+        CustomerEntity entity = repo.checkEmail(email);
+        CustomerDto dto = new CustomerDto();
+        BeanUtils.copyProperties(entity,dto);
+        return dto;
+    }
+
+    @Override
+    public boolean updateCustomer(int id) {
         if (id == 0){
             return false;
-        }repo.update(id);
-        return true;
+        }
+        CustomerEntity entity = repo.checkCustomerId(id);
+        if (entity != null) {
+            boolean b = repo.updateCustomer(id);
+            System.out.println("Customer updated -> "+b);
+            return true;
+        }
+        return false;
     }
+
 
 
 }

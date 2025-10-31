@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sun.management.VMOptionCompositeData;
 
 
 import javax.servlet.http.HttpSession;
@@ -44,8 +45,9 @@ public class TechBridgeController {
     }
 
     @GetMapping("register")
-    public String showAccountPage(){
-        return "registerPage";
+    public String showAccountPage(Model model)
+    { model.addAttribute("registrationDto",new RegistrationDto());
+        return "addUserPage";
     }
 
     @PostMapping("register")
