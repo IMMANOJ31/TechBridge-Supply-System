@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -79,8 +80,8 @@ public class AdminController {
     }
 
     @GetMapping("editCustomer")
-    public String updateCustomer(CustomerDto customerDto,Model model){
-        CustomerDto customer = service.updateCustomer(customerDto);
+    public String updateCustomer(@RequestParam("id") int id, Model model){
+        CustomerDto customer = service.updateCustomer(id);
         model.addAttribute("dto",customer);
         return "updateCustomer";
     }

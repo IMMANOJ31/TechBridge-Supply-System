@@ -85,15 +85,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto updateCustomer(CustomerDto dto) {
-        if (dto == null){
+    public CustomerDto updateCustomer(int id) {
+       CustomerEntity entity = repo.findById(id);
+        System.out.println("No customer found for ID: " + id);
+        if (entity == null){
             return null;
         }
-        CustomerEntity entity = new CustomerEntity();
-        BeanUtils.copyProperties(dto, entity);
-        boolean customerUpdated = repo.updateCustomer(entity);
-        System.out.println("Customer updated -> "+customerUpdated);
-        return dto;
+        CustomerDto customerDto = new CustomerDto();
+        BeanUtils.copyProperties(entity,customerDto);
+        return customerDto;
     }
 
     @Override

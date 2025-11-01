@@ -168,4 +168,23 @@ public class CustomerRepoImpl implements CustomerRepo {
             }
         }
     }
+
+    @Override
+    public CustomerEntity findById(int id) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("findById");
+            query.setParameter("id",id);
+            manager.getTransaction().commit();
+            return (CustomerEntity) query.getSingleResult();
+        }catch (NoResultException e){
+            e.printStackTrace();
+        }finally {
+            if(manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
 }

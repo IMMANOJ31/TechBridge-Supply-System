@@ -23,7 +23,7 @@ public interface CustomerService {
 
     CustomerDto displayUser(String email);
 
-    CustomerDto updateCustomer(CustomerDto dto);
+    CustomerDto updateCustomer(int id);
 
     RegistrationDto updateUser(RegistrationDto registrationDto);
 }

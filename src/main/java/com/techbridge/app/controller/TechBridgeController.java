@@ -2,6 +2,7 @@ package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.LoginDto;
 import com.techbridge.app.dto.RegistrationDto;
+import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.enums.Role;
 import com.techbridge.app.service.TechBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,8 @@ public class TechBridgeController {
 
     private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {
         System.err.println(registrationDto);
+        LoginEntity entity = new LoginEntity();
+        entity.setRole(dto.getRole());
         System.err.println("Logged by------------ "+dto);
         if (dto == null) {
             return "no data found";
