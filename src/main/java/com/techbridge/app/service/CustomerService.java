@@ -21,9 +21,4 @@ public interface CustomerService {
 
     boolean removeCustomer(int id);
 
-    CustomerDto displayUser(String email);
-
-    CustomerDto updateCustomer(int id);
-
-    RegistrationDto updateUser(RegistrationDto registrationDto);
 }

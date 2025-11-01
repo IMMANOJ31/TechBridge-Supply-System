@@ -79,25 +79,4 @@ public class AdminController {
         return "addUserPage";
     }
 
-    @GetMapping("editCustomer")
-    public String updateCustomer(@RequestParam("id") int id, Model model){
-        CustomerDto customer = service.updateCustomer(id);
-        model.addAttribute("dto",customer);
-        return "updateCustomer";
-    }
-
-    @PostMapping("customerProfile")
-    public String viewCustomerDetail(HttpSession session,Model model){
-       String email = session.getAttribute("email").toString();
-        CustomerDto customerDto = service.displayUser(email);
-        model.addAttribute("dto",customerDto);
-        return "customerPage";
-    }
-
-    @PostMapping("editUser")
-    public String updateUser(RegistrationDto registrationDto,Model model){
-        RegistrationDto dto = service.updateUser(registrationDto);
-        model.addAttribute("dto",dto);
-        return "updateUser";
-    }
 }

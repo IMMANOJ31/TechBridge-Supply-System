@@ -76,38 +76,5 @@ public class CustomerServiceImpl implements CustomerService {
         return true;
     }
 
-    @Override
-    public CustomerDto displayUser(String email) {
-        CustomerEntity entity = repo.checkEmail(email);
-        CustomerDto dto = new CustomerDto();
-        BeanUtils.copyProperties(entity,dto);
-        return dto;
-    }
-
-    @Override
-    public CustomerDto updateCustomer(int id) {
-       CustomerEntity entity = repo.findById(id);
-        System.out.println("No customer found for ID: " + id);
-        if (entity == null){
-            return null;
-        }
-        CustomerDto customerDto = new CustomerDto();
-        BeanUtils.copyProperties(entity,customerDto);
-        return customerDto;
-    }
-
-    @Override
-    public RegistrationDto updateUser(RegistrationDto registrationDto) {
-        if (registrationDto == null){
-            return null;
-        }
-        RegistrationEntity entity = new RegistrationEntity();
-        BeanUtils.copyProperties(registrationDto, entity);
-        System.out.println("Entity in service -> "+entity);
-        boolean userUpdated = repo.updateUserDetails(entity);
-        System.out.println("User updated -> "+userUpdated);
-        return registrationDto;
-    }
-
 
 }

@@ -20,9 +20,4 @@ public interface CustomerRepo {
 
     CustomerEntity checkEmail(String email);
 
-    boolean updateCustomer(CustomerEntity entity);
-
-    boolean updateUserDetails(RegistrationEntity entity);
-
-    CustomerEntity findById(int id);
 }
