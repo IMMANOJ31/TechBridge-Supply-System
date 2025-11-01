@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -133,34 +132,33 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public CustomerEntity checkCustomerId(int id) {
+    public boolean updateCustomer(CustomerEntity entity) {
         EntityManager manager = null;
         try {
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            Query query = manager.createNamedQuery("checkCustomerId");
-            query.setParameter("id", id);
+            manager.merge(entity);
             manager.getTransaction().commit();
-            return (CustomerEntity) query.getSingleResult();
-        } catch (NoResultException e) {
+            return  true;
+        }catch (Exception e){
             e.printStackTrace();
-            return null;
-        } finally {
-            if (manager != null && manager.isOpen()) {
+            return false;
+        }finally {
+            if (manager != null && manager.isOpen()){
                 manager.close();
             }
         }
     }
 
     @Override
-    public boolean updateCustomer(int id) {
+    public boolean updateUserDetails(RegistrationEntity entity) {
         EntityManager manager = null;
         try {
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            manager.merge(id);
+            manager.merge(entity);
             manager.getTransaction().commit();
-            return  true;
+            return true;
         }catch (Exception e){
             e.printStackTrace();
             return false;

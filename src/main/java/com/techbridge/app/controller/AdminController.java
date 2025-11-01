@@ -2,6 +2,7 @@ package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
+import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,8 +79,9 @@ public class AdminController {
     }
 
     @GetMapping("editCustomer")
-    public String updateCustomer(int id){
-        service.updateCustomer(id);
+    public String updateCustomer(CustomerDto customerDto,Model model){
+        CustomerDto customer = service.updateCustomer(customerDto);
+        model.addAttribute("dto",customer);
         return "updateCustomer";
     }
 
@@ -89,5 +91,12 @@ public class AdminController {
         CustomerDto customerDto = service.displayUser(email);
         model.addAttribute("dto",customerDto);
         return "customerPage";
+    }
+
+    @PostMapping("editUser")
+    public String updateUser(RegistrationDto registrationDto,Model model){
+        RegistrationDto dto = service.updateUser(registrationDto);
+        model.addAttribute("dto",dto);
+        return "updateUser";
     }
 }

@@ -23,5 +23,7 @@ public interface CustomerService {
 
     CustomerDto displayUser(String email);
 
-    boolean updateCustomer(int id);
+    CustomerDto updateCustomer(CustomerDto dto);
+
+    RegistrationDto updateUser(RegistrationDto registrationDto);
 }

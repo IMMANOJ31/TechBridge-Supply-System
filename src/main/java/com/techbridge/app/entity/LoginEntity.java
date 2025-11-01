@@ -23,4 +23,9 @@ public class LoginEntity{
     private LocalDate loggedDate;
     @Column(name = "login_time")
     private LocalTime loginTime;
+    @PrePersist
+    public void prePersist() {
+        if (loggedDate == null) loggedDate = LocalDate.now();
+        if (loginTime == null) loginTime = LocalTime.now();
+    }
 }

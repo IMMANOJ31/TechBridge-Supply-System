@@ -85,19 +85,29 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean updateCustomer(int id) {
-        if (id == 0){
-            return false;
+    public CustomerDto updateCustomer(CustomerDto dto) {
+        if (dto == null){
+            return null;
         }
-        CustomerEntity entity = repo.checkCustomerId(id);
-        if (entity != null) {
-            boolean b = repo.updateCustomer(id);
-            System.out.println("Customer updated -> "+b);
-            return true;
-        }
-        return false;
+        CustomerEntity entity = new CustomerEntity();
+        BeanUtils.copyProperties(dto, entity);
+        boolean customerUpdated = repo.updateCustomer(entity);
+        System.out.println("Customer updated -> "+customerUpdated);
+        return dto;
     }
 
+    @Override
+    public RegistrationDto updateUser(RegistrationDto registrationDto) {
+        if (registrationDto == null){
+            return null;
+        }
+        RegistrationEntity entity = new RegistrationEntity();
+        BeanUtils.copyProperties(registrationDto, entity);
+        System.out.println("Entity in service -> "+entity);
+        boolean userUpdated = repo.updateUserDetails(entity);
+        System.out.println("User updated -> "+userUpdated);
+        return registrationDto;
+    }
 
 
 }

@@ -133,7 +133,7 @@ public class TechBridgeController {
         return "resetPassword";
     }
 
-    @GetMapping("updatePass")
+    @PostMapping("updatePass")
     public String passworReset(@RequestParam String email, @RequestParam String password,Model model){
         service.passwordUpdate(email,password);
         model.addAttribute("msg","Password reseted successfully");
