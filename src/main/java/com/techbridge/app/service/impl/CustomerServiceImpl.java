@@ -118,5 +118,18 @@ public class CustomerServiceImpl implements CustomerService {
         return dto;
     }
 
+    @Override
+    public RegistrationDto updateUserDetails(RegistrationDto dto) {
+        if (dto == null){
+            System.out.println(dto);
+            return null;
+        }
+        RegistrationEntity entity = new RegistrationEntity();
+        BeanUtils.copyProperties(dto,entity);
+        boolean b = repo.UserUpdate(entity);
+        System.out.println("User details updated -> "+b);
+        return dto;
+    }
+
 
 }

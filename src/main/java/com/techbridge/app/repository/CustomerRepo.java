@@ -23,4 +23,6 @@ public interface CustomerRepo {
     boolean removeCustomer(int id);
 
     boolean CustomerUpdate(CustomerEntity entity);
+
+    boolean UserUpdate(RegistrationEntity entity);
 }

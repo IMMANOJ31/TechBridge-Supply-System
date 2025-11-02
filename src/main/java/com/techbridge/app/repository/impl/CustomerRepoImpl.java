@@ -191,4 +191,23 @@ public class CustomerRepoImpl implements CustomerRepo {
             }
         }
     }
+
+    @Override
+    public boolean UserUpdate(RegistrationEntity entity) {
+        EntityManager manager = null;
+        try{
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            manager.merge(entity);
+            manager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
+    }
 }

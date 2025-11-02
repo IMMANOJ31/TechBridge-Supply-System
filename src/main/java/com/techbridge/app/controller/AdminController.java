@@ -113,4 +113,20 @@ public class AdminController {
         }else redirectAttributes.addFlashAttribute("error","Failed to update customer");
         return "redirect :customerList";
     }
+
+    @GetMapping("editUser")
+    public String showUserUpdatePage(@RequestParam int id, Model model){
+        RegistrationDto dto = service.fetchUserById(id);
+        model.addAttribute("dto",dto);
+        return "updateUser";
+    }
+
+    @PostMapping("editUser")
+    public String updateUser(@Valid RegistrationDto dto, RedirectAttributes redirectAttributes) {
+        RegistrationDto registrationDto = service.updateUserDetails(dto);
+        if (registrationDto != null) {
+            redirectAttributes.addFlashAttribute("successMessage", "User updated successfully");
+        } else redirectAttributes.addFlashAttribute("error", "Failed to update user");
+        return "redirect :usersList";
+    }
 }
