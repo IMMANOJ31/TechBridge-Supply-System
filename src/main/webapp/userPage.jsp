@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,41 @@
         header h1 {
             font-size: 1.5rem;
             font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .dropdown {
+            background-color: white;
+            color: #007f5f;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dropdown:hover {
+            background-color: #e6f7ef;
+        }
+
+        .logout-btn {
+            background-color: white;
+            color: #007f5f;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #e6f7ef;
         }
 
         .user-info {
@@ -82,13 +116,43 @@
 
 <header>
     <h1>Dashboard</h1>
-    <div>Welcome, <strong>${sessionScope.loggedInUser.firstName}</strong></div>
+
+    <div class="header-right">
+        <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
+
+        <!-- Order Dropdown -->
+        <select class="dropdown" id="orderDropdown" onchange="handleOrderChange()">
+            <option value="">Order</option>
+            <option value="sales">Sales</option>
+            <option value="purchase">Purchase</option>
+        </select>
+
+        <!-- Logout Button -->
+        <a href="logout" class="logout-btn">Logout</a>
+    </div>
 </header>
 
+<div class="dashboard">
+    <h2 style="color:#007f5f;">Welcome to Vendor Laptop Portal</h2>
+    <p>This is your main dashboard. Use the navigation above to manage orders or logout.</p>
+</div>
 
 <footer>
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
+
+<script>
+    function handleOrderChange() {
+        const dropdown = document.getElementById("orderDropdown");
+        const selectedValue = dropdown.value;
+
+        if (selectedValue === "sales") {
+            window.location.href = "salesPage";
+        } else if (selectedValue === "purchase") {
+            window.location.href = "purchasePage";
+        }
+    }
+</script>
 
 </body>
 </html>
