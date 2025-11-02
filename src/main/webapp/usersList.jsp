@@ -87,8 +87,9 @@
 <body>
 
 <header>
-<h1>Vendor Laptop Portal</h1>
+    <h1>Vendor Laptop Portal</h1> <a href="index" class="nav-btn back-btn">Back</a>
 </header>
+
 
 <table class="table" id="customerTable">
     <thead class="table-light">

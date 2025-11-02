@@ -57,22 +57,51 @@ public class CustomerServiceImpl implements CustomerService {
         return dtoList;
     }
 
+
+
     @Override
-    public boolean remove(int id) {
+    public RegistrationDto fetchUserById(int id) {
         if (id == 0){
+            System.out.println("id is zero");
+            return null;
+        }
+        RegistrationEntity entity = repo.fetchUserById(id);
+        RegistrationDto dto = new RegistrationDto();
+        BeanUtils.copyProperties(entity,dto);
+        return dto;
+    }
+
+    @Override
+    public CustomerDto fetchCustomerById(int id) {
+        if (id == 0){
+            System.out.println("id is zero");
+            return null;
+        }
+        CustomerEntity entity = repo.fecthCustomerById(id);
+        CustomerDto dto = new CustomerDto();
+        BeanUtils.copyProperties(entity,dto);
+        return dto;
+    }
+
+    @Override
+    public boolean removeCustomerById(int id) {
+        if (id == 0){
+            System.out.println("id is zero");
             return false;
         }
-        repo.remove(id);
+        boolean b = repo.removeCustomer(id);
+        System.out.println("Does customer details erased -> "+b);
         return true;
     }
 
-
     @Override
-    public boolean removeCustomer(int id) {
+    public boolean removeUserById(int id) {
         if (id == 0){
+            System.out.println("id is zero");
             return false;
         }
-        repo.removeCustomer(id);
+        boolean remove = repo.removeUser(id);
+        System.out.println("Does user details erased -> "+remove);
         return true;
     }
 

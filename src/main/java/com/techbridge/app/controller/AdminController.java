@@ -62,21 +62,39 @@ public class AdminController {
         return "index";
     }
 
-    @GetMapping("deleteUser")
-    public String deleteUser(int id){
-        service.remove(id);
-        return "listOfCustomers";
-    }
-
-    @GetMapping("deleteCustomer")
-    public String deleteCustomer(int id){
-        service.removeCustomer(id);
-        return "listOfCustomers";
-    }
-
     @GetMapping("addUser")
     public String addUser(){
         return "addUserPage";
     }
 
+    @GetMapping("adminPage")
+    public String adminPage(){
+        return "adminPage";
+    }
+
+    @GetMapping("viewUser")
+    public String showUserProfile(@RequestParam int id, Model model){
+        RegistrationDto dto = service.fetchUserById(id);
+        model.addAttribute("dto",dto);
+        return "userProfile";
+    }
+
+    @GetMapping("customerProfile")
+    public String showCustomerPage(@RequestParam int id,Model model){
+        CustomerDto dto = service.fetchCustomerById(id);
+        model.addAttribute("dto",dto);
+        return "customerProfilePage";
+    }
+
+    @PostMapping("deleteCustomer")
+    public String deleteCustomer(@RequestParam int id){
+        service.removeCustomerById(id);
+        return "redirect:customerList";
+    }
+
+    @PostMapping("deleteUser")
+    public String deleteUser(@RequestParam int id) {
+        service.removeUserById(id);
+        return "redirect:usersList";
+    }
 }

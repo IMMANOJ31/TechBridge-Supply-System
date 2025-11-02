@@ -12,9 +12,9 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "getAllCustomers",query = "from CustomerEntity"),
-        @NamedQuery(name = "removeCustomer",query = "Delete RegistrationEntity r where r.id = :id"),
         @NamedQuery(name = "checkEmail",query = "SELECT c FROM CustomerEntity c WHERE c.email = :email"),
-        @NamedQuery(name = "findById",query = "SELECT c FROM CustomerEntity c WHERE c.id = :id")
+        @NamedQuery(name = "getCustomerById",query = "FROM CustomerEntity c WHERE c.id = :id"),
+        @NamedQuery(name = "removeCustomer",query = "Delete from CustomerEntity x where x.id =: id")
 })
 public class CustomerEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

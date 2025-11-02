@@ -18,7 +18,8 @@ import javax.persistence.*;
         @NamedQuery(name = "resetOtp",query = "UPDATE RegistrationEntity o set o.otp = NULL"),
         @NamedQuery(name = "saveOtp",query = "UPDATE RegistrationEntity r SET r.otp = :otp WHERE r.email = :email"),
         @NamedQuery(name = "getByRole",query = "from RegistrationEntity where role = 'USER'"),
-        @NamedQuery(name = "remove",query = "Delete RegistrationEntity r where r.id = :id")
+        @NamedQuery(name = "getUserById",query = "from RegistrationEntity where id =: id"),
+        @NamedQuery(name = "removeUser",query = "DELETE from RegistrationEntity where id =: id")
 }
 )
 public class RegistrationEntity {

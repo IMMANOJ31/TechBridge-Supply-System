@@ -88,11 +88,8 @@
 
 <header>
 <h1>Vendor Laptop Portal</h1>
+<a href="adminPage" class="nav-btn">Back</a>
 </header>
-
-<!-- <div class="search-box text-center">
-    <input type="text" id="search" class="form-control" placeholder="Search customer...">
-</div> -->
 
 <table class="table" id="customerTable">
     <thead class="table-light">

@@ -16,9 +16,11 @@ public interface CustomerService {
 
     List<RegistrationDto> fetchUserDetails();
 
-    boolean remove(int id);
+    RegistrationDto fetchUserById(int id);
 
+    CustomerDto fetchCustomerById(int id);
 
-    boolean removeCustomer(int id);
+    boolean removeCustomerById(int id);
 
+    boolean removeUserById(int id);
 }

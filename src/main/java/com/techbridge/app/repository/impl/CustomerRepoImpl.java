@@ -70,12 +70,12 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public boolean remove(int id) {
+    public boolean removeUser(int id) {
         EntityManager manager = null;
         try{
             manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            Query query = manager.createNamedQuery("remove");
+            Query query = manager.createNamedQuery("removeUser");
             query.setParameter("id",id);
             query.executeUpdate();
             manager.getTransaction().commit();
@@ -83,6 +83,67 @@ public class CustomerRepoImpl implements CustomerRepo {
         }catch (Exception e){
             e.printStackTrace();
             return false;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+
+    @Override
+    public CustomerEntity checkEmail(String email) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("checkEmail");
+            query.setParameter("email", email);
+            manager.getTransaction().commit();
+            return (CustomerEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public RegistrationEntity fetchUserById(int id) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("getUserById");
+            query.setParameter("id", id);
+            manager.getTransaction().commit();
+            return (RegistrationEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public CustomerEntity fecthCustomerById(int id) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("getCustomerById");
+            query.setParameter("id",id);
+            manager.getTransaction().commit();
+            return  (CustomerEntity) query.getSingleResult();
+        }catch (NoResultException e){
+            e.printStackTrace();
+            return null;
         }finally {
             if (manager != null && manager.isOpen()){
                 manager.close();
@@ -109,25 +170,6 @@ public class CustomerRepoImpl implements CustomerRepo {
                 manager.close();
             }
         }
-    }
 
-    @Override
-    public CustomerEntity checkEmail(String email) {
-        EntityManager manager = null;
-        try {
-            manager = factory.createEntityManager();
-            manager.getTransaction().begin();
-            Query query = manager.createNamedQuery("checkEmail");
-            query.setParameter("email", email);
-            manager.getTransaction().commit();
-            return (CustomerEntity) query.getSingleResult();
-        } catch (NoResultException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (manager != null && manager.isOpen()) {
-                manager.close();
-            }
-        }
     }
 }

@@ -12,12 +12,13 @@ public interface CustomerRepo {
 
     List<RegistrationEntity> fecthUserDetails();
 
-    boolean remove(int id);
-
-
-
-    boolean removeCustomer(int id);
+    boolean removeUser(int id);
 
     CustomerEntity checkEmail(String email);
 
+    RegistrationEntity fetchUserById(int id);
+
+    CustomerEntity fecthCustomerById(int id);
+
+    boolean removeCustomer(int id);
 }
