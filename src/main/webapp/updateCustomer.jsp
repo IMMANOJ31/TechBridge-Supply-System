@@ -149,6 +149,14 @@
         <option value="Cheque" ${dto.paymentMode == 'Cheque' ? 'selected' : ''}>Cheque</option>
     </select>
 
+    <c:if test="${not empty message}">
+        <script>alert('${message}');</script>
+    </c:if>
+    <c:if test="${not empty error}">
+        <script>alert('${error}');</script>
+    </c:if>
+
+
     <button type="submit" class="btn">Update Customer</button>
 </form>
 

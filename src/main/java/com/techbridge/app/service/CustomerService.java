@@ -23,4 +23,6 @@ public interface CustomerService {
     boolean removeCustomerById(int id);
 
     boolean removeUserById(int id);
+
+    CustomerDto updateCustomerDetails(@Valid CustomerDto dto);
 }

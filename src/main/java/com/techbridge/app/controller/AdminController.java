@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -96,5 +97,20 @@ public class AdminController {
     public String deleteUser(@RequestParam int id) {
         service.removeUserById(id);
         return "redirect:usersList";
+    }
+
+    @GetMapping("editCustomer")
+    public String showCustomerUpdatePage(@RequestParam int id,Model model){
+        CustomerDto dto = service.fetchCustomerById(id);
+        model.addAttribute("dto",dto);
+        return "updateCustomer";
+    }
+    @PostMapping("editCustomer")
+    public String updateCustomer(@Valid CustomerDto dto, RedirectAttributes redirectAttributes){
+        CustomerDto customerDto = service.updateCustomerDetails(dto);
+        if (customerDto != null){
+            redirectAttributes.addFlashAttribute("successMessage","Customer updated successfully");
+        }else redirectAttributes.addFlashAttribute("error","Failed to update customer");
+        return "redirect :customerList";
     }
 }

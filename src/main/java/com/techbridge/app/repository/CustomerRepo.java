@@ -21,4 +21,6 @@ public interface CustomerRepo {
     CustomerEntity fecthCustomerById(int id);
 
     boolean removeCustomer(int id);
+
+    boolean CustomerUpdate(CustomerEntity entity);
 }
