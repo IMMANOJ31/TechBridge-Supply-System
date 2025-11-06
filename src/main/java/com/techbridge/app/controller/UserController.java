@@ -18,4 +18,8 @@ public class UserController {
         return "purchasePage";
     }
 
+    @GetMapping("userPage")
+    public String returnToUserPage(){
+        return "userPage";
+    }
 }

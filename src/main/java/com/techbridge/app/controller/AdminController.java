@@ -45,16 +45,42 @@ public class AdminController {
     }
 
     @GetMapping("listOfUsers")
-    public String  viewUserPage(Model model){
+    public String  viewUserPage(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "10")int size, Model model){
         List<RegistrationDto>  dtoList = service.fetchUserDetails();
-        model.addAttribute("listOfUser",dtoList);
+
+        int totalUsers = dtoList.size();
+        int totalPages = (int) Math.ceil((double) totalUsers / size);
+
+        int start = (page - 1) * size;
+        int end = Math.min(start + size,totalUsers);
+
+        List<RegistrationDto> pagedUsers = dtoList.subList(start,end);
+
+        model.addAttribute("listOfUser",pagedUsers);
+        model.addAttribute("totalUsers", totalUsers);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
         return "usersList";
     }
 
     @GetMapping("listOfCustomers")
-    public String viewCustomersPage(Model model){
+    public String viewCustomersPage(@RequestParam(defaultValue = "1")int page,@RequestParam(defaultValue = "10")int size,Model model){
         List<CustomerDto> dtoList = service.fetchCustomerDetails();
-        model.addAttribute("listOfCustomer",dtoList);
+
+        int totalCustomers = dtoList.size();
+        int totalPages = (int) Math.ceil((double) totalCustomers / size);
+
+        int start = (page - 1) * size;
+        int end = Math.min(start + size,totalCustomers);
+
+        List<CustomerDto> pagedCustomers = dtoList.subList(start,end);
+
+        model.addAttribute("listOfCustomer",pagedCustomers);
+        model.addAttribute("totalCustomers", totalCustomers);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
         return "customerList";
     }
 

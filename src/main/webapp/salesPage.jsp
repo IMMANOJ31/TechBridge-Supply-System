@@ -111,7 +111,7 @@
 <header>
     <a href="userPage" class="back-btn">Back</a>
     <h1>Sales Order Entry</h1>
-    <div></div> <!-- Placeholder for alignment -->
+    <div></div>
 </header>
 
 <div class="container">
@@ -123,8 +123,7 @@
         <select name="voucherType" required>
             <option value="">--Select--</option>
             <option value="Sales">Sales</option>
-            <option value="Quotation">Quotation</option>
-            <option value="Estimate">Estimate</option>
+            <option value="Purchase">Purchase</option>
         </select>
 
         <label>Customer Name</label>

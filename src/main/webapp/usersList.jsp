@@ -74,6 +74,31 @@
         .btn:hover {
             background-color: #005f46;
         }
+        .pagination {
+                    justify-content: center;
+                    margin-top: 30px;
+                }
+
+                .pagination a, .pagination strong {
+                    margin: 0 5px;
+                    padding: 8px 14px;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    color: #007f5f;
+                    font-weight: 600;
+                    border: 1px solid #007f5f;
+                    transition: all 0.3s ease;
+                }
+
+                .pagination a:hover {
+                    background-color: #007f5f;
+                    color: white;
+                }
+
+                .pagination strong {
+                    background-color: #007f5f;
+                    color: white;
+                }
         footer {
             text-align: center;
             padding: 16px;
@@ -118,6 +143,27 @@
 
     </tbody>
 </table>
+  <!-- Pagination -->
+    <div class="pagination">
+        <c:if test="${currentPage > 1}">
+            <a href="listOfUsers?page=${currentPage - 1}&size=${pageSize}">Previous</a>
+        </c:if>
+
+        <c:forEach begin="1" end="${totalPages}" var="pageNum">
+            <c:choose>
+                <c:when test="${pageNum == currentPage}">
+                    <strong>${pageNum}</strong>
+                </c:when>
+                <c:otherwise>
+                    <a href="listOfUsers?page=${pageNum}&size=${pageSize}">${pageNum}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:if test="${currentPage < totalPages}">
+            <a href="listOfUsers?page=${currentPage + 1}&size=${pageSize}">Next</a>
+        </c:if>
+    </div>
 
 <footer>
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
