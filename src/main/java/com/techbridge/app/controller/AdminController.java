@@ -22,8 +22,14 @@ import java.util.List;
 @RequestMapping("/")
 public class AdminController {
 
-    @Autowired
-    CustomerService service;
+    private CustomerService service;
+
+    public AdminController(CustomerService service){
+        this.service = service;
+    }
+
+//    @Autowired
+//    CustomerService service;
 
     @GetMapping("addCustomer")
     public String addCustomerPage(){
