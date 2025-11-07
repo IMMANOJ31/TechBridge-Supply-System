@@ -143,16 +143,17 @@
 
 <script>
     function handleOrderChange() {
-        const dropdown = document.getElementById("orderDropdown");
-        const selectedValue = dropdown.value;
+            const dropdown = document.getElementById("orderDropdown");
+            const selectedValue = dropdown.value;
 
-        if (selectedValue === "sales") {
-            window.location.href = "salesPage";
-        } else if (selectedValue === "purchase") {
-            window.location.href = "purchasePage";
+            if (selectedValue === "sales") {
+                window.location.href = "salesPage?voucherType=Sales";
+            } else if (selectedValue === "purchase") {
+                window.location.href = "purchasePage?voucherType=Purchase";
+            }
         }
-    }
 </script>
+
 
 </body>
 </html>

@@ -120,17 +120,20 @@
     <form action="placeOrder" method="post">
 
         <label>Voucher Type</label>
-        <select name="voucherType" required>
-            <option value="">--Select--</option>
-            <option value="Sales">Sales</option>
-            <option value="Purchase">Purchase</option>
-        </select>
+        <input type="text" name="voucherType" value="${param.voucherType}" readonly
+               style="background-color:#f1f1f1; cursor:not-allowed;" />
+
 
         <label>Customer Name</label>
         <input type="text" name="customerName" required />
 
         <label>Product Group</label>
-        <input type="text" name="productGroup" required />
+        <select name="productGroup" required>
+            <option value="">--Select Product Group--</option>
+            <c:forEach var="group" items="${productGroups}">
+                <option value="${group}">${group}</option>
+            </c:forEach>
+        </select>
 
         <label>Make (Company Name)</label>
         <input type="text" name="make" required />
