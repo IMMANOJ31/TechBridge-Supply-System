@@ -26,18 +26,28 @@ public class UserController {
         this.customerService = customerService;
     }
 
-    @GetMapping("purchaseOrder")
-    public String purchasePage(@RequestParam(defaultValue = "Purchase")String voucherType,String customerName,ProductDto dto,Model model) {
+    @GetMapping("/purchaseOrder")
+    public String showPurchasePage(@RequestParam(defaultValue = "Purchase") String voucherType,
+                                   @RequestParam(required = false) String customerName,
+                                   Model model) {
         List<String> productGroups = productService.getAllProductGroups();
         List<CustomerDto> customers = customerService.fetchCustomerDetails();
-        PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
-        System.out.println(purchaseEntity);
+
         model.addAttribute("productGroups", productGroups);
         model.addAttribute("voucherType", voucherType);
-        model.addAttribute("customers",customers);
-        model.addAttribute("customerName",customerName);
+        model.addAttribute("customers", customers);
+        model.addAttribute("customerName", customerName);
         return "purchaseOrder";
     }
+
+
+    @PostMapping("purchaseOrder")
+    public String savePurchase(@ModelAttribute ProductDto dto, Model model) {
+        PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
+        System.out.println("Saved: " + purchaseEntity);
+        return "redirect:/purchaseOrder";
+    }
+
 
     @GetMapping("purchaseDashboard")
     public String purchaseDashboard(){
