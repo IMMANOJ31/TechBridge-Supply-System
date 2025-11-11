@@ -1,7 +1,11 @@
 package com.techbridge.app.controller;
 
+import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.ProductDto;
+import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.ProductEntity;
+import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,26 +19,39 @@ public class UserController {
 
     private final ProductService productService;
 
-    public UserController(ProductService productService){
+    private final CustomerService customerService;
+
+    public UserController(ProductService productService,CustomerService customerService){
         this.productService = productService;
+        this.customerService = customerService;
+    }
+
+    @GetMapping("purchaseOrder")
+    public String purchasePage(@RequestParam(defaultValue = "Purchase")String voucherType,String customerName,ProductDto dto,Model model) {
+        List<String> productGroups = productService.getAllProductGroups();
+        List<CustomerDto> customers = customerService.fetchCustomerDetails();
+        PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
+        System.out.println(purchaseEntity);
+        model.addAttribute("productGroups", productGroups);
+        model.addAttribute("voucherType", voucherType);
+        model.addAttribute("customers",customers);
+        model.addAttribute("customerName",customerName);
+        return "purchaseOrder";
+    }
+
+    @GetMapping("purchaseDashboard")
+    public String purchaseDashboard(){
+        return "purchaseDashboard";
     }
 
     @GetMapping("salesPage")
-    public String salesPage(@RequestParam(defaultValue = "Sales")String voucherType, Model model) {
-
-        List<String> productGroups = productService.getAllProductGroups();
-        model.addAttribute("productGroups", productGroups);
-        model.addAttribute("voucherType", voucherType);
+    public String salesPage() {
         return "salesPage";
-    }
-
-    @GetMapping("/purchasePage")
-    public String purchasePage() {
-        return "purchasePage";
     }
 
     @GetMapping("userPage")
     public String returnToUserPage(){
         return "userPage";
     }
+
 }

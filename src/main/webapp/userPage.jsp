@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
+    <title>User Dashboard</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -61,39 +61,6 @@
             background-color: #e6f7ef;
         }
 
-        .user-info {
-            background: white;
-            width: 280px;
-            margin: 40px;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .user-info h3 {
-            margin-top: 0;
-            color: #007f5f;
-        }
-
-        .links {
-            margin-top: 20px;
-        }
-
-        .links a {
-            display: block;
-            color: #007f5f;
-            text-decoration: none;
-            font-weight: 500;
-            margin: 8px 0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.3s;
-        }
-
-        .links a:hover {
-            background-color: #e6f7ef;
-        }
-
         .dashboard {
             background: white;
             margin: 40px;
@@ -115,7 +82,7 @@
 <body>
 
 <header>
-    <h1>Dashboard</h1>
+    <h1>User Dashboard</h1>
 
     <div class="header-right">
         <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
@@ -134,7 +101,7 @@
 
 <div class="dashboard">
     <h2 style="color:#007f5f;">Welcome to Vendor Laptop Portal</h2>
-    <p>This is your main dashboard. Use the navigation above to manage orders or logout.</p>
+    <p>This is your main dashboard. Use the dropdown above to create Sales or Purchase orders.</p>
 </div>
 
 <footer>
@@ -143,17 +110,16 @@
 
 <script>
     function handleOrderChange() {
-            const dropdown = document.getElementById("orderDropdown");
-            const selectedValue = dropdown.value;
+        const dropdown = document.getElementById("orderDropdown");
+        const selectedValue = dropdown.value;
 
-            if (selectedValue === "sales") {
-                window.location.href = "salesPage?voucherType=Sales";
-            } else if (selectedValue === "purchase") {
-                window.location.href = "purchasePage?voucherType=Purchase";
-            }
+        if (selectedValue === "sales") {
+            window.location.href = "salesPage?voucherType=Sales";
+        } else if (selectedValue === "purchase") {
+            window.location.href = "purchaseDashboard"; // ✅ corrected route
         }
+    }
 </script>
-
 
 </body>
 </html>

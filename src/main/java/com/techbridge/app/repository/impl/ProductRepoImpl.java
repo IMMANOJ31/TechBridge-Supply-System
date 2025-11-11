@@ -1,6 +1,7 @@
 package com.techbridge.app.repository.impl;
 
 import com.techbridge.app.entity.ProductEntity;
+import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.repository.ProductRepo;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,7 @@ public class ProductRepoImpl implements ProductRepo {
     public ProductRepoImpl(EntityManagerFactory factory){
         this.factory = factory;
     }
+
 
     @Override
     public List<String> fetchProducts() {
@@ -55,4 +57,24 @@ public class ProductRepoImpl implements ProductRepo {
             }
         }
     }
+
+    @Override
+    public PurchaseEntity savePurchase(PurchaseEntity purchaseEntity) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            manager.persist(purchaseEntity);
+            manager.getTransaction().commit();
+            return purchaseEntity;
+        }catch (Exception r){
+            r.printStackTrace();
+            return null;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
 }

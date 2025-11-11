@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "products")
 @Data @AllArgsConstructor @NoArgsConstructor
+
+@NamedQueries({
+        @NamedQuery(name = "fetchProduct",query = "select p.productGroup from ProductEntity p")
+})
 public class ProductEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

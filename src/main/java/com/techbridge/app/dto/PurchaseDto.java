@@ -6,16 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class SalesDto {
-    private int id;
+public class PurchaseDto {
     private VoucherType voucherType;
-    private String CustomerName;
-    private String ProductGroup;
+    private String customerName;
+    private String productGroup;
     private String make;
     private String model;
     private String productCode;
     private String itemName;
     private String openingValue;
+    private String totalCost;
     private String openingBalance;
     private String purchasePrice;
     private int quantity;
