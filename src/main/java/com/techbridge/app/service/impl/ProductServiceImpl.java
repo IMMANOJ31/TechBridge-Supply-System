@@ -1,6 +1,7 @@
 package com.techbridge.app.service.impl;
 
 import com.techbridge.app.dto.ProductDto;
+import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
@@ -12,8 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.swing.plaf.basic.BasicEditorPaneUI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,10 +42,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PurchaseEntity savePurchaseDetail(ProductDto dto) {
+    public PurchaseEntity savePurchaseDetail(PurchaseDto dto) {
         PurchaseEntity purchaseEntity = new PurchaseEntity();
         BeanUtils.copyProperties(dto,purchaseEntity);
         return productRepo.savePurchase(purchaseEntity);
+    }
+
+    @Override
+    public List<PurchaseDto> fetchAllPurchaseList() {
+        List<PurchaseEntity> purchaseEntities = productRepo.fetchPurchase();
+        List<PurchaseDto> purchaseDtoList = new ArrayList<>();
+        for (PurchaseEntity entity : purchaseEntities){
+            PurchaseDto purchaseDto = new PurchaseDto();
+            BeanUtils.copyProperties(entity,purchaseDto);
+            purchaseDtoList.add(purchaseDto);
+        }
+        return purchaseDtoList;
     }
 
 

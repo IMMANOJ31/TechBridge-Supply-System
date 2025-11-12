@@ -11,7 +11,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "purchase_details")
 
-@NamedQueries({})
+@NamedQueries({
+        @NamedQuery(name = "fetchPurchase",query = "from PurchaseEntity")
+})
 public class PurchaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

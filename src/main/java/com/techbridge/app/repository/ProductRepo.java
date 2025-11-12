@@ -11,4 +11,6 @@ public interface ProductRepo {
     ProductEntity save(ProductEntity entity);
 
     PurchaseEntity savePurchase(PurchaseEntity purchaseEntity);
+
+    List<PurchaseEntity> fetchPurchase();
 }

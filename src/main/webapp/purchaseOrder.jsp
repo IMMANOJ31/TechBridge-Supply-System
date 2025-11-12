@@ -109,7 +109,7 @@
 <body>
 
 <header>
-    <a href="userPage" class="back-btn">Back</a>
+    <a href="${pageContext.request.contextPath}/userPage" class="back-btn">Back</a>
     <h1>Purchase</h1>
     <div></div>
 </header>
@@ -117,10 +117,10 @@
 <div class="container">
     <h2>Purchase Order</h2>
 
-    <form action="placeOrder" method="post" onsubmit="return notifyAdmin();">
+    <form action="${pageContext.request.contextPath}/purchaseOrder" method="post" onsubmit="return notifyAdmin();">
 
         <label>Voucher Type</label>
-        <input type="text" name="voucherType" value="${param.voucherType}" readonly
+        <input type="text" name="voucherType" value="${voucherType}" readonly
                style="background-color:#f1f1f1; cursor:not-allowed;" />
 
         <label>Customer Name</label>
@@ -139,7 +139,6 @@
             </c:forEach>
         </select>
 
-
         <label>Make (Company Name)</label>
         <input type="text" id="make" name="make" required />
 
@@ -149,7 +148,7 @@
         <label>Product Code</label>
         <input type="text" id="productCode" name="productCode" required />
 
-        <!-- AUTO ITEM NAME -->
+        <!-- Auto Item Name -->
         <label>Item Name</label>
         <input type="text" id="itemName" name="itemName" readonly
                style="background-color:#f1f1f1; cursor:not-allowed;" />
@@ -213,9 +212,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function notifyAdmin() {
-    alert("Order placed successfully! Admin will be notified for approval");
-    window.location.href = "purchaseDashboard";  // redirect after placing order
-    return false; // prevent immediate form submission to show popup first
+    alert("Order placed successfully! Admin will be notified for approval.");
+    return true;
 }
 </script>
 

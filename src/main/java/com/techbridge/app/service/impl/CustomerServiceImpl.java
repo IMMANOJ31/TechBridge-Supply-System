@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         List<CustomerDto> debitors = fetchDebitors(customerDtos);
         System.out.println("Debitors: " + debitors);
-        return customerDtos;
+        return debitors;
     }
 
     private List<CustomerDto> fetchDebitors(List<CustomerDto> allCustomers) {
@@ -55,7 +55,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .filter(dto -> dto.getCustomerType() == CustomerType.Debitors)
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public List<RegistrationDto> fetchUserDetails() {

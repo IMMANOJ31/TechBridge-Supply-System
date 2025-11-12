@@ -77,4 +77,21 @@ public class ProductRepoImpl implements ProductRepo {
         }
     }
 
+    @Override
+    public List<PurchaseEntity> fetchPurchase() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            Query query = manager.createNamedQuery("fetchPurchase");
+            return query.getResultList();
+        }catch (NoResultException r){
+            r.printStackTrace();
+            return  null;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
 }

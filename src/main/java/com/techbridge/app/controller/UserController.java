@@ -2,6 +2,7 @@ package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.ProductDto;
+import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
@@ -41,15 +42,13 @@ public class UserController {
         return "purchaseOrder";
     }
 
-
-
     @PostMapping("purchaseOrder")
-    public String savePurchase(@ModelAttribute ProductDto dto) {
+    public String savePurchase(@ModelAttribute PurchaseDto dto) {
+        System.err.println(">>> " + dto);
         PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
-        System.out.println("Saved: " + purchaseEntity);
-        return "redirect:/purchaseOrder";
+        System.err.println("Saved: " + purchaseEntity);
+        return "redirect:/purchaseDashboard";
     }
-
 
     @GetMapping("purchaseDashboard")
     public String purchaseDashboard(){
@@ -64,6 +63,14 @@ public class UserController {
     @GetMapping("userPage")
     public String returnToUserPage(){
         return "userPage";
+    }
+
+    @GetMapping("purchaseListPage")
+    public String purchaseList(Model model){
+        List<PurchaseDto> purchaseEntity = productService.fetchAllPurchaseList();
+        System.err.println(purchaseEntity);
+        model.addAttribute("purchaseEntity",purchaseEntity);
+        return "purchaseList";
     }
 
 }
