@@ -117,64 +117,65 @@
 <div class="container">
     <h2>Purchase Order</h2>
 
-    <form action="${pageContext.request.contextPath}/purchaseOrder" method="post" onsubmit="return notifyAdmin();">
+   <form action="${pageContext.request.contextPath}/purchaseOrder" method="post" onsubmit="return notifyAdmin();">
+       <input type="hidden" name="status" value="PENDING" />
 
-        <label>Voucher Type</label>
-        <input type="text" name="voucherType" value="${voucherType}" readonly
-               style="background-color:#f1f1f1; cursor:not-allowed;" />
+       <label>Voucher Type</label>
+       <input type="text" name="voucherType" value="${voucherType}" readonly
+              style="background-color:#f1f1f1; cursor:not-allowed;" />
 
-        <label>Customer Name</label>
-        <select name="customerName" required>
-            <option value="">--Select Customer--</option>
-            <c:forEach var="cust" items="${customers}">
-                <option value="${cust.customerName}">${cust.customerName}</option>
-            </c:forEach>
-        </select>
+       <label>Customer Name</label>
+       <select name="customerName" required>
+           <option value="">--Select Customer--</option>
+           <c:forEach var="cust" items="${customers}">
+               <option value="${cust.customerName}">${cust.customerName}</option>
+           </c:forEach>
+       </select>
 
-        <label>Product Group</label>
-        <select name="productGroup" required>
-            <option value="">--Select Product Group--</option>
-            <c:forEach var="group" items="${productGroups}">
-                <option value="${group}">${group}</option>
-            </c:forEach>
-        </select>
+       <label>Product Group</label>
+       <select name="productGroup" required>
+           <option value="">--Select Product Group--</option>
+           <c:forEach var="group" items="${productGroups}">
+               <option value="${group}">${group}</option>
+           </c:forEach>
+       </select>
 
-        <label>Make (Company Name)</label>
-        <input type="text" id="make" name="make" required />
+       <label>Make</label>
+       <input type="text" id="make" name="make" required />
 
-        <label>Model</label>
-        <input type="text" id="model" name="model" required />
+       <label>Model</label>
+       <input type="text" id="model" name="model" required />
 
-        <label>Product Code</label>
-        <input type="text" id="productCode" name="productCode" required />
+       <label>Product Code</label>
+       <input type="text" id="productCode" name="productCode" required />
 
-        <!-- Auto Item Name -->
-        <label>Item Name</label>
-        <input type="text" id="itemName" name="itemName" readonly
-               style="background-color:#f1f1f1; cursor:not-allowed;" />
+       <label>Item Name</label>
+       <input type="text" id="itemName" name="itemName" readonly
+              style="background-color:#f1f1f1; cursor:not-allowed;" />
 
-        <label>Opening Value (Initial Price)</label>
-        <input type="text" id="openingValue" name="openingValue" readonly
-               value="1000" style="background-color:#f1f1f1; cursor:not-allowed;" />
+       <label>Purchase Price</label>
+       <input type="number" step="0.01" id="purchasePrice" name="purchasePrice" required />
 
-        <label>Purchase Price</label>
-        <input type="number" step="0.01" id="purchasePrice" name="purchasePrice" required />
+       <label>Quantity</label>
+       <input type="number" id="quantity" name="quantity" min="1" value="1" required />
 
-        <label>Quantity</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+       <label>Total Cost</label>
+       <input type="number" step="0.01" id="totalCost" name="totalCost" readonly
+              style="background-color:#f1f1f1; cursor:not-allowed;" />
 
-        <label>Total Cost</label>
-        <input type="number" step="0.01" id="totalCost" name="totalCost" readonly
-               style="background-color:#f1f1f1; cursor:not-allowed;" />
+       <label>Due Date</label>
+       <input type="date" name="dueDate" required />
 
-        <label>Opening Balance (Stock in Hand)</label>
-        <input type="number" name="openingBalance" required />
+       <button type="submit" class="btn">Place Order</button>
+   </form>
 
-        <label>Order Due Date</label>
-        <input type="date" name="dueDate" required />
+   <script>
+   function notifyAdmin() {
+       alert("✅ Your purchase order has been sent to the Admin for approval.");
+       return true;
+   }
+   </script>
 
-        <button type="submit" class="btn">Place Order</button>
-    </form>
 </div>
 
 <footer>

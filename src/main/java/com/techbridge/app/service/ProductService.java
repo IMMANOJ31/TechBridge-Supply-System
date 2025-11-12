@@ -17,4 +17,6 @@ public interface ProductService {
     PurchaseEntity savePurchaseDetail(PurchaseDto dto);
 
     List<PurchaseDto> fetchAllPurchaseList();
+
+    List<PurchaseEntity> getPendingOrders();
 }

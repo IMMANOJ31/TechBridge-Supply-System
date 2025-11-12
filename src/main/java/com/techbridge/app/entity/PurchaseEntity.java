@@ -1,5 +1,6 @@
 package com.techbridge.app.entity;
 
+import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.enums.VoucherType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,8 @@ import javax.persistence.*;
 @Table(name = "purchase_details")
 
 @NamedQueries({
-        @NamedQuery(name = "fetchPurchase",query = "from PurchaseEntity")
+        @NamedQuery(name = "fetchPurchase",query = "from PurchaseEntity"),
+        @NamedQuery(name = "approval",query = "SELECT * FROM purchase_details WHERE status = 'PENDING';\n")
 })
 public class PurchaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,4 +42,8 @@ public class PurchaseEntity {
     private int quantity;
     @Column(name = "due_date")
     private String dueDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ApprovalStatus status = ApprovalStatus.PENDING;
 }

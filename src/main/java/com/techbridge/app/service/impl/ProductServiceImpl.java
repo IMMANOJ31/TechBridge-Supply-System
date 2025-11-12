@@ -5,6 +5,7 @@ import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.CustomerRepo;
 import com.techbridge.app.repository.ProductRepo;
 import com.techbridge.app.service.ProductService;
@@ -58,6 +59,11 @@ public class ProductServiceImpl implements ProductService {
             purchaseDtoList.add(purchaseDto);
         }
         return purchaseDtoList;
+    }
+
+    @Override
+    public List<PurchaseEntity> getPendingOrders() {
+        return productRepo.findByStatus(ApprovalStatus.PENDING);
     }
 
 

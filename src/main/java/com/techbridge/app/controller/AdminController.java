@@ -3,8 +3,10 @@ package com.techbridge.app.controller;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
+import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.service.CustomerService;
+import com.techbridge.app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +30,8 @@ public class AdminController {
         this.service = service;
     }
 
-//    @Autowired
-//    CustomerService service;
+   @Autowired
+   ProductService productService;
 
     @GetMapping("addCustomer")
     public String addCustomerPage(){
@@ -101,7 +103,9 @@ public class AdminController {
     }
 
     @GetMapping("adminPage")
-    public String adminPage(){
+    public String adminPage(Model model){
+        List<PurchaseEntity> pendingOrders = productService.getPendingOrders();
+        model.addAttribute("pendingOrders", pendingOrders);
         return "adminPage";
     }
 

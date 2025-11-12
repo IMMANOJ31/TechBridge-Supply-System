@@ -1,5 +1,6 @@
 package com.techbridge.app.dto;
 
+import com.techbridge.app.entity.ApprovalStatus;
 import com.techbridge.app.enums.VoucherType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class PurchaseDto {
     private String purchasePrice;
     private int quantity;
     private String dueDate;
+    private ApprovalStatus status;
 }

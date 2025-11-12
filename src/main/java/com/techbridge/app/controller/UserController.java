@@ -3,6 +3,7 @@ package com.techbridge.app.controller;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.ProductDto;
 import com.techbridge.app.dto.PurchaseDto;
+import com.techbridge.app.entity.ApprovalStatus;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
@@ -44,7 +45,7 @@ public class UserController {
 
     @PostMapping("purchaseOrder")
     public String savePurchase(@ModelAttribute PurchaseDto dto) {
-        System.err.println(">>> " + dto);
+        dto.setStatus(ApprovalStatus.PENDING);
         PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
         System.err.println("Saved: " + purchaseEntity);
         return "redirect:/purchaseDashboard";

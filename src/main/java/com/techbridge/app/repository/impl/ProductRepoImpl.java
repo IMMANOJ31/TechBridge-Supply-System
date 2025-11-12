@@ -2,6 +2,7 @@ package com.techbridge.app.repository.impl;
 
 import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.ProductRepo;
 import org.springframework.stereotype.Repository;
 
@@ -87,6 +88,23 @@ public class ProductRepoImpl implements ProductRepo {
         }catch (NoResultException r){
             r.printStackTrace();
             return  null;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<PurchaseEntity> findByStatus(ApprovalStatus approvalStatus) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            Query query = manager.createNamedQuery("approval");
+            return query.getResultList();
+        }catch (NoResultException e){
+            e.printStackTrace();
+            return null;
         }finally {
             if (manager != null && manager.isOpen()){
                 manager.close();

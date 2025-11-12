@@ -111,7 +111,7 @@
 
 <header>
     <a href="userPage" class="back-btn">Back</a>
-    <h1>Purchase List</h1>
+    <h1>TechBridge</h1>
     <a href="${pageContext.request.contextPath}/purchaseOrder?voucherType=Purchase" class="back-btn">+ New Order</a>
 </header>
 
