@@ -4,6 +4,7 @@ import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.RegistrationEntity;
+import com.techbridge.app.enums.CustomerType;
 import com.techbridge.app.repository.CustomerRepo;
 import com.techbridge.app.service.CustomerService;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -34,16 +36,26 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> fetchCustomerDetails(){
-        List<CustomerEntity> entity = repo.fecthDetails();
-       List<CustomerDto> customerDto = new ArrayList<>();
-        for (CustomerEntity ls : entity) {
+    public List<CustomerDto> fetchCustomerDetails() {
+        List<CustomerEntity> entities = repo.fecthDetails();
+        List<CustomerDto> customerDtos = new ArrayList<>();
+
+        for (CustomerEntity entity : entities) {
             CustomerDto dto = new CustomerDto();
-            BeanUtils.copyProperties(ls, dto);
-            customerDto.add(dto);
+            BeanUtils.copyProperties(entity, dto);
+            customerDtos.add(dto);
         }
-        return customerDto;
+        List<CustomerDto> debitors = fetchDebitors(customerDtos);
+        System.out.println("Debitors: " + debitors);
+        return customerDtos;
     }
+
+    private List<CustomerDto> fetchDebitors(List<CustomerDto> allCustomers) {
+        return allCustomers.stream()
+                .filter(dto -> dto.getCustomerType() == CustomerType.Debitors)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public List<RegistrationDto> fetchUserDetails() {
