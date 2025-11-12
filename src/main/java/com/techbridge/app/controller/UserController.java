@@ -26,7 +26,7 @@ public class UserController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/purchaseOrder")
+    @GetMapping("purchaseOrder")
     public String showPurchasePage(@RequestParam(defaultValue = "Purchase") String voucherType,
                                    @RequestParam(required = false) String customerName,
                                    Model model) {
@@ -37,12 +37,14 @@ public class UserController {
         model.addAttribute("voucherType", voucherType);
         model.addAttribute("customers", customers);
         model.addAttribute("customerName", customerName);
+        model.addAttribute("productDto", new ProductDto());
         return "purchaseOrder";
     }
 
 
+
     @PostMapping("purchaseOrder")
-    public String savePurchase(@ModelAttribute ProductDto dto, Model model) {
+    public String savePurchase(@ModelAttribute ProductDto dto) {
         PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
         System.out.println("Saved: " + purchaseEntity);
         return "redirect:/purchaseOrder";
