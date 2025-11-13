@@ -1,10 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -24,6 +28,7 @@
         header h1 {
             font-size: 1.5rem;
             font-weight: 600;
+            margin: 0;
         }
 
         header a {
@@ -44,7 +49,12 @@
         }
 
         .bell {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .notification:hover .bell {
+            transform: scale(1.1);
+            transition: 0.2s ease;
         }
 
         .badge {
@@ -112,6 +122,7 @@
         .btn-reject { background-color: #dc3545; color: white; }
         .btn-hold { background-color: #ffc107; color: black; }
 
+        /* Section Containers */
         .section-container {
             display: flex;
             gap: 40px;
@@ -170,6 +181,7 @@
     <h1>TechBridge Admin</h1>
 
     <div style="display: flex; align-items: center; gap: 20px;">
+        <!-- Notification Section -->
         <div class="notification" id="notifyIcon">
             <span class="bell">🔔</span>
             <c:if test="${not empty pendingOrders}">
@@ -208,6 +220,7 @@
     </div>
 </header>
 
+<!-- Section Boxes -->
 <div class="section-container">
     <div class="customer-info">
         <h3>Customer Info</h3>
@@ -226,6 +239,7 @@
     </div>
 </div>
 
+<!-- Dashboard -->
 <div class="dashboard">
     <h2>Dashboard</h2>
     <p>This section can display analytics, reports, or customer summaries.</p>
@@ -235,20 +249,24 @@
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
+<!-- JS for Notification Dropdown -->
 <script>
-    // Toggle notification dropdown
-    document.getElementById("notifyIcon").addEventListener("click", function() {
-        document.getElementById("notificationDropdown").classList.toggle("active");
+document.addEventListener('DOMContentLoaded', function() {
+    const bell = document.getElementById('notifyIcon');
+    const dropdown = document.getElementById('notificationDropdown');
+
+    bell.addEventListener('click', (event) => {
+        event.stopPropagation();
+        dropdown.classList.toggle('active');
     });
 
-    // Close dropdown if clicked outside
-    document.addEventListener("click", function(e) {
-        const dropdown = document.getElementById("notificationDropdown");
-        const icon = document.getElementById("notifyIcon");
-        if (!icon.contains(e.target)) {
-            dropdown.classList.remove("active");
+    // close dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+        if (!bell.contains(e.target)) {
+            dropdown.classList.remove('active');
         }
     });
+});
 </script>
 
 </body>

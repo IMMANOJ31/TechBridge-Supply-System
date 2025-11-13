@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -102,13 +103,6 @@ public class AdminController {
         return "addUserPage";
     }
 
-    @GetMapping("adminPage")
-    public String adminPage(Model model){
-        List<PurchaseEntity> pendingOrders = productService.getPendingOrders();
-        model.addAttribute("pendingOrders", pendingOrders);
-        return "adminPage";
-    }
-
     @GetMapping("viewUser")
     public String showUserProfile(@RequestParam int id, Model model){
         RegistrationDto dto = service.fetchUserById(id);
@@ -165,4 +159,18 @@ public class AdminController {
         } else redirectAttributes.addFlashAttribute("error", "Failed to update user");
         return "redirect :usersList";
     }
+
+    @GetMapping("adminPage")
+    public String showAdminPage(Model model, HttpSession session) {
+        List<PurchaseEntity> pending = productService.getPendingOrders();
+        if (pending == null) {
+            pending = Collections.emptyList();
+        }
+        model.addAttribute("pendingOrders", pending);
+        session.setAttribute("loggedInUser", session.getAttribute("loggedInUser"));
+        return "adminPage";
+    }
+
+
+
 }

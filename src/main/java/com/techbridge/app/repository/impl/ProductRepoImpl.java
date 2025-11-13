@@ -101,6 +101,7 @@ public class ProductRepoImpl implements ProductRepo {
         try {
             manager = factory.createEntityManager();
             Query query = manager.createNamedQuery("approval");
+            query.setParameter("status",approvalStatus);
             return query.getResultList();
         }catch (NoResultException e){
             e.printStackTrace();

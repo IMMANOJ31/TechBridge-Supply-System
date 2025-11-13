@@ -14,7 +14,8 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "fetchPurchase",query = "from PurchaseEntity"),
-        @NamedQuery(name = "approval",query = "SELECT * FROM purchase_details WHERE status = 'PENDING';\n")
+        @NamedQuery(name = "approval", query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status")
+
 })
 public class PurchaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,12 +32,8 @@ public class PurchaseEntity {
     private String productCode;
     @Column(name = "item_name")
     private String itemName;
-    @Column(name = "opening_value")
-    private String openingValue;
     @Column(name = "total_cost")
     private String totalCost;
-    @Column(name = "opening_balance")
-    private String openingBalance;
     @Column(name = "purchase_price")
     private String purchasePrice;
     private int quantity;
