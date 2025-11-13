@@ -103,9 +103,9 @@ public class ProductRepoImpl implements ProductRepo {
             Query query = manager.createNamedQuery("approval");
             query.setParameter("status",approvalStatus);
             return query.getResultList();
-        }catch (NoResultException e){
+        }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return Collections.emptyList();
         }finally {
             if (manager != null && manager.isOpen()){
                 manager.close();

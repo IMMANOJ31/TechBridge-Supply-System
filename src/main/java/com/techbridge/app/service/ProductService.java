@@ -5,6 +5,7 @@ import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.enums.ApprovalStatus;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface ProductService {
     List<PurchaseDto> fetchAllPurchaseList();
 
     List<PurchaseEntity> getPendingOrders();
+
+    boolean updateApprovalStatus(int id, ApprovalStatus status);
 }

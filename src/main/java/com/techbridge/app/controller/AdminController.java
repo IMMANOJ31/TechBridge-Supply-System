@@ -5,6 +5,7 @@ import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
+import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,17 +161,19 @@ public class AdminController {
         return "redirect :usersList";
     }
 
-    @GetMapping("adminPage")
+    @GetMapping("/admin")
     public String showAdminPage(Model model, HttpSession session) {
         List<PurchaseEntity> pending = productService.getPendingOrders();
-        if (pending == null) {
-            pending = Collections.emptyList();
-        }
         model.addAttribute("pendingOrders", pending);
         session.setAttribute("loggedInUser", session.getAttribute("loggedInUser"));
         return "adminPage";
     }
 
+    @PostMapping("/admin/updateStatus")
+    public String updateStatus(@RequestParam int id, @RequestParam ApprovalStatus status) {
+        productService.updateApprovalStatus(id, status);
+        return "redirect:/admin";
+    }
 
 
 }
