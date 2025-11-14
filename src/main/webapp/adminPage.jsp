@@ -9,6 +9,9 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
 
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -122,7 +125,6 @@
         .btn-reject { background-color: #dc3545; color: white; }
         .btn-hold { background-color: #ffc107; color: black; }
 
-        /* Section Containers */
         .section-container {
             display: flex;
             gap: 40px;
@@ -181,37 +183,42 @@
     <h1>TechBridge Admin</h1>
 
     <div style="display: flex; align-items: center; gap: 20px;">
+
         <!-- Notification Section -->
         <div class="notification" id="notifyIcon">
             <span class="bell">🔔</span>
+
             <c:if test="${not empty pendingOrders}">
-                <span class="badge">${fn:length(pendingOrders)}</span>
+                <span class="badge" id="pendingCount">${fn:length(pendingOrders)}</span>
             </c:if>
 
             <!-- Dropdown -->
             <div class="dropdown" id="notificationDropdown">
                 <h3>Pending Approvals</h3>
-                <c:choose>
-                    <c:when test="${not empty pendingOrders}">
-                        <c:forEach var="order" items="${pendingOrders}">
-                            <div class="item">
-                                <p><strong>${order.customerName}</strong> - ${order.itemName}</p>
-                                <p>Total: ₹${order.totalCost}</p>
-                                <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
-                                    <input type="hidden" name="id" value="${order.id}" />
-                                    <button class="btn-approve" name="status" value="APPROVED">Approve</button>
-                                    <button class="btn-reject" name="status" value="REJECTED">Reject</button>
-                                    <button class="btn-hold" name="status" value="HOLD">Hold</button>
-                                </form>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="item">
-                            <p>No pending approvals 🎉</p>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
+
+                <div id="pendingListContainer">
+                    <c:choose>
+                        <c:when test="${not empty pendingOrders}">
+                            <c:forEach var="order" items="${pendingOrders}">
+                                <div class="item">
+                                    <p><strong>${order.customerName}</strong> - ${order.itemName}</p>
+                                    <p>Total: ₹${order.totalCost}</p>
+
+                                    <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
+                                        <input type="hidden" name="id" value="${order.id}"/>
+                                        <button class="btn-approve" name="status" value="APPROVED">Approve</button>
+                                        <button class="btn-reject" name="status" value="REJECTED">Reject</button>
+                                        <button class="btn-hold" name="status" value="HOLD">Hold</button>
+                                    </form>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+
+                        <c:otherwise>
+                            <div class="item"><p>No pending approvals 🎉</p></div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
 
@@ -242,30 +249,76 @@
 <!-- Dashboard -->
 <div class="dashboard">
     <h2>Dashboard</h2>
-    <p>This section can display analytics, reports, or customer summaries.</p>
+    <p>This section can display analytics, reports, or summaries.</p>
 </div>
 
 <footer>
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
-<!-- JS for Notification Dropdown -->
+<!-- JS for Notification Dropdown + Axios Auto Refresh -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
     const bell = document.getElementById('notifyIcon');
     const dropdown = document.getElementById('notificationDropdown');
+    const pendingCount = document.getElementById('pendingCount');
+    const pendingListContainer = document.getElementById('pendingListContainer');
 
-    bell.addEventListener('click', (event) => {
-        event.stopPropagation();
+    // Toggle dropdown
+    bell.addEventListener('click', function (e) {
+        e.stopPropagation();
         dropdown.classList.toggle('active');
     });
 
-    // close dropdown when clicking outside
-    window.addEventListener('click', function(e) {
-        if (!bell.contains(e.target)) {
-            dropdown.classList.remove('active');
-        }
+    window.addEventListener('click', function (e) {
+        if (!bell.contains(e.target)) dropdown.classList.remove('active');
     });
+
+    // Auto-refresh pending orders every 5 seconds
+    setInterval(loadPendingOrders, 5000);
+
+    function loadPendingOrders() {
+        axios.get('${pageContext.request.contextPath}/api/pendingOrders')
+            .then(response => {
+                const orders = response.data;
+
+                // Update badge visibility/count
+                if (orders.length > 0) {
+                    pendingCount.style.display = 'inline-block';
+                    pendingCount.textContent = orders.length;
+                } else {
+                    pendingCount.style.display = 'none';
+                }
+
+                // Refresh dropdown content
+                let html = "";
+
+                if (orders.length === 0) {
+                    html = `<div class="item"><p>No pending approvals 🎉</p></div>`;
+                } else {
+                    orders.forEach(o => {
+                        html += `
+                        <div class="item">
+                            <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
+                            <p>Total: ₹${o.totalCost}</p>
+
+                            <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
+                                <input type="hidden" name="id" value="${o.id}"/>
+                                <button class="btn-approve" name="status" value="APPROVED">Approve</button>
+                                <button class="btn-reject" name="status" value="REJECTED">Reject</button>
+                                <button class="btn-hold" name="status" value="HOLD">Hold</button>
+                            </form>
+                        </div>`;
+                    });
+                }
+
+                pendingListContainer.innerHTML = html;
+            })
+            .catch(err => {
+                console.error("Failed to fetch pending orders:", err);
+            });
+    }
 });
 </script>
 
