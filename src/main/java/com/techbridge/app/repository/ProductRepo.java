@@ -5,6 +5,7 @@ import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepo {
     List<String> fetchProducts();
@@ -16,4 +17,6 @@ public interface ProductRepo {
     List<PurchaseEntity> fetchPurchase();
 
     List<PurchaseEntity> findByStatus(ApprovalStatus approvalStatus);
+
+    PurchaseEntity findById(int id);
 }

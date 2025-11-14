@@ -6,155 +6,226 @@
 <html lang="en">
 <head>
     <title>Add Customer</title>
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f5f9f7;
+            background: #eef2f3;
             margin: 0;
-            padding: 0;
         }
+
         header {
-            background-color: #007f5f;
+            background: #0b8457;
             color: white;
-            padding: 16px 40px;
+            padding: 18px 40px;
+            font-size: 22px;
+            letter-spacing: 1px;
         }
+
         h2 {
             text-align: center;
-            color: #007f5f;
+            color: #0b8457;
+            margin-top: 25px;
         }
-        form {
-            background-color: white;
-            width: 70%;
-            margin: 30px auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+        .container {
+            width: 85%;
+            background: white;
+            margin: 25px auto;
+            padding: 30px 40px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
         }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 40px;
+        }
+
+        .full-width {
+            grid-column: 1 / 3;
+        }
+
         label {
-            font-weight: 500;
-            display: block;
+            font-weight: 600;
             margin-bottom: 6px;
+            display: block;
+            color: #333;
         }
+
         input, select, textarea {
             width: 100%;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
             border: 1px solid #ccc;
-            margin-bottom: 16px;
-            outline: none;
-            transition: border 0.3s;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: 0.3s ease;
         }
+
         input:focus, select:focus, textarea:focus {
-            border-color: #007f5f;
+            border-color: #0b8457;
+            box-shadow: 0 0 4px rgba(11,132,87,0.3);
         }
+
         textarea {
             resize: none;
-            height: 70px;
+            height: 90px;
         }
+
         .radio-group {
-            margin-bottom: 16px;
+            margin-top: 10px;
         }
+
         .radio-group label {
-            display: inline-block;
             margin-right: 20px;
+            font-weight: 500;
         }
-        .btn {
-            background-color: #007f5f;
+
+        .btn-submit {
+            background: #0b8457;
             color: white;
+            padding: 14px 20px;
             border: none;
-            padding: 12px 18px;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 17px;
             cursor: pointer;
+            width: 200px;
+            margin-top: 20px;
         }
-        .btn:hover {
-            background-color: #005f46;
+
+        .btn-submit:hover {
+            background: #086e46;
         }
+
         footer {
-            text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
+            background: #0b8457;
             color: white;
-            margin-top: 50px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        @media(max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: 1;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Vendor Laptop Portal</h1>
-</header>
+<header>Vendor Laptop Portal</header>
 
 <h2>Add Customer</h2>
 
-<form action="saveCustomer" method="post">
-    <label>Customer Name</label>
-    <input type="text" name="customerName" required />
+<div class="container">
+    <form action="saveCustomer" method="post">
 
-    <label>Customer Type</label>
-    <select name="customerType" required>
-        <option value="">--Select--</option>
-        <option value="Creditors">Creditor</option>
-        <option value="Debitors">Debitor</option>
-    </select>
+        <div class="grid">
 
-    <label>Email</label>
-    <input type="email" name="email" required />
+            <div>
+                <label>Customer Name</label>
+                <input type="text" name="customerName" required>
+            </div>
 
-    <label>Contact Number</label>
-    <input type="text" name="phoneNumber" required />
+            <div>
+                <label>Customer Type</label>
+                <select name="customerType" required>
+                    <option value="">--Select--</option>
+                    <option value="Creditors">Creditor</option>
+                    <option value="Debitors">Debitor</option>
+                </select>
+            </div>
 
-    <label>GST Number</label>
-    <input type="text" name="gstNumber" />
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
 
-    <label>Country</label>
-    <input type="text" name="country" value="India" readonly />
+            <div>
+                <label>Contact Number</label>
+                <input type="text" name="phoneNumber" required>
+            </div>
 
-    <label>Pin Code</label>
-    <input type="text" id="pincode" name="pincode" maxlength="6" required oninput="autoFillStateCity()" />
+            <div>
+                <label>GST Number</label>
+                <input type="text" name="gstNumber">
+            </div>
 
-    <label>State</label>
-    <select id="state" name="state" required>
-        <option value="">--Select State--</option>
-    </select>
+            <div>
+                <label>Country</label>
+                <input type="text" name="country" value="India" readonly>
+            </div>
 
-    <label>City</label>
-    <select id="city" name="city" required>
-        <option value="">--Select City--</option>
-    </select>
+            <div>
+                <label>Pin Code</label>
+                <input type="text" id="pincode" name="pincode" maxlength="6" required oninput="autoFillStateCity()">
+            </div>
 
-    <label>Address</label>
-    <textarea name="address"></textarea>
+            <div>
+                <label>State</label>
+                <select id="state" name="state" required>
+                    <option value="">--Select State--</option>
+                </select>
+            </div>
 
-    <label>Billing Address</label>
-    <textarea id="billingAddress" name="billingAddress"></textarea>
+            <div>
+                <label>City</label>
+                <select id="city" name="city" required>
+                    <option value="">--Select City--</option>
+                </select>
+            </div>
 
-    <div class="radio-group">
-        <p>Do you want shipping address same as billing address?</p>
-        <label><input type="radio" name="sameAddress" value="yes" onclick="copyAddress(true)"> Yes</label>
-        <label><input type="radio" name="sameAddress" value="no" onclick="copyAddress(false)"> No</label>
-    </div>
+            <div class="full-width">
+                <label>Address</label>
+                <textarea name="address"></textarea>
+            </div>
 
-    <label>Shipping Address</label>
-    <textarea id="shippingAddress" name="shippingAddress"></textarea>
+            <div class="full-width">
+                <label>Billing Address</label>
+                <textarea id="billingAddress" name="billingAddress"></textarea>
 
-    <label>Payment Mode</label>
-    <select name="paymentMode" required>
-        <option value="">--Select--</option>
-        <option value="UPI">UPI</option>
-        <option value="Cash">Cash</option>
-        <option value="Cheque">Cheque</option>
-    </select>
+                <div class="radio-group">
+                    <p>Shipping address same as billing?</p>
+                    <label><input type="radio" name="sameAddress" value="yes" onclick="copyAddress(true)"> Yes</label>
+                    <label><input type="radio" name="sameAddress" value="no" onclick="copyAddress(false)"> No</label>
+                </div>
+            </div>
 
-    <button type="submit" class="btn">Submit</button>
-</form>
+            <div class="full-width">
+                <label>Shipping Address</label>
+                <textarea id="shippingAddress" name="shippingAddress"></textarea>
+            </div>
+
+            <div class="full-width">
+                <label>Payment Mode</label>
+                <select name="paymentMode" required>
+                    <option value="">--Select--</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Cheque">Cheque</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</div>
 
 <footer>
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
+
+<!-- Original JS copied (unchanged) -->
 <script>
-    // ✅ Static state-city list
     const stateCityData = {
         "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
         "Karnataka": ["Bengaluru", "Mysuru", "Hubballi"],
@@ -164,7 +235,6 @@
         "Gujarat": ["Ahmedabad", "Surat", "Vadodara"]
     };
 
-    // ✅ Sample Pincode Mapping (Add more easily)
     const pinCodeData = {
         "600001": { state: "Tamil Nadu", city: "Chennai" },
         "641001": { state: "Tamil Nadu", city: "Coimbatore" },
@@ -178,7 +248,6 @@
     const stateDropdown = document.getElementById("state");
     const cityDropdown = document.getElementById("city");
 
-    // Load states into dropdown
     function loadStates() {
         for (const state in stateCityData) {
             const option = document.createElement("option");
@@ -188,12 +257,11 @@
         }
     }
 
-    // Load cities when state changes
     stateDropdown.addEventListener("change", function() {
-        const selectedState = this.value;
+        const selected = this.value;
         cityDropdown.innerHTML = '<option value="">--Select City--</option>';
-        if (selectedState && stateCityData[selectedState]) {
-            stateCityData[selectedState].forEach(city => {
+        if (selected && stateCityData[selected]) {
+            stateCityData[selected].forEach(city => {
                 const option = document.createElement("option");
                 option.value = city;
                 option.textContent = city;
@@ -204,24 +272,22 @@
 
     loadStates();
 
-    // ✅ Auto-fill State & City from PIN
     function autoFillStateCity() {
         const pin = document.getElementById("pincode").value.trim();
         if (pin.length === 6 && pinCodeData[pin]) {
             const { state, city } = pinCodeData[pin];
             stateDropdown.value = state;
-
-            // Refresh city dropdown for that state
             cityDropdown.innerHTML = '<option value="">--Select City--</option>';
             stateCityData[state].forEach(c => {
-                const option = document.createElement("option");
-                option.value = c;
-                option.textContent = c;
-                cityDropdown.appendChild(option);
+                const op = document.createElement("option");
+                op.value = c;
+                op.textContent = c;
+                cityDropdown.appendChild(op);
             });
             cityDropdown.value = city;
         }
     }
+
     function copyAddress(isSame) {
         const billing = document.getElementById('billingAddress');
         const shipping = document.getElementById('shippingAddress');

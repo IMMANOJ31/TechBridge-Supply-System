@@ -14,7 +14,8 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "fetchPurchase",query = "from PurchaseEntity"),
-        @NamedQuery(name = "approval", query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status")
+        @NamedQuery(name = "approval", query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status"),
+        @NamedQuery(name = "findById",query = "Select r from PurchaseEntity r where r.id =: id")
 
 })
 public class PurchaseEntity {
