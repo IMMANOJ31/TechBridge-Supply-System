@@ -7,209 +7,154 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-           /* ===== Color Palette ===== */
-           :root {
-               --primary: #005F73;       /* Deep Teal */
-               --secondary: #0A9396;     /* Teal Accent */
-               --light: #E9F5F2;         /* Soft Aqua */
-               --accent: #94D2BD;        /* Mint */
-               --text: #1B1B1B;          /* Dark Gray */
-           }
+        body {
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-           /* ===== Base ===== */
-           * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: "Segoe UI", Tahoma, sans-serif;
-           }
+        /* Glass Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            height: 65px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+        }
 
-           body {
-               background: linear-gradient(135deg, #E9F5F2, #D8F3DC);
-               color: var(--text);
-               overflow-x: hidden;
-           }
+        .navbar-brand {
+            font-size: 1.3rem !important;
+            color: #ffffff !important;
+        }
 
-           /* ===== Header ===== */
-           header {
-               background-color: var(--primary);
-               color: white;
-               position: fixed;
-               top: 0;
-               width: 100%;
-               height: 70px;
-               display: flex;
-               justify-content: space-between;
-               align-items: center;
-               padding: 0 40px;
-               box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-               z-index: 1000;
-           }
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            color: #ffffff !important;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            padding: 6px 18px !important;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.75);
+            color: #000 !important;
+        }
 
-           header h1 {
-               font-size: 1.7em;
-               font-weight: 600;
-               letter-spacing: .5px;
-               cursor: pointer;
-           }
+        .main-wrapper {
+            padding-top: 110px;
+            padding-bottom: 80px;
+        }
 
-           nav a {
-               text-decoration: none;
-               color: white;
-               margin-left: 30px;
-               font-weight: 600;
-               padding: 10px 18px;
-               border-radius: 25px;
-               transition: 0.3s ease;
-               border: 1px solid transparent;
-           }
+        /* Glass Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.20);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
 
-           nav a:hover {
-               background: var(--secondary);
-               border-color: white;
-           }
+        /* Typography */
+        h2, h4 {
+            color: #1a1a1a !important;   /* Dark text */
+        }
 
-           /* ===== Dynamic Body ===== */
-           main {
-               margin-top: 90px;
-               margin-bottom: 90px;
-               padding: 40px;
-               min-height: 80vh;
-           }
+        p {
+            color: #2c2c2c !important;   /* Slightly lighter dark text */
+        }
 
-           /* ===== Hero Section ===== */
-           .hero {
-               background: white;
-               border-radius: 16px;
-               padding: 50px;
-               text-align: center;
-               box-shadow: 0 5px 18px rgba(0,0,0,0.1);
-               transition: 0.3s ease;
-           }
+        footer {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+        }
 
-           .hero:hover {
-               transform: translateY(-5px);
-           }
-
-           .hero h2 {
-               color: var(--secondary);
-               font-size: 2.3em;
-               margin-bottom: 10px;
-           }
-
-           .hero p {
-               font-size: 1.15em;
-               color: #333;
-               margin-bottom: 30px;
-           }
-
-           .btn {
-               background: var(--secondary);
-               color: white;
-               padding: 14px 30px;
-               border: none;
-               border-radius: 30px;
-               cursor: pointer;
-               font-size: 1em;
-               font-weight: 600;
-               transition: 0.3s ease;
-           }
-
-           .btn:hover {
-               background: var(--primary);
-               box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-           }
-
-           /* ===== Laptop Cards ===== */
-           .laptop-section {
-               margin-top: 60px;
-               display: grid;
-               grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-               gap: 30px;
-           }
-
-           .card {
-               background: white;
-               border-radius: 14px;
-               box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-               padding: 25px;
-               text-align: center;
-               transition: 0.35s ease;
-               cursor: pointer;
-           }
-
-           .card:hover {
-               transform: translateY(-10px) scale(1.02);
-               box-shadow: 0 8px 20px rgba(0,0,0,0.18);
-           }
-
-           .card img {
-               width: 100%;
-               border-radius: 12px;
-           }
-
-           .card h4 {
-               margin-top: 12px;
-               color: var(--primary);
-               font-size: 1.3em;
-               font-weight: 600;
-           }
-
-           /* ===== Footer ===== */
-           footer {
-               background-color: var(--primary);
-               color: white;
-               text-align: center;
-               padding: 20px;
-               position: fixed;
-               bottom: 0;
-               width: 100%;
-               font-size: 0.9em;
-               letter-spacing: 0.3px;
-               box-shadow: 0 -3px 12px rgba(0,0,0,0.2);
-           }
-
-       </style>
+        .card-img-top {
+            border-radius: 16px;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Vendor Laptop Portal</h1>
-    <nav>
-        <a href="login" class="btn btn-primary">Login</a>
-    </nav>
-</header>
+<!-- NAVBAR -->
+<nav class="navbar glass-nav navbar-expand-lg fixed-top">
+    <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+        <span class="navbar-brand fw-bold">Vendor Laptop Portal</span>
 
-<main>
-    <section class="hero">
-        <h2>Welcome to TechBridge</h2>
+        <a href="login" class="btn glass-btn">
+            Login
+        </a>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container main-wrapper">
+
+    <!-- HERO CARD -->
+    <div class="glass-card p-5 text-center mb-5">
+        <h2 class="fw-bold">Welcome to TechBridge</h2>
         <p>Manage your laptop procurement efficiently</p>
-        <button class="btn" onclick="window.location.href='index'">Explore Now</button>
-    </section>
 
-    <section class="laptop-section">
-        <div class="card">
-            <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/r/3/b/-original-imahcd9zj95zxak8.jpeg?q=70&crop=false" alt="Laptop Model 1">
-            <h4>HP Pavilion</h4>
-            <p>Powerful performance and modern design for showrooms</p>
-        </div>
-        <div class="card">
-            <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/e/o/n/thinkpad-e14-business-laptop-lenovo-original-imah7qfvgmgmyzfu.jpeg?q=70&crop=false" alt="Laptop Model 2">
-            <h4>Lenovo ThinkPad</h4>
-            <p>Business-class reliability and robust build quality</p>
-        </div>
-        <div class="card">
-            <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/u/s/a/-original-imahcd9nc6gfaxrz.jpeg?q=70&crop=false" alt="Laptop Model 3">
-            <h4>Asus ZenBook</h4>
-            <p>Lightweight, fast, and stylish — perfect for display units</p>
-        </div>
-    </section>
-</main>
+        <button class="btn glass-btn mt-2 px-4 py-2"
+                onclick="window.location.href='index'">
+            Explore Now
+        </button>
+    </div>
 
-<footer>
+    <!-- LAPTOP CARDS -->
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="glass-card p-3 h-100 text-center">
+                <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/r/3/b/-original-imahcd9zj95zxak8.jpeg?q=70&crop=false"
+                     class="card-img-top mb-3">
+                <h4>HP Pavilion</h4>
+                <p>Powerful performance and modern design for showrooms</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass-card p-3 h-100 text-center">
+                <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/e/o/n/thinkpad-e14-business-laptop-lenovo-original-imah7qfvgmgmyzfu.jpeg?q=70&crop=false"
+                     class="card-img-top mb-3">
+                <h4>Lenovo ThinkPad</h4>
+                <p>Business-class reliability and robust build quality</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass-card p-3 h-100 text-center">
+                <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/computer/u/s/a/-original-imahcd9nc6gfaxrz.jpeg?q=70&crop=false"
+                     class="card-img-top mb-3">
+                <h4>Asus ZenBook</h4>
+                <p>Lightweight, fast, and stylish — perfect for display units</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center py-3 mt-4">
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

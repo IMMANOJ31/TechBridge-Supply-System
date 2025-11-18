@@ -8,150 +8,147 @@
     <meta charset="UTF-8">
     <title>Purchase Order</title>
 
-    <style>
-        /* ===== Color Palette ===== */
-        :root {
-            --primary: #005F73;       /* Deep Teal */
-            --secondary: #0A9396;     /* Teal Accent */
-            --light: #E9F5F2;         /* Soft Aqua */
-            --accent: #94D2BD;        /* Mint */
-            --text: #1B1B1B;          /* Dark Gray */
-        }
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        /* ===== Base ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, sans-serif;
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        /* ===== COLOR PALETTE TO MATCH DASHBOARD ===== */
+        :root {
+            --primary: #1A73E8;
+            --secondary: #3AA6F2;
+            --light-bg: #E3F2FD;
+            --white: #ffffff;
+            --text-dark: #0A1E33;
         }
 
         body {
-            background: linear-gradient(135deg, #E9F5F2, #D8F3DC);
-            color: var(--text);
+            background: linear-gradient(135deg, #B5E8FF, #D9F1FF, #C3EDFF);
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            color: var(--text-dark);
         }
 
-        /* ===== Header ===== */
-        header {
-            background-color: var(--primary);
-            color: white;
+        /* ===== HEADER ===== */
+        .main-header {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            height: 70px;
+            padding: 0 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             position: fixed;
             top: 0;
             width: 100%;
-            height: 70px;
+            z-index: 999;
+        }
+
+        .main-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #004B8D;
+        }
+
+        /* Right Menu */
+        .top-menu {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-            z-index: 1000;
+            gap: 15px;
         }
 
-        header h1 {
-            font-size: 1.7em;
-            font-weight: 600;
-        }
-
-        /* Back Button */
-        .back-btn {
-            text-decoration: none;
-            background: var(--secondary);
-            color: white;
-            padding: 10px 18px;
+        .dropdown-toggle {
             border-radius: 25px;
-            border: 1px solid white;
+            padding: 8px 18px;
             font-weight: 600;
-            transition: 0.3s ease;
         }
 
-        .back-btn:hover {
-            background: var(--accent);
-            color: var(--text);
+        .logout-btn {
+            border-radius: 25px;
+            padding: 8px 18px;
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .logout-btn:hover {
+            background: var(--primary);
+            color: white;
         }
 
-        /* ===== Container ===== */
-        .container {
-            background: white;
-            width: 70%;
-            margin: 120px auto 50px;
+        /* ===== FORM CARD ===== */
+        .form-wrapper {
+            max-width: 900px;
+            margin: 120px auto;
             padding: 40px;
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-            animation: fadeIn 0.6s ease;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            animation: fadeIn .6s ease;
         }
 
-        h2 {
+        .form-title {
+            font-size: 30px;
             text-align: center;
-            color: var(--secondary);
+            font-weight: 700;
+            color: #0056B3;
             margin-bottom: 25px;
-            font-size: 1.8em;
         }
 
-        /* ===== Form Inputs ===== */
         label {
-            display: block;
-            margin-bottom: 6px;
             font-weight: 600;
-            color: #222;
+            color: var(--primary);
         }
 
         input, select {
-            width: 100%;
-            padding: 12px 14px;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            border: 2px solid var(--accent);
-            background-color: var(--light);
-            transition: .3s ease;
+            border-radius: 12px;
+            border: 2px solid var(--secondary);
+            background: #F0F9FF;
+            padding: 12px;
         }
 
         input:focus, select:focus {
-            border-color: var(--secondary);
-            background: #ffffff;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 6px rgba(0,123,255,0.35);
         }
 
-        input[readonly] {
-            background: #eaeaea;
-            cursor: not-allowed;
-            border-color: #ccc;
-        }
-
-        /* ===== Button ===== */
-        .btn {
-            display: block;
+        /* ===== BUTTON ===== */
+        .btn-submit {
             width: 100%;
-            background-color: var(--primary);
-            color: white;
             padding: 14px;
-            border: none;
-            border-radius: 12px;
+            font-size: 18px;
             font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: .3s ease;
-        }
-
-        .btn:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
-        }
-
-        /* ===== Footer ===== */
-        footer {
-            background-color: var(--primary);
+            background: var(--primary);
             color: white;
+            border-radius: 12px;
+            border: none;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
             text-align: center;
-            padding: 18px;
+            padding: 12px;
+            font-size: 14px;
             position: fixed;
             bottom: 0;
             width: 100%;
-            font-size: 0.9em;
-            box-shadow: 0 -3px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            color: #003F7F;
         }
 
-        /* Animation */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -159,71 +156,120 @@
 
 <body>
 
-<header>
-    <a href="${pageContext.request.contextPath}/userPage" class="back-btn">Back</a>
-    <h1>Purchase</h1>
-    <div></div>
-</header>
-
-<div class="container">
+<!-- HEADER -->
+<header class="main-header">
     <h2>Purchase Order</h2>
 
-    <form action="${pageContext.request.contextPath}/purchaseOrder" method="post" onsubmit="return notifyAdmin();">
-        <input type="hidden" name="status" value="PENDING" />
+    <div class="top-menu">
 
-        <label>Voucher Type</label>
-        <input type="text" name="voucherType" value="${voucherType}" readonly />
+        <!-- ORDER DROPDOWN -->
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                Order
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/purchase">Create Purchase</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sales">Create Sales</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/orders">View Orders</a></li>
+            </ul>
+        </div>
 
-        <label>Customer Name</label>
-        <select name="customerName" required>
-            <option value="">--Select Customer--</option>
-            <c:forEach var="cust" items="${customers}">
-                <option value="${cust.customerName}">${cust.customerName}</option>
-            </c:forEach>
-        </select>
+        <!-- LOGOUT -->
+        <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
 
-        <label>Product Group</label>
-        <select name="productGroup" required>
-            <option value="">--Select Product Group--</option>
-            <c:forEach var="group" items="${productGroups}">
-                <option value="${group}">${group}</option>
-            </c:forEach>
-        </select>
+<!-- FORM -->
+<div class="form-wrapper">
+    <h2 class="form-title">Create New Purchase Order</h2>
 
-        <label>Make</label>
-        <input type="text" id="make" name="make" required />
+    <form action="${pageContext.request.contextPath}/purchaseOrder" method="post">
 
-        <label>Model</label>
-        <input type="text" id="model" name="model" required />
+        <input type="hidden" name="status" value="PENDING">
 
-        <label>Product Code</label>
-        <input type="text" id="productCode" name="productCode" required />
+        <div class="row gy-3">
 
-        <label>Item Name</label>
-        <input type="text" id="itemName" name="itemName" readonly />
+            <div class="col-md-6">
+                <label>Voucher Type</label>
+                <input type="text" name="voucherType" value="${voucherType}" readonly>
+            </div>
 
-        <label>Purchase Price</label>
-        <input type="number" step="0.01" id="purchasePrice" name="purchasePrice" required />
+            <div class="col-md-6">
+                <label>Customer Name</label>
+                <select name="customerName" required>
+                    <option value="">-- Select Customer --</option>
+                    <c:forEach var="cust" items="${customers}">
+                        <option>${cust.customerName}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-        <label>Quantity</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+            <div class="col-md-6">
+                <label>Product Group</label>
+                <select name="productGroup" required>
+                    <option value="">-- Select Product Group --</option>
+                    <c:forEach var="group" items="${productGroups}">
+                        <option>${group}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-        <label>Total Cost</label>
-        <input type="number" step="0.01" id="totalCost" name="totalCost" readonly />
+            <div class="col-md-6">
+                <label>Make</label>
+                <input type="text" id="make" name="make" required>
+            </div>
 
-        <label>Due Date</label>
-        <input type="date" name="dueDate" required />
+            <div class="col-md-6">
+                <label>Model</label>
+                <input type="text" id="model" name="model" required>
+            </div>
 
-        <button type="submit" class="btn">Place Order</button>
+            <div class="col-md-6">
+                <label>Product Code</label>
+                <input type="text" id="productCode" name="productCode" required>
+            </div>
+
+            <div class="col-md-12">
+                <label>Item Name</label>
+                <input type="text" id="itemName" name="itemName" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label>Purchase Price</label>
+                <input type="number" id="purchasePrice" step="0.01" name="purchasePrice" required>
+            </div>
+
+            <div class="col-md-6">
+                <label>Quantity</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+            </div>
+
+            <div class="col-md-12">
+                <label>Total Cost</label>
+                <input type="number" id="totalCost" step="0.01" readonly>
+            </div>
+
+            <div class="col-md-12">
+                <label>Due Date</label>
+                <input type="date" name="dueDate" required>
+            </div>
+        </div>
+
+        <button class="btn-submit mt-3">Place Order</button>
     </form>
 </div>
 
+<!-- FOOTER -->
 <footer>
-    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+    © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Your Script Added Below -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     const make = document.getElementById("make");
     const model = document.getElementById("model");
     const code = document.getElementById("productCode");
@@ -235,7 +281,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateItem() {
         item.value = [make.value, model.value, code.value].filter(Boolean).join(" ");
     }
-
     function updateTotal() {
         total.value = (qty.value * price.value || 0).toFixed(2);
     }
@@ -246,11 +291,6 @@ document.addEventListener("DOMContentLoaded", function () {
     qty.addEventListener("input", updateTotal);
     price.addEventListener("input", updateTotal);
 });
-
-function notifyAdmin() {
-    alert("Your purchase order has been submitted to Admin for approval.");
-    return true;
-}
 </script>
 
 </body>
