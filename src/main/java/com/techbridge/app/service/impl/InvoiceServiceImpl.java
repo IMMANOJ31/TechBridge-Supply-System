@@ -20,13 +20,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         Document document = new Document();
         PdfWriter.getInstance(document, outputStream);
 
-        document.open();
-        document.add(new Paragraph("INVOICE"));
-        document.add(new Paragraph("Customer: " + purchase.getCustomerName()));
-        document.add(new Paragraph("Item: " + purchase.getItemName()));
-        document.add(new Paragraph("Quantity: " + purchase.getQuantity()));
-        document.add(new Paragraph("Total Cost: " + purchase.getTotalCost()));
-        document.close();
+//        document.open();
+//        document.add(new Paragraph("INVOICE"));
+//        document.add(new Paragraph("Customer: " + purchase.getCustomerName()));
+//        document.add(new Paragraph("Item: " + purchase.getItemName()));
+//        document.add(new Paragraph("Quantity: " + purchase.getQuantity()));
+//        document.add(new Paragraph("Total Cost: " + purchase.getTotalCost()));
+//        document.close();
 
         return outputStream.toByteArray();
     }

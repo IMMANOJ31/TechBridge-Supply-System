@@ -8,150 +8,169 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <style>
-        /* ===== Color Palette ===== */
-        :root {
-            --primary: #00796B;       /* Teal */
-            --secondary: #004D40;     /* Dark Teal */
-            --light: #F1F8E9;         /* Soft Green-Gray */
-            --accent: #00BFA5;        /* Vibrant Teal */
-            --text: #212121;          /* Charcoal */
-        }
+           /* ===== Color Palette ===== */
+           :root {
+               --primary: #005F73;       /* Deep Teal */
+               --secondary: #0A9396;     /* Teal Accent */
+               --light: #E9F5F2;         /* Soft Aqua */
+               --accent: #94D2BD;        /* Mint */
+               --text: #1B1B1B;          /* Dark Gray */
+           }
 
-        /* ===== Base ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+           /* ===== Base ===== */
+           * {
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+               font-family: "Segoe UI", Tahoma, sans-serif;
+           }
 
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            overflow-x: hidden;
-        }
+           body {
+               background: linear-gradient(135deg, #E9F5F2, #D8F3DC);
+               color: var(--text);
+               overflow-x: hidden;
+           }
 
-        /* ===== Header ===== */
-        header {
-            background-color: var(--primary);
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
+           /* ===== Header ===== */
+           header {
+               background-color: var(--primary);
+               color: white;
+               position: fixed;
+               top: 0;
+               width: 100%;
+               height: 70px;
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               padding: 0 40px;
+               box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+               z-index: 1000;
+           }
 
-        header h1 {
-            font-size: 1.6em;
-            cursor: pointer;
-        }
+           header h1 {
+               font-size: 1.7em;
+               font-weight: 600;
+               letter-spacing: .5px;
+               cursor: pointer;
+           }
 
-        nav a {
-            text-decoration: none;
-            color: white;
-            margin-left: 30px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+           nav a {
+               text-decoration: none;
+               color: white;
+               margin-left: 30px;
+               font-weight: 600;
+               padding: 10px 18px;
+               border-radius: 25px;
+               transition: 0.3s ease;
+               border: 1px solid transparent;
+           }
 
-        nav a:hover {
-            color: var(--accent);
-        }
+           nav a:hover {
+               background: var(--secondary);
+               border-color: white;
+           }
 
-        /* ===== Dynamic Body ===== */
-        main {
-            margin-top: 90px;
-            margin-bottom: 90px;
-            padding: 40px;
-            min-height: 80vh;
-        }
+           /* ===== Dynamic Body ===== */
+           main {
+               margin-top: 90px;
+               margin-bottom: 90px;
+               padding: 40px;
+               min-height: 80vh;
+           }
 
-        .hero {
-            background-color: white;
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+           /* ===== Hero Section ===== */
+           .hero {
+               background: white;
+               border-radius: 16px;
+               padding: 50px;
+               text-align: center;
+               box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+               transition: 0.3s ease;
+           }
 
-        .hero h2 {
-            color: var(--secondary);
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
+           .hero:hover {
+               transform: translateY(-5px);
+           }
 
-        .hero p {
-            font-size: 1.1em;
-            color: #444;
-            margin-bottom: 30px;
-        }
+           .hero h2 {
+               color: var(--secondary);
+               font-size: 2.3em;
+               margin-bottom: 10px;
+           }
 
-        .btn {
-            background-color: var(--accent);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s ease;
-        }
+           .hero p {
+               font-size: 1.15em;
+               color: #333;
+               margin-bottom: 30px;
+           }
 
-        .btn:hover {
-            background-color: var(--secondary);
-        }
+           .btn {
+               background: var(--secondary);
+               color: white;
+               padding: 14px 30px;
+               border: none;
+               border-radius: 30px;
+               cursor: pointer;
+               font-size: 1em;
+               font-weight: 600;
+               transition: 0.3s ease;
+           }
 
-        /* ===== Footer ===== */
-        footer {
-            background-color: var(--secondary);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            font-size: 0.9em;
-        }
+           .btn:hover {
+               background: var(--primary);
+               box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+           }
 
-        /* ===== Scroll Section Example ===== */
-        .laptop-section {
-            margin-top: 50px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
+           /* ===== Laptop Cards ===== */
+           .laptop-section {
+               margin-top: 60px;
+               display: grid;
+               grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+               gap: 30px;
+           }
 
-        .card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
+           .card {
+               background: white;
+               border-radius: 14px;
+               box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+               padding: 25px;
+               text-align: center;
+               transition: 0.35s ease;
+               cursor: pointer;
+           }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+           .card:hover {
+               transform: translateY(-10px) scale(1.02);
+               box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+           }
 
-        .card img {
-            width: 100%;
-            border-radius: 10px;
-        }
+           .card img {
+               width: 100%;
+               border-radius: 12px;
+           }
 
-        .card h4 {
-            margin-top: 10px;
-            color: var(--primary);
-        }
-    </style>
+           .card h4 {
+               margin-top: 12px;
+               color: var(--primary);
+               font-size: 1.3em;
+               font-weight: 600;
+           }
+
+           /* ===== Footer ===== */
+           footer {
+               background-color: var(--primary);
+               color: white;
+               text-align: center;
+               padding: 20px;
+               position: fixed;
+               bottom: 0;
+               width: 100%;
+               font-size: 0.9em;
+               letter-spacing: 0.3px;
+               box-shadow: 0 -3px 12px rgba(0,0,0,0.2);
+           }
+
+       </style>
 </head>
 <body>
 

@@ -6,104 +6,155 @@
 <head>
     <meta charset="UTF-8">
     <title>Purchase List</title>
+
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f7f5;
-            margin: 0;
+        /* ===== Color Palette ===== */
+        :root {
+            --primary: #005F73;       /* Deep Teal */
+            --secondary: #0A9396;     /* Teal Accent */
+            --light: #E9F5F2;         /* Soft Aqua */
+            --accent: #94D2BD;        /* Mint */
+            --text: #1B1B1B;          /* Dark Gray */
         }
 
+        /* ===== Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #E9F5F2, #D8F3DC);
+            color: var(--text);
+        }
+
+        /* ===== Header ===== */
         header {
-            background-color: #007f5f;
+            background-color: var(--primary);
             color: white;
-            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 40px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+            z-index: 1000;
         }
 
         header h1 {
-            font-size: 1.5rem;
+            font-size: 1.7em;
             font-weight: 600;
+            letter-spacing: .5px;
         }
 
+        /* ===== Buttons ===== */
         .back-btn {
-            background-color: white;
-            color: #007f5f;
-            padding: 8px 18px;
-            border-radius: 20px;
+            background: white;
+            color: var(--primary);
+            padding: 10px 16px;
+            border-radius: 22px;
             text-decoration: none;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: 0.3s;
+            border: 2px solid var(--accent);
         }
 
         .back-btn:hover {
-            background-color: #e6f7ef;
+            background: var(--light);
+            border-color: var(--secondary);
         }
 
+        /* ===== Container ===== */
         .container {
-            width: 90%;
-            margin: 40px auto;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 30px;
+            width: 90%;
+            margin: 120px auto 40px auto;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            animation: fadeIn 0.6s ease;
         }
 
         h2 {
             text-align: center;
-            color: #007f5f;
-            margin-bottom: 25px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.8em;
         }
 
+        /* ===== Search Box ===== */
+        .search-box {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            padding: 10px 14px;
+            width: 280px;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+            background: var(--light);
+            transition: 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--secondary);
+            background: white;
+        }
+
+        /* ===== Table ===== */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         th, td {
-            padding: 12px 14px;
+            padding: 14px 16px;
             border-bottom: 1px solid #ddd;
             text-align: left;
+            font-size: 0.95em;
         }
 
         th {
-            background-color: #007f5f;
+            background: var(--primary);
             color: white;
             font-weight: 600;
         }
 
         tr:hover {
-            background-color: #f1f9f4;
+            background-color: var(--light);
         }
 
         .no-data {
             text-align: center;
-            color: #666;
             font-style: italic;
             padding: 20px;
+            color: var(--text);
         }
 
-        .search-box {
-            margin-bottom: 20px;
-            text-align: right;
+        /* ===== Animation ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        input[type="text"] {
-            padding: 8px 10px;
-            width: 250px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
+        /* ===== Footer ===== */
         footer {
-            text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
+            background-color: var(--primary);
             color: white;
-            margin-top: 80px;
+            text-align: center;
+            padding: 18px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
             font-size: 0.9em;
+            box-shadow: 0 -3px 12px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -141,7 +192,6 @@
         <tbody>
         <c:choose>
             <c:when test="${not empty purchaseEntity}">
-                <!-- Added varStatus="loop" to generate serial number -->
                 <c:forEach var="p" items="${purchaseEntity}" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
@@ -171,7 +221,7 @@
 </footer>
 
 <script>
-    // 🔍 Simple client-side search filter
+    // 🔍 Search filter
     document.getElementById("searchInput").addEventListener("keyup", function () {
         const filter = this.value.toLowerCase();
         const rows = document.querySelectorAll("#purchaseTable tbody tr");

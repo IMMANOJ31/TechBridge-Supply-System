@@ -6,126 +6,186 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
     <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f3f9f4;
+        /* ===== Color Palette ===== */
+        :root {
+            --primary: #005F73;       /* Deep Teal */
+            --secondary: #0A9396;     /* Teal Accent */
+            --light: #E9F5F2;         /* Soft Aqua */
+            --accent: #94D2BD;        /* Mint */
+            --text: #1B1B1B;          /* Dark Gray */
         }
 
-        /* Header */
+        /* ===== Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #E9F5F2, #D8F3DC);
+            color: var(--text);
+        }
+
+        /* ===== Header ===== */
         header {
-            background-color: #007f5f;
+            background-color: var(--primary);
             color: white;
-            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 40px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+            z-index: 1000;
         }
 
         header h1 {
-            font-size: 1.5rem;
+            font-size: 1.7em;
             font-weight: 600;
+            letter-spacing: .5px;
+            cursor: pointer;
         }
 
-        header .login-btn {
-            background-color: white;
-            color: #007f5f;
-            padding: 8px 18px;
-            border-radius: 20px;
+        .login-btn {
             text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
+            color: white;
+            background: var(--secondary);
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 1px solid white;
+            transition: 0.3s ease;
         }
 
-        header .login-btn:hover {
-            background-color: #e6f7ef;
+        .login-btn:hover {
+            background: var(--accent);
+            color: var(--text);
         }
 
-        /* Centered Login Box */
+        /* ===== Login Container ===== */
         .login-container {
+            margin: 140px auto;
+            max-width: 420px;
             background: white;
-            width: 380px;
-            margin: 80px auto;
+            padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 40px 35px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
             text-align: center;
+            animation: fadeIn 0.6s ease;
         }
 
-        h2 {
-            color: #007f5f;
-            margin-bottom: 25px;
+        /* Login Title */
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-size: 1.9em;
+            font-weight: 700;
         }
 
-        label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: #333;
+        /* ===== Form Styles ===== */
+        .login-container form {
+            margin-top: 20px;
             text-align: left;
         }
 
-        input {
+        .login-container label {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0 20px 0;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
             outline: none;
-            transition: border 0.3s;
-            margin-bottom: 18px;
+            background: #f9ffff;
+            transition: 0.25s ease;
         }
 
-        input:focus {
-            border-color: #007f5f;
+        .login-container input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 8px rgba(10,147,150,0.3);
         }
 
-        .btn {
+        /* Login Button */
+        .login-container .btn {
             width: 100%;
-            padding: 10px;
-            background-color: #007f5f;
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--secondary);
             color: white;
             border: none;
-            border-radius: 8px;
             font-weight: 600;
+            font-size: 1em;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: 0.3s ease;
         }
 
-        .btn:hover {
-            background-color: #005f46;
+        .login-container .btn:hover {
+            background: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
+        /* ===== Forgot Password Link ===== */
         .note {
-            margin-top: 15px;
-            font-size: 0.9em;
+            text-align: center;
+            margin-top: 12px;
         }
 
         .note a {
-            color: #007f5f;
+            color: var(--secondary);
+            font-weight: 600;
             text-decoration: none;
-            font-weight: 500;
         }
 
         .note a:hover {
             text-decoration: underline;
         }
 
+        /* ===== Error Message ===== */
         .error {
-            color: red;
+            color: #D7263D;
+            background: #FFE5E8;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
             margin-bottom: 15px;
+            border: 1px solid #ffb5be;
         }
 
-        footer {
-            text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
-            color: white;
-            margin-top: 100px;
-            font-size: 0.9em;
+        /* ===== Animation ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ===== Footer ===== */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9em;
+            letter-spacing: 0.3px;
+            box-shadow: 0 -3px 12px rgba(0,0,0,0.2);
+        }
+
     </style>
 </head>
+
 <body>
 
 <header>
@@ -136,12 +196,10 @@
 <div class="login-container">
     <h2>Login</h2>
 
-    <!-- Display error message if login fails -->
     <c:if test="${not empty error}">
         <p class="error">${error}</p>
     </c:if>
 
-    <!-- Login Form -->
     <form method="post" action="login">
         <label for="emailOrPhone">Email or Phone</label>
         <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter email or phone number" required />
