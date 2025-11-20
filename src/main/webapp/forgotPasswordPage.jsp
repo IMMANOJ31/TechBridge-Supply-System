@@ -1,172 +1,169 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forget Password</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            margin: 0;
+            background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f3f9f4;
         }
 
-        /* Header */
-        header {
-            background-color: #007f5f;
-            color: white;
-            padding: 16px 40px;
+        /* PREVENT SCROLLING */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .page-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* HEADER */
+        .header-bar {
+            background: linear-gradient(90deg, #c8f2ff, #d8f9ff, #c8f2ff);
+            padding: 18px 35px;
+            font-weight: 800;
+            font-size: 26px;
+            color: #007f7f;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
+        .home-link {
+            color: white;
+            font-size: 18px;
+            text-decoration: underline;
+            padding: 8px 22px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
         }
 
-        header .nav-btn {
-            background-color: white;
-            color: #007f5f;
-            padding: 8px 18px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        header .nav-btn:hover {
-            background-color: #e6f7ef;
-        }
-
-        /* Container */
-        .container-box {
-            background: white;
+        /* CARD */
+        .fp-card {
             width: 420px;
-            margin: 60px auto;
-            padding: 40px 35px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 22px;
+            padding: 35px 40px;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
         }
 
-        h2 {
-            text-align: center;
-            color: #007f5f;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        label {
-            font-weight: 500;
-            color: #333;
-        }
-
-        input[type="email"],
-        input[type="text"] {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            outline: none;
-            transition: border 0.3s;
-        }
-
-        input:focus {
-            border-color: #007f5f;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 10px;
+        .form-control {
+            background: rgba(255,255,255,0.60);
+            border-radius: 10px;
+            height: 48px;
             border: none;
-            border-radius: 8px;
+            padding-left: 14px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .btn-custom {
+            width: 100%;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 17px;
+            background: rgba(255, 255, 255, 0.35);
+            color: #007f7f;
             font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: background 0.3s;
+            border: none;
+            transition: 0.25s ease-in-out;
         }
 
-        .btn-primary {
-            background-color: #007f5f;
+        .btn-custom:hover {
+            background: rgba(255, 255, 255, 0.60);
         }
 
-        .btn-primary:hover {
-            background-color: #005f46;
-        }
-
-        .btn-success {
-            background-color: #34a853;
-        }
-
-        .btn-success:hover {
-            background-color: #27883f;
-        }
-
-        hr {
-            border: 0;
+        .divider {
             height: 1px;
-            background: #ddd;
-            margin: 25px 0;
+            background: rgba(0, 0, 0, 0.20);
+            margin: 18px 0 25px 0;
         }
 
-        .text-danger {
-            color: red;
-            font-size: 0.9em;
-        }
-
+        /* FOOTER */
         footer {
+            background: #c3f2ff;
+            padding: 12px;
             text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
-            color: white;
-            margin-top: 100px;
-            font-size: 0.9em;
+            color: #006666;
+            font-weight: 600;
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>Vendor Laptop Portal</h1>
-    <a href="login" class="nav-btn">Login</a>
-</header>
+<div class="page-wrapper">
 
-<div class="container-box">
-    <h2>Forgot Password</h2>
+    <!-- HEADER -->
+    <div class="header-bar">
+        Vendor Laptop Portal
+        <a href="login" class="home-link">Home</a>
+    </div>
 
-    <!-- Send OTP Form -->
-    <form action="sendOtp" method="post" id="sendOtpForm">
-        <label for="inputEmail">Enter Email</label>
-        <input type="email" id="inputEmail" name="email" value="${inputEmail}" placeholder="Enter your registered email" required>
-        <button type="submit" class="btn btn-primary">Send OTP</button>
-    </form>
+    <!-- CENTERED CONTENT -->
+    <div class="content-area">
+        <div class="fp-card">
 
-    <hr>
+            <h3 class="text-center fw-bold mb-4" style="color:#007f7f;">Forgot Password</h3>
 
-    <!-- Verify OTP Form -->
-    <form action="verifyOtp" method="post" id="verifyOtpForm">
-        <input type="hidden" name="email" value="${inputEmail}">
-        <label for="otp">Enter OTP</label>
-        <input type="text" id="invalidOtp" name="otp" placeholder="Enter the OTP received" required>
-        <c:if test="${not empty otpError}">
-            <span class="text-danger">${otpError}</span>
-        </c:if>
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
+            <!-- SEND OTP -->
+            <form action="sendOtp" method="post" class="form-section">
+                <div class="mb-3">
+                    <label class="fw-semibold mb-2">Email</label>
+                    <input type="email" name="email" value="${inputEmail}"
+                           class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <button class="btn-custom">Send OTP</button>
+            </form>
+
+            <div class="divider"></div>
+
+            <!-- VERIFY OTP -->
+            <form action="verifyOtp" method="post" class="form-section">
+                <input type="hidden" name="email" value="${inputEmail}">
+
+                <label class="fw-semibold mb-2">Enter OTP</label>
+                <input type="text" name="otp" class="form-control" placeholder="Enter OTP" required>
+
+                <c:if test="${not empty otpError}">
+                    <small class="text-danger d-block mt-2">${otpError}</small>
+                </c:if>
+
+                <button class="btn-custom mt-3">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+    </footer>
+
 </div>
-
-<footer>
-    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
-</footer>
 
 </body>
 </html>
