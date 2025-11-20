@@ -15,16 +15,11 @@
         body {
             background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
             font-family: 'Segoe UI', sans-serif;
-        }
-
-        /* PREVENT SCROLLING */
-        html, body {
             height: 100%;
-            overflow: hidden;
         }
 
         .page-wrapper {
-            height: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
@@ -34,14 +29,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px 0;
         }
 
         /* HEADER */
         .header-bar {
             background: linear-gradient(90deg, #c8f2ff, #d8f9ff, #c8f2ff);
-            padding: 18px 35px;
+            padding: 16px 30px;
             font-weight: 800;
-            font-size: 26px;
+            font-size: 24px;
             color: #007f7f;
             display: flex;
             justify-content: space-between;
@@ -50,45 +46,45 @@
 
         .home-link {
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             text-decoration: underline;
-            padding: 8px 22px;
+            padding: 6px 18px;
             background: rgba(255, 255, 255, 0.25);
             border-radius: 12px;
         }
 
         /* CARD */
         .fp-card {
-            width: 420px;
-            border-radius: 22px;
-            padding: 35px 40px;
+            width: 380px;            /* made narrower */
+            border-radius: 18px;
+            padding: 28px 30px;      /* reduced padding */
             background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(18px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.18);
         }
 
         .form-control {
             background: rgba(255,255,255,0.60);
             border-radius: 10px;
-            height: 48px;
+            height: 44px;            /* reduced height */
             border: none;
-            padding-left: 14px;
+            padding-left: 12px;
         }
 
         .form-section {
-            margin-bottom: 25px;
+            margin-bottom: 18px;      /* reduced spacing */
         }
 
         .btn-custom {
             width: 100%;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 17px;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
             background: rgba(255, 255, 255, 0.35);
             color: #007f7f;
             font-weight: 600;
             border: none;
-            transition: 0.25s ease-in-out;
+            transition: 0.25s;
         }
 
         .btn-custom:hover {
@@ -98,13 +94,13 @@
         .divider {
             height: 1px;
             background: rgba(0, 0, 0, 0.20);
-            margin: 18px 0 25px 0;
+            margin: 14px 0 18px 0;   /* reduced spacing */
         }
 
         /* FOOTER */
         footer {
             background: #c3f2ff;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             color: #006666;
             font-weight: 600;
@@ -126,17 +122,17 @@
     <div class="content-area">
         <div class="fp-card">
 
-            <h3 class="text-center fw-bold mb-4" style="color:#007f7f;">Forgot Password</h3>
+            <h4 class="text-center fw-bold mb-3" style="color:#007f7f;">Forgot Password</h4>
 
             <!-- SEND OTP -->
             <form action="sendOtp" method="post" class="form-section">
-                <div class="mb-3">
-                    <label class="fw-semibold mb-2">Email</label>
+                <div class="mb-2">
+                    <label class="fw-semibold mb-1">Email</label>
                     <input type="email" name="email" value="${inputEmail}"
                            class="form-control" placeholder="Enter your email" required>
                 </div>
 
-                <button class="btn-custom">Send OTP</button>
+                <button class="btn-custom mt-2">Send OTP</button>
             </form>
 
             <div class="divider"></div>
@@ -145,11 +141,11 @@
             <form action="verifyOtp" method="post" class="form-section">
                 <input type="hidden" name="email" value="${inputEmail}">
 
-                <label class="fw-semibold mb-2">Enter OTP</label>
+                <label class="fw-semibold mb-1">Enter OTP</label>
                 <input type="text" name="otp" class="form-control" placeholder="Enter OTP" required>
 
                 <c:if test="${not empty otpError}">
-                    <small class="text-danger d-block mt-2">${otpError}</small>
+                    <small class="text-danger d-block mt-1">${otpError}</small>
                 </c:if>
 
                 <button class="btn-custom mt-3">Submit</button>

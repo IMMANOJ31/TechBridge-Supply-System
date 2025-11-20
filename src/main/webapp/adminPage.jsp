@@ -13,38 +13,47 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <style>
+        /* ---- GLOBAL ---- */
         body {
-            font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            background-color: #f4f7f5;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
+            min-height: 100vh;
         }
 
+        /* ---- HEADER ---- */
         header {
-            background-color: #007f5f;
-            color: white;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
             padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
         }
 
         header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
             margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #007f7f;
         }
 
         header a {
-            color: white;
+            color: #007f7f;
+            font-weight: 600;
             text-decoration: none;
-            font-weight: 500;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
         }
 
         header a:hover {
-            text-decoration: underline;
+            background: rgba(255,255,255,0.8);
         }
 
-        /* 🔔 Notification Bell */
+        /* ---- NOTIFICATION BELL ---- */
         .notification {
             position: relative;
             cursor: pointer;
@@ -52,37 +61,33 @@
         }
 
         .bell {
-            font-size: 1.6rem;
-        }
-
-        .notification:hover .bell {
-            transform: scale(1.1);
-            transition: 0.2s ease;
+            font-size: 1.7rem;
+            color: #007f7f;
         }
 
         .badge {
             position: absolute;
             top: -6px;
             right: -10px;
-            background-color: red;
-            color: white;
+            background-color: #ff3b3b;
+            padding: 4px 7px;
             border-radius: 50%;
-            font-size: 0.7rem;
-            padding: 3px 6px;
+            color: white;
+            font-size: 0.75rem;
         }
 
-        /* Dropdown */
+        /* ---- DROPDOWN ---- */
         .dropdown {
             display: none;
             position: absolute;
             right: 0;
-            top: 40px;
-            background: white;
-            color: #333;
+            top: 42px;
+            background: rgba(255,255,255,0.9);
             width: 420px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            border-radius: 10px;
-            z-index: 10;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
         }
 
         .dropdown.active {
@@ -91,10 +96,9 @@
 
         .dropdown h3 {
             margin: 0;
-            background-color: #007f5f;
+            padding: 12px 16px;
+            background: #007f7f;
             color: white;
-            padding: 10px 15px;
-            border-radius: 10px 10px 0 0;
             font-size: 1rem;
         }
 
@@ -103,80 +107,105 @@
             border-bottom: 1px solid #eee;
         }
 
-        .dropdown .item:last-child {
-            border-bottom: none;
-        }
-
         .dropdown .item p {
-            margin: 4px 0;
-            font-size: 0.9rem;
+            margin: 3px 0;
         }
 
-        .dropdown .item button {
-            margin-right: 6px;
+        /* ---- BUTTONS ---- */
+        .btn-approve {
+            background: #28a745;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
             border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
             cursor: pointer;
-            font-size: 0.8rem;
         }
 
-        .btn-approve { background-color: #28a745; color: white; }
-        .btn-reject { background-color: #dc3545; color: white; }
-        .btn-hold { background-color: #ffc107; color: black; }
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
 
+        .btn-hold {
+            background: #ffc107;
+            color: #444;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* ---- SIDE BOXES ---- */
         .section-container {
             display: flex;
-            gap: 40px;
+            gap: 35px;
             margin: 40px;
         }
 
         .customer-info, .user-info {
-            background: white;
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(12px);
             width: 280px;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .customer-info h3, .user-info h3 {
             margin-top: 0;
-            color: #007f5f;
+            color: #007f7f;
         }
 
         .links a {
             display: block;
-            color: #007f5f;
+            color: #007f7f;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             margin: 8px 0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.3s;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.4);
+            transition: all 0.3s ease-in-out;
         }
 
         .links a:hover {
-            background-color: #e6f7ef;
+            background: rgba(255,255,255,0.8);
+            transform: translateX(4px);
         }
 
+        /* ---- MAIN DASHBOARD ---- */
         .dashboard {
-            background: white;
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(12px);
             margin: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
+        .dashboard h2 {
+            color: #007f7f;
+            font-weight: 700;
+        }
+
+        /* ---- FOOTER ---- */
         footer {
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(8px);
+            padding: 14px;
             text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
-            color: white;
-            margin-top: 50px;
-            font-size: 0.9em;
+            font-weight: 600;
+            color: #007f7f;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.5);
         }
     </style>
 </head>
+
 <body>
 
 <header>
@@ -184,7 +213,7 @@
 
     <div style="display: flex; align-items: center; gap: 20px;">
 
-        <!-- Notification Section -->
+        <!-- NOTIFICATION -->
         <div class="notification" id="notifyIcon">
             <span class="bell">🔔</span>
 
@@ -192,11 +221,12 @@
                 <span class="badge" id="pendingCount">${fn:length(pendingOrders)}</span>
             </c:if>
 
-            <!-- Dropdown -->
+            <!-- DROPDOWN -->
             <div class="dropdown" id="notificationDropdown">
                 <h3>Pending Approvals</h3>
 
                 <div id="pendingListContainer">
+                    <!-- JSTL content remains same -->
                     <c:choose>
                         <c:when test="${not empty pendingOrders}">
                             <c:forEach var="order" items="${pendingOrders}">
@@ -227,7 +257,7 @@
     </div>
 </header>
 
-<!-- Section Boxes -->
+<!-- SIDE BOXES -->
 <div class="section-container">
     <div class="customer-info">
         <h3>Customer Info</h3>
@@ -246,7 +276,7 @@
     </div>
 </div>
 
-<!-- Dashboard -->
+<!-- MAIN DASHBOARD -->
 <div class="dashboard">
     <h2>Dashboard</h2>
     <p>This section can display analytics, reports, or summaries.</p>
@@ -256,70 +286,64 @@
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
-<!-- JS for Notification Dropdown + Axios Auto Refresh -->
+<!-- JS (UNCHANGED) -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-    const bell = document.getElementById('notifyIcon');
-    const dropdown = document.getElementById('notificationDropdown');
-    const pendingCount = document.getElementById('pendingCount');
-    const pendingListContainer = document.getElementById('pendingListContainer');
+        const bell = document.getElementById('notifyIcon');
+        const dropdown = document.getElementById('notificationDropdown');
+        const pendingCount = document.getElementById('pendingCount');
+        const pendingListContainer = document.getElementById('pendingListContainer');
 
-    // Toggle dropdown
-    bell.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dropdown.classList.toggle('active');
+        bell.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+
+        window.addEventListener('click', function (e) {
+            if (!bell.contains(e.target)) dropdown.classList.remove('active');
+        });
+
+        setInterval(loadPendingOrders, 5000);
+
+        function loadPendingOrders() {
+            axios.get('${pageContext.request.contextPath}/api/pendingOrders')
+                .then(response => {
+                    const orders = response.data;
+
+                    if (orders.length > 0) {
+                        pendingCount.style.display = 'inline-block';
+                        pendingCount.textContent = orders.length;
+                    } else {
+                        pendingCount.style.display = 'none';
+                    }
+
+                    let html = "";
+
+                    if (orders.length === 0) {
+                        html = `<div class="item"><p>No pending approvals 🎉</p></div>`;
+                    } else {
+                        orders.forEach(o => {
+                            html += `
+                            <div class="item">
+                                <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
+                                <p>Total: ₹${o.totalCost}</p>
+
+                                <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
+                                    <input type="hidden" name="id" value="${o.id}"/>
+                                    <button class="btn-approve" name="status" value="APPROVED">Approve</button>
+                                    <button class="btn-reject" name="status" value="REJECTED">Reject</button>
+                                    <button class="btn-hold" name="status" value="HOLD">Hold</button>
+                                </form>
+                            </div>`;
+                        });
+                    }
+
+                    pendingListContainer.innerHTML = html;
+                })
+                .catch(err => console.error("Failed to fetch pending orders:", err));
+        }
     });
-
-    window.addEventListener('click', function (e) {
-        if (!bell.contains(e.target)) dropdown.classList.remove('active');
-    });
-
-    // Auto-refresh pending orders every 5 seconds
-    setInterval(loadPendingOrders, 5000);
-
-    function loadPendingOrders() {
-        axios.get('${pageContext.request.contextPath}/api/pendingOrders')
-            .then(response => {
-                const orders = response.data;
-
-                // Update badge visibility/count
-                if (orders.length > 0) {
-                    pendingCount.style.display = 'inline-block';
-                    pendingCount.textContent = orders.length;
-                } else {
-                    pendingCount.style.display = 'none';
-                }
-
-                // Refresh dropdown content
-                let html = "";
-
-                if (orders.length === 0) {
-                    html = `<div class="item"><p>No pending approvals 🎉</p></div>`;
-                } else {
-                    orders.forEach(o => {
-                        html += `
-                        <div class="item">
-                            <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
-                            <p>Total: ₹${o.totalCost}</p>
-
-                            <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
-                                <input type="hidden" name="id" value="${o.id}"/>
-                                <button class="btn-approve" name="status" value="APPROVED">Approve</button>
-                                <button class="btn-reject" name="status" value="REJECTED">Reject</button>
-                                <button class="btn-hold" name="status" value="HOLD">Hold</button>
-                            </form>
-                        </div>`;
-                    });
-                }
-
-                pendingListContainer.innerHTML = html;
-            })
-            .catch(err => {
-                console.error("Failed to fetch pending orders:", err);
-            });
-    }
-});
 </script>
 
 </body>

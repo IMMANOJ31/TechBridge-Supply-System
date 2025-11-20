@@ -7,127 +7,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap & Icons -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
+        * { box-sizing: border-box; }
+
         body {
             font-family: "Segoe UI", sans-serif;
-            background-color: #f4f7f6;
             margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(120deg, #ccefff, #dff9f3, #b6e9ec);
         }
 
+        /* HEADER */
         header {
-            background-color: #007f5f;
-            color: white;
-            padding: 20px 40px;
+            width: 100%;
+            padding: 25px 40px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
-            font-size: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #037f8c;
             margin: 0;
         }
 
-        header a.nav-btn {
-            background-color: white;
-            color: #007f5f;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 6px;
+        header a {
+            font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s ease;
+            color: #037f8c;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 10px 22px;
+            border-radius: 15px;
+            transition: 0.3s;
+            font-size: 1.05rem;
         }
 
-        header a.nav-btn:hover {
-            background-color: #e6f4ef;
+        header a:hover {
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        .container {
-            margin-top: 40px;
+        /* CENTER CARD */
+        .customer-card {
+            width: 78%;
+            margin: 40px auto 30px auto;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px);
+            padding: 40px 45px;
+            border-radius: 22px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        h2 {
-            color: #007f5f;
+        .customer-card h2 {
             text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #037f8c;
             margin-bottom: 30px;
         }
 
-        .table {
-            border-radius: 10px;
+        /* TABLE DESIGN */
+        table {
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            background-color: white;
         }
 
-        .table thead {
-            background-color: #007f5f;
+        table thead {
+            background: #037f8c;
             color: white;
+            font-size: 1.1rem;
         }
 
-        .table tbody tr:hover {
-            background-color: #f1fdf6;
+        table tbody tr:hover {
+            background: rgba(0, 127, 143, 0.08);
         }
 
-        .table i {
-            font-size: 1.2rem;
-            color: #007f5f;
-            transition: color 0.3s;
+        table td, table th {
+            padding: 14px;
+            vertical-align: middle;
         }
 
-        .table i:hover {
-            color: #004d3a;
+        table i {
+            font-size: 1.25rem;
+            color: #037f8c;
+            transition: 0.3s;
         }
 
+        table i:hover {
+            color: #025c66;
+        }
+
+        /* PAGINATION */
         .pagination {
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 25px;
         }
 
         .pagination a, .pagination strong {
-            margin: 0 5px;
-            padding: 8px 14px;
-            border-radius: 6px;
+            margin: 0 6px;
+            padding: 8px 15px;
+            border-radius: 10px;
             text-decoration: none;
-            color: #007f5f;
             font-weight: 600;
-            border: 1px solid #007f5f;
-            transition: all 0.3s ease;
+            color: #037f8c;
+            border: 1px solid #037f8c;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.6);
         }
 
         .pagination a:hover {
-            background-color: #007f5f;
+            background: #037f8c;
             color: white;
         }
 
         .pagination strong {
-            background-color: #007f5f;
+            background: #037f8c;
             color: white;
         }
 
+        /* FOOTER */
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: #007f5f;
-            color: white;
-            margin-top: 50px;
+            padding: 18px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            color: #037f8c;
+            font-weight: 600;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: auto;
         }
     </style>
 </head>
 
 <body>
+
 <header>
     <h1>Vendor Laptop Portal</h1>
-    <a href="adminPage" class="nav-btn">Back</a>
+    <a href="adminPage">Home</a>
 </header>
 
-<div class="container">
+<div class="customer-card">
+
     <h2>List of Customers</h2>
 
-    <table class="table table-hover align-middle text-center">
+    <!-- TABLE -->
+    <table class="table text-center align-middle">
         <thead>
         <tr>
             <th>Customer Name</th>
@@ -137,6 +169,7 @@
             <th>Action</th>
         </tr>
         </thead>
+
         <tbody>
         <c:forEach var="customer" items="${listOfCustomer}">
             <tr>
@@ -154,7 +187,7 @@
         </tbody>
     </table>
 
-    <!-- Pagination -->
+    <!-- PAGINATION -->
     <div class="pagination">
         <c:if test="${currentPage > 1}">
             <a href="listOfCustomers?page=${currentPage - 1}&size=${pageSize}">Previous</a>
@@ -175,10 +208,11 @@
             <a href="listOfCustomers?page=${currentPage + 1}&size=${pageSize}">Next</a>
         </c:if>
     </div>
+
 </div>
 
 <footer>
-    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+    © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
 </body>

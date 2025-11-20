@@ -5,106 +5,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>View Customer</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>View Users</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
+        /* SAME THEME AS FORGOT PASSWORD PAGE */
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f5f9f7;
             margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
+            min-height: 100vh;
         }
+
         header {
-            background-color: #007f5f;
-            color: white;
-            padding: 16px 40px;
+            padding: 25px 40px;
+            background: transparent;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007f7f;
         }
-        h2 {
-            text-align: center;
-            color: #007f5f;
-        }
-        form {
-            background-color: white;
-            width: 70%;
-            margin: 30px auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 6px;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-bottom: 16px;
-            outline: none;
-            transition: border 0.3s;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #007f5f;
-        }
-        textarea {
-            resize: none;
-            height: 70px;
-        }
-        .radio-group {
-            margin-bottom: 16px;
-        }
-        .radio-group label {
-            display: inline-block;
-            margin-right: 20px;
-        }
-        .btn {
-            background-color: #007f5f;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 8px;
+
+        header a {
+            float: right;
+            margin-top: -10px;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.6);
+            padding: 6px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #007f7f;
             font-weight: 600;
-            cursor: pointer;
         }
-        .btn:hover {
-            background-color: #005f46;
+
+        .card-container {
+            width: 70%;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.55);
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(12px);
         }
-        .pagination {
-                    justify-content: center;
-                    margin-top: 30px;
-                }
 
-                .pagination a, .pagination strong {
-                    margin: 0 5px;
-                    padding: 8px 14px;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    color: #007f5f;
-                    font-weight: 600;
-                    border: 1px solid #007f5f;
-                    transition: all 0.3s ease;
-                }
-
-                .pagination a:hover {
-                    background-color: #007f5f;
-                    color: white;
-                }
-
-                .pagination strong {
-                    background-color: #007f5f;
-                    color: white;
-                }
-        footer {
+        .card-container h2 {
             text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
+            font-weight: 700;
+            color: #007f7f;
+            margin-bottom: 25px;
+        }
+
+        table {
+            background: rgba(255,255,255,0.4);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background: rgba(255,255,255,0.7) !important;
+        }
+
+        table tbody tr:hover {
+            background: rgba(255,255,255,0.8);
+        }
+
+        .pagination {
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .pagination a, .pagination strong {
+            margin: 0 5px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #007f7f;
+            font-weight: 600;
+            border: 1px solid #007f7f;
+            background: rgba(255,255,255,0.6);
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background: #007f7f;
             color: white;
-            margin-top: 50px;
+        }
+
+        .pagination strong {
+            background: #007f7f;
+            color: white;
+        }
+
+        footer {
+            background: rgba(255,255,255,0.45);
+            padding: 14px;
+            text-align: center;
+            font-weight: 600;
+            color: #007f7f;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.5);
         }
     </style>
 </head>
@@ -112,12 +111,16 @@
 <body>
 
 <header>
-    <h1>Vendor Laptop Portal</h1> <a href="index" class="nav-btn back-btn">Back</a>
+    Vendor Laptop Portal
+    <a href="index">Home</a>
 </header>
 
 
-<table class="table" id="customerTable">
-    <thead class="table-light">
+<div class="card-container">
+    <h2>List of Users</h2>
+
+    <table class="table table-bordered">
+        <thead>
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -125,8 +128,9 @@
             <th>Phone</th>
             <th>Action</th>
         </tr>
-    </thead>
-    <tbody id="tableBody">
+        </thead>
+
+        <tbody>
         <c:forEach var="dto" items="${listOfUser}">
             <tr>
                 <td>${dto.firstName}</td>
@@ -135,15 +139,15 @@
                 <td>${dto.phoneNumber}</td>
                 <td>
                     <a href="viewUser?id=${dto.id}"><i class="bi bi-eye"></i></a>
-                    <a href="editUser?id=${dto.id}"><i class="bi bi-pencil-square"></i></a>
+                    <a href="editUser?id=${dto.id}" class="ms-3"><i class="bi bi-pencil-square"></i></a>
                     <a href="deleteUser?id=${dto.id}" class="ms-3"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
+    </table>
 
-    </tbody>
-</table>
-  <!-- Pagination -->
+    <!-- Pagination -->
     <div class="pagination">
         <c:if test="${currentPage > 1}">
             <a href="listOfUsers?page=${currentPage - 1}&size=${pageSize}">Previous</a>
@@ -165,8 +169,10 @@
         </c:if>
     </div>
 
+</div>
+
 <footer>
-    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+    © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
 </body>

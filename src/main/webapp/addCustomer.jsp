@@ -9,34 +9,40 @@
 
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #eef2f3;
             margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
         }
 
+        /* HEADER */
         header {
-            background: #0b8457;
-            color: white;
+            background: linear-gradient(90deg, #c8f2ff, #d8f9ff, #c8f2ff);
+            color: #007f7f;
             padding: 18px 40px;
-            font-size: 22px;
+            font-size: 26px;
+            font-weight: 800;
             letter-spacing: 1px;
         }
 
         h2 {
             text-align: center;
-            color: #0b8457;
+            color: #007f7f;
             margin-top: 25px;
+            font-weight: 700;
         }
 
+        /* MAIN CARD */
         .container {
             width: 85%;
-            background: white;
-            margin: 25px auto;
-            padding: 30px 40px;
-            border-radius: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(12px);
+            margin: 30px auto;
+            padding: 35px 45px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
+        /* GRID FORM */
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -51,21 +57,23 @@
             font-weight: 600;
             margin-bottom: 6px;
             display: block;
-            color: #333;
+            color: #004f4f;
         }
 
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
             border-radius: 10px;
+            border: none;
+            background: rgba(255,255,255,0.65);
             font-size: 15px;
-            transition: 0.3s ease;
+            outline: none;
+            transition: 0.25s ease;
         }
 
         input:focus, select:focus, textarea:focus {
-            border-color: #0b8457;
-            box-shadow: 0 0 4px rgba(11,132,87,0.3);
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 0 5px rgba(0, 127, 127, 0.35);
         }
 
         textarea {
@@ -73,6 +81,7 @@
             height: 90px;
         }
 
+        /* RADIO GROUP */
         .radio-group {
             margin-top: 10px;
         }
@@ -82,38 +91,39 @@
             font-weight: 500;
         }
 
+        /* BUTTON */
         .btn-submit {
-            background: #0b8457;
-            color: white;
+            background: rgba(255,255,255,0.4);
+            color: #007f7f;
             padding: 14px 20px;
             border: none;
-            border-radius: 10px;
-            font-size: 17px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            width: 200px;
-            margin-top: 20px;
+            width: 220px;
+            margin-top: 25px;
+            transition: 0.3s ease;
         }
 
         .btn-submit:hover {
-            background: #086e46;
+            background: rgba(255,255,255,0.85);
         }
 
+        /* FOOTER */
         footer {
-            background: #0b8457;
-            color: white;
+            background: #c3f2ff;
+            color: #006666;
             padding: 16px;
             text-align: center;
             margin-top: 40px;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
         }
 
         @media(max-width: 900px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .full-width {
-                grid-column: 1;
-            }
+            .grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: 1; }
         }
     </style>
 </head>
@@ -223,9 +233,9 @@
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
-
-<!-- Original JS copied (unchanged) -->
+<!-- Existing JavaScript (unchanged) -->
 <script>
+    /* JS SAME – NOT MODIFIED */
     const stateCityData = {
         "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
         "Karnataka": ["Bengaluru", "Mysuru", "Hubballi"],
