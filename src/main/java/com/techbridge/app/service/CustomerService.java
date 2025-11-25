@@ -3,6 +3,7 @@ package com.techbridge.app.service;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
+import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 
 import javax.validation.Valid;
@@ -27,4 +28,10 @@ public interface CustomerService {
     CustomerDto updateCustomerDetails(@Valid CustomerDto dto);
 
     RegistrationDto updateUserDetails(@Valid RegistrationDto dto);
+
+    List<PurchaseEntity> getPendingPurchases();
+
+    boolean approval(int id);
+
+    boolean reject(int id);
 }

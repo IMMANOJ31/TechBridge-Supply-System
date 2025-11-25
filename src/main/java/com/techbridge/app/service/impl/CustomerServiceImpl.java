@@ -3,6 +3,7 @@ package com.techbridge.app.service.impl;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
+import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.enums.CustomerType;
 import com.techbridge.app.repository.CustomerRepo;
@@ -140,6 +141,21 @@ public class CustomerServiceImpl implements CustomerService {
         boolean b = repo.UserUpdate(entity);
         System.out.println("User details updated -> "+b);
         return dto;
+    }
+
+    @Override
+    public List<PurchaseEntity> getPendingPurchases() {
+        return repo.findPendingOrders();
+    }
+
+    @Override
+    public boolean approval(int id) {
+        return repo.markAsApproved(id);
+    }
+
+    @Override
+    public boolean reject(int id) {
+        return repo.markAsRejected(id);
     }
 
 

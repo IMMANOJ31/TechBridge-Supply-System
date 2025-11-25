@@ -1,5 +1,6 @@
 package com.techbridge.app.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
@@ -165,17 +166,23 @@ public class AdminController {
         session.setAttribute("loggedInUser", session.getAttribute("loggedInUser"));
         return "adminPage";
     }
-    @GetMapping("/api/pendingOrders")
-    @ResponseBody
-    public List<PurchaseEntity> fetchPendingOrders() {
-        return productService.getPendingOrders();
+
+    @GetMapping("notifications")
+    public String showNotification(Model model){
+        model.addAttribute("pendingOrders",service.getPendingPurchases());
+        return "notifications";
     }
 
-    @PostMapping("/admin/updateStatus")
-    public String updateStatus(@RequestParam int id, @RequestParam ApprovalStatus status) {
-        productService.updateApprovalStatus(id, status);
-        return "redirect:/admin";
+    @PostMapping("approvePurchase")
+    public String approvalOfPurchase(@RequestParam int id){
+        service.approval(id);
+        return "redirect:notifications";
     }
 
+    @PostMapping("rejectPurchase")
+    public String rejectionOfPurchase(@RequestParam int id){
+        service.reject(id);
+        return "redirect:notifications";
+    }
 
 }

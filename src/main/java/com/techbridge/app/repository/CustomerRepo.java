@@ -1,6 +1,7 @@
 package com.techbridge.app.repository;
 
 import com.techbridge.app.entity.CustomerEntity;
+import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 
 import java.util.List;
@@ -25,4 +26,10 @@ public interface CustomerRepo {
     boolean CustomerUpdate(CustomerEntity entity);
 
     boolean UserUpdate(RegistrationEntity entity);
+
+    List<PurchaseEntity> findPendingOrders();
+
+ boolean markAsApproved(int id);
+
+ boolean markAsRejected(int id);
 }
