@@ -329,7 +329,7 @@
                                 <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
                                 <p>Total: ₹${o.totalCost}</p>
 
-                                <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
+                                <form action="notifications" method="post" style="margin-top: 8px;">
                                     <input type="hidden" name="id" value="${o.id}"/>
                                     <button class="btn-approve" name="status" value="APPROVED">Approve</button>
                                     <button class="btn-reject" name="status" value="REJECTED">Reject</button>

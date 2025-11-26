@@ -22,4 +22,6 @@ public interface ProductService {
     List<PurchaseEntity> getPendingOrders();
 
     boolean updateApprovalStatus(int id, ApprovalStatus status);
+
+    List<ProductDto> getPendingPurchases();
 }

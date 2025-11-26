@@ -9,6 +9,7 @@ import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
+import com.techbridge.app.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,9 @@ public class AdminController {
 
    @Autowired
    ProductService productService;
+
+    @Autowired
+    private PurchaseService purchaseService;
 
     @GetMapping("addCustomer")
     public String addCustomerPage(){
@@ -167,21 +171,38 @@ public class AdminController {
         return "adminPage";
     }
 
+
+    // Dashboard Notifications API (called via Axios)
+    @GetMapping("api/pendingOrders")
+    public @ResponseBody List<PurchaseEntity> getPendingOrders() {
+        return purchaseService.getPendingPurchases();
+    }
+
+    // JSP Notifications Page
     @GetMapping("notifications")
-    public String showNotification(Model model){
-        model.addAttribute("pendingOrders",service.getPendingPurchases());
+    public String showNotification(Model model) {
+        model.addAttribute("pendingOrders", purchaseService.getPendingPurchases());
         return "notifications";
     }
 
+    // Approve Purchase
     @PostMapping("approvePurchase")
-    public String approvalOfPurchase(@RequestParam int id){
-        service.approval(id);
+    public String approvePurchase(@RequestParam int id) {
+        purchaseService.approval(id);
         return "redirect:notifications";
     }
 
+    // Reject Purchase
     @PostMapping("rejectPurchase")
-    public String rejectionOfPurchase(@RequestParam int id){
-        service.reject(id);
+    public String rejectPurchase(@RequestParam int id) {
+        purchaseService.reject(id);
+        return "redirect:notifications";
+    }
+
+    // Hold Purchase
+    @PostMapping("holdPurchase")
+    public String holdPurchase(@RequestParam int id) {
+        purchaseService.hold(id);
         return "redirect:notifications";
     }
 
