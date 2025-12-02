@@ -71,10 +71,6 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
-    @Override
-    public List<ProductDto> getPendingPurchases() {
-        return Collections.emptyList();
-    }
 
 
 }

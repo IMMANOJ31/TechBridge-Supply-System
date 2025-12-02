@@ -5,11 +5,13 @@ import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.PurchaseRepository;
 import com.techbridge.app.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PurchaseServiceImpl implements PurchaseService {
 
     @Autowired

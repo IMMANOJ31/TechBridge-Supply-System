@@ -23,5 +23,4 @@ public interface ProductService {
 
     boolean updateApprovalStatus(int id, ApprovalStatus status);
 
-    List<ProductDto> getPendingPurchases();
 }
