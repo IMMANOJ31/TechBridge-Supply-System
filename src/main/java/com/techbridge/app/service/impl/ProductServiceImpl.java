@@ -66,11 +66,4 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findByStatus(ApprovalStatus.PENDING);
     }
 
-    @Override
-    public boolean updateApprovalStatus(int id, ApprovalStatus status) {
-        return false;
-    }
-
-
-
 }
