@@ -187,6 +187,7 @@
             <th>Quantity</th>
             <th>Total Cost</th>
             <th>Due Date</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -205,6 +206,7 @@
                         <td>${p.quantity}</td>
                         <td>${p.totalCost}</td>
                         <td>${p.dueDate}</td>
+                        <td>${p.status}</td>
                     </tr>
                 </c:forEach>
             </c:when>

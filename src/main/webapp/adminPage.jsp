@@ -188,14 +188,14 @@
 <div class="section-container">
     <div class="customer-info">
         <h3>Customer Info</h3>
-        <a href="${pageContext.request.contextPath}/admin/addCustomer">Add Customer</a>
-        <a href="${pageContext.request.contextPath}/admin/listOfCustomers">View Customers</a>
+        <a href="addCustomer">Add Customer</a>
+        <a href="listOfCustomers">View Customers</a>
     </div>
 
     <div class="user-info">
         <h3>User Info</h3>
-        <a href="${pageContext.request.contextPath}/admin/addUser">Add User</a>
-        <a href="${pageContext.request.contextPath}/admin/listOfUsers">View Users</a>
+        <a href="addUser">Add User</a>
+        <a href="listOfUsers">View Users</a>
     </div>
 </div>
 
