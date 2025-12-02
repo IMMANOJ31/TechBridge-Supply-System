@@ -173,7 +173,7 @@ public class AdminController {
 
 
     // Dashboard Notifications API (called via Axios)
-    @GetMapping("api/pendingOrders")
+    @GetMapping("/api/pendingOrders")
     public @ResponseBody List<PurchaseEntity> getPendingOrders() {
         return purchaseService.getPendingPurchases();
     }

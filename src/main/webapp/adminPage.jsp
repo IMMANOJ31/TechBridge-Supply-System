@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
@@ -40,19 +39,6 @@
             color: #007f7f;
         }
 
-        header a {
-            color: #007f7f;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 6px 14px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 8px;
-        }
-
-        header a:hover {
-            background: rgba(255,255,255,0.8);
-        }
-
         /* ---- NOTIFICATION BELL ---- */
         .notification {
             position: relative;
@@ -86,7 +72,6 @@
             width: 420px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            backdrop-filter: blur(10px);
             overflow: hidden;
         }
 
@@ -102,41 +87,25 @@
             font-size: 1rem;
         }
 
-        .dropdown .item {
+        .item {
             padding: 12px 15px;
             border-bottom: 1px solid #eee;
         }
 
-        .dropdown .item p {
-            margin: 3px 0;
-        }
-
         /* ---- BUTTONS ---- */
         .btn-approve {
-            background: #28a745;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
+            background: #28a745; color: white;
+            padding: 6px 12px; border-radius: 8px; border: none;
         }
 
         .btn-reject {
-            background: #dc3545;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
+            background: #dc3545; color: white;
+            padding: 6px 12px; border-radius: 8px; border: none;
         }
 
         .btn-hold {
-            background: #ffc107;
-            color: #444;
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
+            background: #ffc107; color: #444;
+            padding: 6px 12px; border-radius: 8px; border: none;
         }
 
         /* ---- SIDE BOXES ---- */
@@ -155,53 +124,11 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
-        .customer-info h3, .user-info h3 {
-            margin-top: 0;
-            color: #007f7f;
-        }
-
-        .links a {
-            display: block;
-            color: #007f7f;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 8px 0;
-            padding: 8px 14px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.4);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .links a:hover {
-            background: rgba(255,255,255,0.8);
-            transform: translateX(4px);
-        }
-
-        /* ---- MAIN DASHBOARD ---- */
         .dashboard {
             background: rgba(255,255,255,0.55);
-            backdrop-filter: blur(12px);
             margin: 40px;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .dashboard h2 {
-            color: #007f7f;
-            font-weight: 700;
-        }
-
-        /* ---- FOOTER ---- */
-        footer {
-            background: rgba(255,255,255,0.45);
-            backdrop-filter: blur(8px);
-            padding: 14px;
-            text-align: center;
-            font-weight: 600;
-            color: #007f7f;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.5);
         }
     </style>
 </head>
@@ -226,7 +153,6 @@
                 <h3>Pending Approvals</h3>
 
                 <div id="pendingListContainer">
-                    <!-- JSTL content remains same -->
                     <c:choose>
                         <c:when test="${not empty pendingOrders}">
                             <c:forEach var="order" items="${pendingOrders}">
@@ -234,7 +160,7 @@
                                     <p><strong>${order.customerName}</strong> - ${order.itemName}</p>
                                     <p>Total: ₹${order.totalCost}</p>
 
-                                    <form action="admin/updateStatus" method="post" style="margin-top: 8px;">
+                                    <form action="${pageContext.request.contextPath}/admin/approvePurchase" method="post">
                                         <input type="hidden" name="id" value="${order.id}"/>
                                         <button class="btn-approve" name="status" value="APPROVED">Approve</button>
                                         <button class="btn-reject" name="status" value="REJECTED">Reject</button>
@@ -253,7 +179,8 @@
         </div>
 
         <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
-        <a href="logout">Logout</a>
+        <a href="${pageContext.request.contextPath}/logout">Logout</a>
+
     </div>
 </header>
 
@@ -261,18 +188,14 @@
 <div class="section-container">
     <div class="customer-info">
         <h3>Customer Info</h3>
-        <div class="links">
-            <a href="addCustomer">Add Customer</a>
-            <a href="listOfCustomers">View Customers</a>
-        </div>
+        <a href="${pageContext.request.contextPath}/admin/addCustomer">Add Customer</a>
+        <a href="${pageContext.request.contextPath}/admin/listOfCustomers">View Customers</a>
     </div>
 
     <div class="user-info">
         <h3>User Info</h3>
-        <div class="links">
-            <a href="addUser">Add User</a>
-            <a href="listOfUsers">View Users</a>
-        </div>
+        <a href="${pageContext.request.contextPath}/admin/addUser">Add User</a>
+        <a href="${pageContext.request.contextPath}/admin/listOfUsers">View Users</a>
     </div>
 </div>
 
@@ -286,7 +209,7 @@
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
-<!-- JS (UNCHANGED) -->
+<!-- JS -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -304,10 +227,11 @@
             if (!bell.contains(e.target)) dropdown.classList.remove('active');
         });
 
+        // Auto-refresh pending orders every 5 seconds
         setInterval(loadPendingOrders, 5000);
 
         function loadPendingOrders() {
-            axios.get('${pageContext.request.contextPath}/api/pendingOrders')
+            axios.get('${pageContext.request.contextPath}/admin/api/pendingOrders')
                 .then(response => {
                     const orders = response.data;
 
@@ -329,16 +253,15 @@
                                 <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
                                 <p>Total: ₹${o.totalCost}</p>
 
-                                <form action="notifications" method="post" style="margin-top: 8px;">
-                                    <input type="hidden" name="id" value="${o.id}"/>
-                                    <button class="btn-approve" name="status" value="APPROVED">Approve</button>
-                                    <button class="btn-reject" name="status" value="REJECTED">Reject</button>
-                                    <button class="btn-hold" name="status" value="HOLD">Hold</button>
+                                <form action="${pageContext.request.contextPath}/admin/approvePurchase" method="post">
+                                    <input type="hidden" name="id" value="${o.id}">
+                                    <button class="btn-approve">Approve</button>
+                                    <button class="btn-reject">Reject</button>
+                                    <button class="btn-hold">Hold</button>
                                 </form>
                             </div>`;
                         });
                     }
-
                     pendingListContainer.innerHTML = html;
                 })
                 .catch(err => console.error("Failed to fetch pending orders:", err));

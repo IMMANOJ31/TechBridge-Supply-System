@@ -1,6 +1,7 @@
 package com.techbridge.app.service.impl;
 
 import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.PurchaseRepository;
 import com.techbridge.app.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Optional<PurchaseEntity> optional = repo.findById(id);
         if (optional.isPresent()) {
             PurchaseEntity entity = optional.get();
-            entity.setStatus("APPROVED");
+            entity.setStatus(ApprovalStatus.APPROVED);
             repo.save(entity);
         }
     }
@@ -33,7 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Optional<PurchaseEntity> optional = repo.findById(id);
         if (optional.isPresent()) {
             PurchaseEntity entity = optional.get();
-            entity.setStatus("REJECTED");
+            entity.setStatus(ApprovalStatus.REJECTED);
             repo.save(entity);
         }
     }
@@ -43,7 +44,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Optional<PurchaseEntity> optional = repo.findById(id);
         if (optional.isPresent()) {
             PurchaseEntity entity = optional.get();
-            entity.setStatus("HOLD");
+            entity.setStatus(ApprovalStatus.HOLD);
             repo.save(entity);
         }
     }
