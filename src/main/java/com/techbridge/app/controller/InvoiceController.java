@@ -32,7 +32,6 @@ public class InvoiceController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("attachment", "invoice_" + id + ".pdf");
-        System.err.println("Invoice method");
         return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
     }
 }

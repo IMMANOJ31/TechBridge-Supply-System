@@ -231,7 +231,7 @@
         setInterval(loadPendingOrders, 5000);
 
         function loadPendingOrders() {
-            axios.get('${pageContext.request.contextPath}/admin/api/pendingOrders')
+            axios.get('api/pendingOrders')
                 .then(response => {
                     const orders = response.data;
 
@@ -253,7 +253,7 @@
                                 <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
                                 <p>Total: ₹${o.totalCost}</p>
 
-                                <form action="${pageContext.request.contextPath}/admin/approvePurchase" method="post">
+                                <form action="approvePurchase" method="post">
                                     <input type="hidden" name="id" value="${o.id}">
                                     <button class="btn-approve">Approve</button>
                                     <button class="btn-reject">Reject</button>

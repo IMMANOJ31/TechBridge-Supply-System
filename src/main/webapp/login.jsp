@@ -17,6 +17,7 @@
             flex-direction: column;
             background: linear-gradient(135deg, #8ED0F9, #A4F3E0);
             font-family: "Segoe UI", sans-serif;
+            color: #000;  /* GLOBAL BLACK FONT */
         }
 
         /* Frosted Glass Navbar */
@@ -32,10 +33,9 @@
         }
 
         .navbar-brand {
-            color: #ffffff;
+            color: #000 !important; /* BLACK */
             font-size: 22px;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
 
         .glass-btn {
@@ -44,7 +44,7 @@
             padding: 8px 20px;
             border-radius: 12px;
             font-weight: 500;
-            color: #fff !important;
+            color: #000 !important; /* BLACK */
         }
         .glass-btn:hover {
             background: rgba(255, 255, 255, 0.55);
@@ -68,16 +68,17 @@
             backdrop-filter: blur(14px);
             border: 1px solid rgba(255, 255, 255, 0.35);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            color: #fff;
+            color: #000;  /* BLACK TEXT */
         }
 
         .glass-card h3 {
             font-weight: 700;
             font-size: 26px;
+            color: #000;  /* BLACK */
         }
 
         .form-label {
-            color: #f8f8f8;
+            color: #000;  /* BLACK */
             font-weight: 500;
             font-size: 15px;
         }
@@ -86,11 +87,11 @@
         .form-control {
             background: rgba(255, 255, 255, 0.30);
             border: 1px solid rgba(255, 255, 255, 0.45);
-            color: #fff;
+            color: #000;  /* BLACK INPUT TEXT */
             height: 45px;
         }
         .form-control::placeholder {
-            color: #eef1f3;
+            color: #444; /* DARK GRAY PLACEHOLDER */
         }
         .form-control:focus {
             background: rgba(255, 255, 255, 0.55);
@@ -105,9 +106,8 @@
             background: rgba(255, 255, 255, 0.40);
             border: none;
             border-radius: 14px;
-            color: #fff;
+            color: #000; /* BLACK TEXT */
             font-weight: 600;
-            letter-spacing: .5px;
         }
         .login-btn:hover {
             background: rgba(255, 255, 255, 0.70);
@@ -120,7 +120,7 @@
             backdrop-filter: blur(12px);
             padding: 15px;
             text-align: center;
-            color: #fff;
+            color: #000; /* BLACK */
             font-size: 15px;
             font-weight: 500;
             margin-top: auto;
@@ -159,7 +159,7 @@
             <button type="submit" class="login-btn">Login</button>
 
             <p class="text-center mt-3">
-                <a href="forgotPassword" style="color:white; text-decoration:underline;">
+                <a href="forgotPassword" style="color:black; text-decoration:underline;">
                     Forgot password?
                 </a>
             </p>
