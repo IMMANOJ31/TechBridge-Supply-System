@@ -1,76 +1,83 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Update User</title>
+
     <style>
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f3f9f4;
+            background: linear-gradient(to bottom right, #d1f3ff, #c6ffd8);
+            min-height: 100vh;
         }
 
         /* Header */
         header {
-            background-color: #007f5f;
-            color: white;
-            padding: 16px 40px;
+            background: transparent;
+            padding: 25px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007f5f;
         }
 
-        header .nav-btn {
-            background-color: white;
-            color: #007f5f;
-            padding: 8px 18px;
+        .nav-btn {
+            background: white;
+            padding: 10px 20px;
             border-radius: 20px;
             text-decoration: none;
+            color: #007f5f;
+            border: 1px solid #cce8dd;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: 0.3s;
         }
 
-        header .nav-btn:hover {
-            background-color: #e6f7ef;
+        .nav-btn:hover {
+            background: #e3f9ef;
         }
 
-        /* Form Container */
+        /* Main Card */
         .container {
-            background: white;
-            width: 500px;
-            margin: 60px auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 550px;
+            background: #ffffffcc;
+            backdrop-filter: blur(10px);
+            margin: 30px auto 40px auto;
             padding: 40px 35px;
+            border-radius: 18px;
+            box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
         }
 
         h2 {
             text-align: center;
             color: #007f5f;
-            margin-bottom: 25px;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            font-weight: 500;
-            margin-bottom: 6px;
+            font-weight: 600;
             color: #333;
+            margin-bottom: 6px;
         }
 
         input, select {
             width: 100%;
             padding: 10px 12px;
-            margin-bottom: 16px;
-            border: 1px solid #ccc;
+            margin-bottom: 18px;
             border-radius: 8px;
+            border: 1px solid #d3e6dd;
+            background: #f1f9f5;
             outline: none;
             transition: border 0.3s;
         }
@@ -79,13 +86,21 @@
             border-color: #007f5f;
         }
 
+        #message {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
         .btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #007f5f;
             color: white;
             border: none;
             border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s;
@@ -95,18 +110,12 @@
             background-color: #005f46;
         }
 
-        #message {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
         footer {
             text-align: center;
-            padding: 16px;
-            background-color: #007f5f;
+            padding: 18px;
             color: white;
-            margin-top: 100px;
+            background-color: #007f5f;
+            margin-top: 80px;
             font-size: 0.9em;
         }
     </style>
@@ -125,7 +134,7 @@
 
     <form id="updateForm" method="post" action="editUser">
 
-        <input type="hidden" name="id" value="${dto.id}"/>
+        <input type="hidden" name="id" value="${dto.id}" />
 
         <label>First Name</label>
         <input type="text" name="firstName" value="${dto.firstName}" required />
@@ -188,9 +197,12 @@ document.getElementById("updateForm").addEventListener("submit", async function(
     }
 
     const formData = new FormData(this);
-    const response = await fetch("editUser", { method: "POST", body: formData });
-    const message = await response.text();
+    const response = await fetch("editUser", {
+        method: "POST",
+        body: formData
+    });
 
+    const message = await response.text();
     messageDiv.innerHTML = message;
     messageDiv.style.color = response.status === 200 ? "green" : "red";
 });
