@@ -9,9 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class PurchaseRepositoryImpl implements PurchaseRepository {

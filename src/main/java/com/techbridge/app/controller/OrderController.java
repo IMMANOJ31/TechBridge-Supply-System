@@ -17,14 +17,14 @@ public class OrderController {
     PurchaseService purchaseService;
 
     @GetMapping("/api/pendingOrders")
-    public @ResponseBody List<PurchaseEntity> getPendingOrders() {
-        return purchaseService.getPendingPurchases();
+    public @ResponseBody List<PurchaseEntity> getPendingOrders(String status) {
+        return purchaseService.getPendingPurchases(status);
     }
 
 
     @GetMapping("notifications")
-    public String showNotification(Model model) {
-        model.addAttribute("pendingOrders", purchaseService.getPendingPurchases());
+    public String showNotification(Model model,String status) {
+        model.addAttribute("pendingOrders", purchaseService.getPendingPurchases(status));
         return "notifications";
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PurchaseService {
 
-    List<PurchaseEntity> getPendingPurchases();
+    List<PurchaseEntity> getPendingPurchases(String status);
 
     void approval(int id);
 

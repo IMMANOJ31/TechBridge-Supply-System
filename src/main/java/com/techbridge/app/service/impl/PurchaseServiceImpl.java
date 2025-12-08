@@ -17,8 +17,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private PurchaseRepository repo;
 
-    public List<PurchaseEntity> getPendingPurchases() {
-        return repo.findByStatus("PENDING");
+    public List<PurchaseEntity> getPendingPurchases(String status) {
+        return repo.findByStatus(status);
     }
 
     @Transactional
