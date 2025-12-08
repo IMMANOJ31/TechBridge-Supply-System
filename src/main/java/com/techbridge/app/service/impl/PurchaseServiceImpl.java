@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -17,9 +17,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private PurchaseRepository repo;
 
-    public List<PurchaseEntity> getPendingPurchases(String status) {
-        return repo.findByStatus(status);
-    }
+//    public List<PurchaseEntity> getPendingPurchases(String status) {
+//        return repo.findByStatus(status);
+//    }
 
     @Transactional
     public void approval(int id) {
@@ -46,5 +46,10 @@ public class PurchaseServiceImpl implements PurchaseService {
             entity.setStatus(ApprovalStatus.HOLD);
             repo.update(entity);
         }
+    }
+
+    @Override
+    public List<PurchaseEntity> findByStatus(String status) {
+        return repo.findByStatus(status);
     }
 }

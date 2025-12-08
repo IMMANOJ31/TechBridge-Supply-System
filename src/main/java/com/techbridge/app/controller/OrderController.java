@@ -18,13 +18,19 @@ public class OrderController {
 
     @GetMapping("/api/pendingOrders")
     public @ResponseBody List<PurchaseEntity> getPendingOrders(String status) {
-        return purchaseService.getPendingPurchases(status);
+        return purchaseService.findByStatus(status);
     }
 
 
     @GetMapping("notifications")
-    public String showNotification(Model model,String status) {
-        model.addAttribute("pendingOrders", purchaseService.getPendingPurchases(status));
+    public String showNotification(Model model,
+                                   @RequestParam(required = false) String status) {
+
+        if (status == null || status.isEmpty()) {
+            status = "PENDING";
+        }
+
+        model.addAttribute("data", purchaseService.findByStatus(status));
         return "notifications";
     }
 

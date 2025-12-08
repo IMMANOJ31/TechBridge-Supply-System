@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface PurchaseService {
 
-    List<PurchaseEntity> getPendingPurchases(String status);
+//    List<PurchaseEntity> getPendingPurchases(String status);
 
     void approval(int id);
 
     void reject(int id);
 
     void hold(int id);
+
+    List<PurchaseEntity> findByStatus(String status);
 }

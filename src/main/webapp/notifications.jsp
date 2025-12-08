@@ -46,10 +46,6 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
-        table {
-            background: white;
-        }
-
         th {
             background: #007f7f !important;
             color: white !important;
@@ -90,18 +86,36 @@
                 <th>Product</th>
                 <th>Model</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
 
         <tbody>
-        <c:forEach var="order" items="${pendingOrders}">
+        <c:forEach var="order" items="${data}">
             <tr>
                 <td>${order.id}</td>
-                <td>${order.customer.customerName}</td>
+                <td>${order.customerName}</td>
                 <td>${order.itemName}</td>
                 <td>${order.model}</td>
                 <td>₹${order.purchasePrice}</td>
+
+                <td>
+                    <c:choose>
+                        <c:when test="${order.status == 'APPROVED'}">
+                            <span class="badge bg-success">Approved</span>
+                        </c:when>
+                        <c:when test="${order.status == 'REJECTED'}">
+                            <span class="badge bg-danger">Rejected</span>
+                        </c:when>
+                        <c:when test="${order.status == 'HOLD'}">
+                            <span class="badge bg-warning text-dark">On Hold</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="badge bg-secondary">Pending</span>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
 
                 <td>
                     <form action="approvePurchase" method="post" style="display:inline;">

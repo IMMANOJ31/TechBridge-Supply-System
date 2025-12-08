@@ -1,6 +1,7 @@
 package com.techbridge.app.repository.impl;
 
 import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -58,30 +60,32 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
         }
     }
 
-
     @Override
     public List<PurchaseEntity> findByStatus(String status) {
         EntityManager manager = null;
-        try{
+        try {
             manager = factory.createEntityManager();
-            Query query = manager.createNamedQuery("findByStatus");
-            query.setParameter(status,"status");
+
+            ApprovalStatus enumStatus = ApprovalStatus.valueOf(status.toUpperCase());
+
+            Query query = manager.createNamedQuery("findByStatus", PurchaseEntity.class);
+            query.setParameter("status", enumStatus);
+
             return query.getResultList();
-        }catch (NoResultException r){
-            r.printStackTrace();
-            return null;
-        }finally {
-            if (manager != null && manager.isOpen()){
+
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        } finally {
+            if (manager != null && manager.isOpen()) {
                 manager.close();
             }
         }
-
+//
+//    @Override
+//    public boolean save(PurchaseEntity entity) {
+//        return false;
+//    }
     }
-
-    @Override
-    public boolean save(PurchaseEntity entity) {
-        return false;
-    }
-
 
 }

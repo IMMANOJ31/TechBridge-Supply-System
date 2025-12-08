@@ -10,7 +10,7 @@ public interface PurchaseRepository {
 
     List<PurchaseEntity> findByStatus(String status);
 
-    boolean save(PurchaseEntity entity);
+//    boolean save(PurchaseEntity entity);
 
     PurchaseEntity findById(int id);
 
