@@ -23,31 +23,28 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Transactional
     public void approval(int id) {
-        Optional<PurchaseEntity> optional = repo.findById(id);
-        if (optional.isPresent()) {
-            PurchaseEntity entity = optional.get();
+        PurchaseEntity entity = repo.findById(id);
+        if (entity != null) {
             entity.setStatus(ApprovalStatus.APPROVED);
-            repo.save(entity);
+            repo.update(entity);
         }
     }
 
     @Transactional
     public void reject(int id) {
-        Optional<PurchaseEntity> optional = repo.findById(id);
-        if (optional.isPresent()) {
-            PurchaseEntity entity = optional.get();
+        PurchaseEntity entity = repo.findById(id);
+        if (entity != null) {
             entity.setStatus(ApprovalStatus.REJECTED);
-            repo.save(entity);
+            repo.update(entity);
         }
     }
 
     @Transactional
     public void hold(int id) {
-        Optional<PurchaseEntity> optional = repo.findById(id);
-        if (optional.isPresent()) {
-            PurchaseEntity entity = optional.get();
+        PurchaseEntity entity = repo.findById(id);
+        if (entity != null) {
             entity.setStatus(ApprovalStatus.HOLD);
-            repo.save(entity);
+            repo.update(entity);
         }
     }
 }

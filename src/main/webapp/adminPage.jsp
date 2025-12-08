@@ -8,11 +8,7 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
 
-    <!-- Axios CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <style>
-        /* ---- GLOBAL ---- */
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -20,7 +16,6 @@
             min-height: 100vh;
         }
 
-        /* ---- HEADER ---- */
         header {
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(10px);
@@ -39,11 +34,12 @@
             color: #007f7f;
         }
 
-        /* ---- NOTIFICATION BELL ---- */
+        /* NOTIFICATION (redirect version) */
         .notification {
             position: relative;
-            cursor: pointer;
             margin-right: 25px;
+            cursor: pointer;
+            text-decoration: none;
         }
 
         .bell {
@@ -62,53 +58,6 @@
             font-size: 0.75rem;
         }
 
-        /* ---- DROPDOWN ---- */
-        .dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 42px;
-            background: rgba(255,255,255,0.9);
-            width: 420px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            overflow: hidden;
-        }
-
-        .dropdown.active {
-            display: block;
-        }
-
-        .dropdown h3 {
-            margin: 0;
-            padding: 12px 16px;
-            background: #007f7f;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .item {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* ---- BUTTONS ---- */
-        .btn-approve {
-            background: #28a745; color: white;
-            padding: 6px 12px; border-radius: 8px; border: none;
-        }
-
-        .btn-reject {
-            background: #dc3545; color: white;
-            padding: 6px 12px; border-radius: 8px; border: none;
-        }
-
-        .btn-hold {
-            background: #ffc107; color: #444;
-            padding: 6px 12px; border-radius: 8px; border: none;
-        }
-
-        /* ---- SIDE BOXES ---- */
         .section-container {
             display: flex;
             gap: 35px;
@@ -124,11 +73,26 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
+        .customer-info a, .user-info a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007f7f;
+            font-weight: bold;
+        }
+
         .dashboard {
             background: rgba(255,255,255,0.55);
             margin: 40px;
             padding: 30px;
             border-radius: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background: rgba(255,255,255,0.5);
         }
     </style>
 </head>
@@ -140,43 +104,14 @@
 
     <div style="display: flex; align-items: center; gap: 20px;">
 
-        <!-- NOTIFICATION -->
-        <div class="notification" id="notifyIcon">
+        <!-- 🔔 NOTIFICATION (Redirect to page) -->
+        <a href="notifications" class="notification">
             <span class="bell">🔔</span>
 
             <c:if test="${not empty pendingOrders}">
-                <span class="badge" id="pendingCount">${fn:length(pendingOrders)}</span>
+                <span class="badge">${fn:length(pendingOrders)}</span>
             </c:if>
-
-            <!-- DROPDOWN -->
-            <div class="dropdown" id="notificationDropdown">
-                <h3>Pending Approvals</h3>
-
-                <div id="pendingListContainer">
-                    <c:choose>
-                        <c:when test="${not empty pendingOrders}">
-                            <c:forEach var="order" items="${pendingOrders}">
-                                <div class="item">
-                                    <p><strong>${order.customerName}</strong> - ${order.itemName}</p>
-                                    <p>Total: ₹${order.totalCost}</p>
-
-                                    <form action="${pageContext.request.contextPath}/admin/approvePurchase" method="post">
-                                        <input type="hidden" name="id" value="${order.id}"/>
-                                        <button class="btn-approve" name="status" value="APPROVED">Approve</button>
-                                        <button class="btn-reject" name="status" value="REJECTED">Reject</button>
-                                        <button class="btn-hold" name="status" value="HOLD">Hold</button>
-                                    </form>
-                                </div>
-                            </c:forEach>
-                        </c:when>
-
-                        <c:otherwise>
-                            <div class="item"><p>No pending approvals 🎉</p></div>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
-        </div>
+        </a>
 
         <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
         <a href="${pageContext.request.contextPath}/logout">Logout</a>
@@ -184,8 +119,8 @@
     </div>
 </header>
 
-<!-- SIDE BOXES -->
 <div class="section-container">
+
     <div class="customer-info">
         <h3>Customer Info</h3>
         <a href="addCustomer">Add Customer</a>
@@ -197,9 +132,9 @@
         <a href="addUser">Add User</a>
         <a href="listOfUsers">View Users</a>
     </div>
+
 </div>
 
-<!-- MAIN DASHBOARD -->
 <div class="dashboard">
     <h2>Dashboard</h2>
     <p>This section can display analytics, reports, or summaries.</p>
@@ -208,66 +143,6 @@
 <footer>
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
-
-<!-- JS -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        const bell = document.getElementById('notifyIcon');
-        const dropdown = document.getElementById('notificationDropdown');
-        const pendingCount = document.getElementById('pendingCount');
-        const pendingListContainer = document.getElementById('pendingListContainer');
-
-        bell.addEventListener('click', function (e) {
-            e.stopPropagation();
-            dropdown.classList.toggle('active');
-        });
-
-        window.addEventListener('click', function (e) {
-            if (!bell.contains(e.target)) dropdown.classList.remove('active');
-        });
-
-        // Auto-refresh pending orders every 5 seconds
-        setInterval(loadPendingOrders, 5000);
-
-        function loadPendingOrders() {
-            axios.get('api/pendingOrders')
-                .then(response => {
-                    const orders = response.data;
-
-                    if (orders.length > 0) {
-                        pendingCount.style.display = 'inline-block';
-                        pendingCount.textContent = orders.length;
-                    } else {
-                        pendingCount.style.display = 'none';
-                    }
-
-                    let html = "";
-
-                    if (orders.length === 0) {
-                        html = `<div class="item"><p>No pending approvals 🎉</p></div>`;
-                    } else {
-                        orders.forEach(o => {
-                            html += `
-                            <div class="item">
-                                <p><strong>${o.customerName}</strong> - ${o.itemName}</p>
-                                <p>Total: ₹${o.totalCost}</p>
-
-                                <form action="approvePurchase" method="post">
-                                    <input type="hidden" name="id" value="${o.id}">
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                    <button class="btn-hold">Hold</button>
-                                </form>
-                            </div>`;
-                        });
-                    }
-                    pendingListContainer.innerHTML = html;
-                })
-                .catch(err => console.error("Failed to fetch pending orders:", err));
-        }
-    });
-</script>
 
 </body>
 </html>

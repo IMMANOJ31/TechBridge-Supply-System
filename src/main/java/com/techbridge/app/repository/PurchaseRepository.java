@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PurchaseRepository {
-    Optional<PurchaseEntity> findById(int id);
+//    Optional<PurchaseEntity> findById(int id);
 
-    List<PurchaseEntity> findByStatus(String pending);
+    List<PurchaseEntity> findByStatus(String status);
 
     boolean save(PurchaseEntity entity);
+
+    PurchaseEntity findById(int id);
+
+    boolean update(PurchaseEntity entity);
 }
