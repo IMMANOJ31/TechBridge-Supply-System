@@ -1,16 +1,10 @@
 package com.techbridge.app.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.RegistrationDto;
-import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
-import com.techbridge.app.entity.RegistrationEntity;
-import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
-import com.techbridge.app.service.PurchaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -27,12 +20,12 @@ public class AdminController {
 
     private CustomerService service;
 
-    public AdminController(CustomerService service){
-        this.service = service;
-    }
+    private  ProductService productService;
 
-   @Autowired
-   ProductService productService;
+    public AdminController(CustomerService service,ProductService productService){
+        this.service = service;
+        this.productService = productService;
+    }
 
     @GetMapping("addCustomer")
     public String addCustomerPage(){

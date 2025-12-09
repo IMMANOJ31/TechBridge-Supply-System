@@ -3,7 +3,6 @@ package com.techbridge.app.controller;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.repository.ProductRepo;
 import com.techbridge.app.service.InvoiceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/invoice")
 public class InvoiceController {
 
-    @Autowired
     private ProductRepo repo;
 
-    @Autowired
     private InvoiceService invoiceService;
+
+    public InvoiceController(ProductRepo productRepo,InvoiceService invoiceService){
+        this.repo = productRepo;
+        this.invoiceService = invoiceService;
+    }
 
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadInvoice(@PathVariable int id) throws Exception {

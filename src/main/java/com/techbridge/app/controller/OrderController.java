@@ -2,7 +2,6 @@ package com.techbridge.app.controller;
 
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.service.PurchaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,12 @@ import java.util.List;
 @RequestMapping("/")
 public class OrderController {
 
-    @Autowired
-    PurchaseService purchaseService;
+    private PurchaseService purchaseService;
+
+    public OrderController(PurchaseService purchaseService){
+        this.purchaseService = purchaseService;
+    }
+
 
     @GetMapping("/api/pendingOrders")
     public @ResponseBody List<PurchaseEntity> getPendingOrders(String status) {
