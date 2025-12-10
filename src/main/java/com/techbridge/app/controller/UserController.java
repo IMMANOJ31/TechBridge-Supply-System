@@ -7,6 +7,7 @@ import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping("/")
 public class UserController {
 
@@ -45,7 +47,7 @@ public class UserController {
     public String savePurchase(@ModelAttribute PurchaseDto dto) {
         dto.setStatus(ApprovalStatus.PENDING);
         PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
-        System.err.println("Saved: " + purchaseEntity);
+        log.info("Saved: {}",purchaseEntity);
         return "redirect:/purchaseDashboard";
     }
 
@@ -67,7 +69,7 @@ public class UserController {
     @GetMapping("purchaseListPage")
     public String purchaseList(Model model){
         List<PurchaseDto> purchaseEntity = productService.fetchAllPurchaseList();
-        System.err.println(purchaseEntity);
+        log.info("Purchase List: {}",purchaseEntity);
         model.addAttribute("purchaseEntity",purchaseEntity);
         return "purchaseList";
     }

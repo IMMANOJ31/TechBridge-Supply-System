@@ -5,6 +5,7 @@ import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping("/")
 public class AdminController {
 
@@ -42,7 +44,7 @@ public class AdminController {
     @PostMapping("saveCustomer")
     public String saveCustomerDetails(@Valid CustomerDto dto){
         service.saveCustomerDetail(dto);
-        System.out.println(dto);
+        log.info("Saved customer details: {}",dto);
         return "adminPage";
     }
 

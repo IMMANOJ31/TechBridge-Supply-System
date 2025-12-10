@@ -22,7 +22,7 @@ public class CustomerDto {
 
     @NotBlank(message = "Phone number can't be null")
     @Pattern(
-            regexp = "(\\+91[-\\s]?)?[0]?[6-9]\\d{9}",
+            regexp = "(\\+91[-\\s]?)?0?[6-9]\\d{9}",
             message = "Enter a valid phone number"
     )
     private String phoneNumber;
@@ -31,10 +31,10 @@ public class CustomerDto {
     private String email;
 
     @NotBlank(message = "Gst can't be null")
-//    @Pattern(
-//            regexp = "^([0][1-9]|[1-2][0-9]|[3][0-7])([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$",
-//            message = "Enter valid gst number"
-//    )
+    @Pattern(
+            regexp = "^(0[1-9]|[12]\\d|3[0-7])[A-Za-z]{5}\\d{4}[A-Za-z][A-Za-z1-9][Zz][A-Za-z0-9]$",
+            message = "Enter valid gst number"
+    )
     private String gstNumber;
 
     @NotBlank(message = "Country can't be null")
@@ -48,7 +48,7 @@ public class CustomerDto {
 
     @NotBlank(message = "Pincode can't be null")
     @Pattern(
-            regexp = "^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$",
+            regexp = "^[1-9]\\d{2}\\s?\\d{3}$",
             message = "Enter valid pincode"
     )
     private String pincode;

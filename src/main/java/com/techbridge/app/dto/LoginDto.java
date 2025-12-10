@@ -16,7 +16,7 @@ public class LoginDto {
 
     @NotBlank(message = "Email or phone number is required")
     @Pattern(
-            regexp = "^(?:[\\w\\-.]+@([\\w-]+\\.)+[\\w-]{2,}|(\\+91[-\\s]?)?[0]?[6-9]\\d{9})$",
+            regexp = "^(?:[\\w.-]+@(?:[\\w-]+\\.)+[\\w-]{2,}|(?:\\+91[-\\s]?)?0?[6-9]\\d{9})$",
             message = "Enter a valid email or phone number"
     )
     private String emailOrPhone;

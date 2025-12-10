@@ -5,6 +5,7 @@ import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.enums.Role;
 import com.techbridge.app.service.TechBService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
+@Slf4j
 @RequestMapping("/")
 public class TechBridgeController {
 
@@ -52,12 +54,12 @@ public class TechBridgeController {
 
     @PostMapping("register")
     public ResponseEntity<String> Register(@Valid RegistrationDto dto, BindingResult result){
-        System.err.println(dto);
+        log.info("Register info: {}",dto);
         if (result.hasErrors()){
             return ResponseEntity.badRequest().body("Validation failed" + result.getAllErrors());
         }
         String data = service.profileRegister(dto);
-        System.err.println(data);
+        log.info("Registered data: {}",data);
         switch (data){
             case "User already exists":
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(data);
@@ -70,8 +72,8 @@ public class TechBridgeController {
 
     @PostMapping("login")
     public String showLoginPage(@ModelAttribute LoginDto dto, Model model, HttpSession session) {
-        System.out.println("Login password  " + dto.getPassword());
-        System.out.println(dto);
+        log.info("Login password: {}",dto.getPassword());
+        log.info("Login page: {}",dto);
         String input = dto.getEmailOrPhone().trim();
 
         String validUser = service.doesUserExist(input, dto.getPassword().trim());
@@ -99,10 +101,10 @@ public class TechBridgeController {
     }
 
     private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {
-        System.err.println(registrationDto);
+        log.info("decide login page: {}",registrationDto);
         LoginEntity entity = new LoginEntity();
         entity.setRole(dto.getRole());
-        System.err.println("Logged by------------ "+dto);
+        log.info("Logged by: {}",dto);
         if (dto == null) {
             return "no data found";
         }
@@ -122,7 +124,7 @@ public class TechBridgeController {
     @PostMapping("verifyOtp")
     public String otpVerification(@RequestParam String email, String otp, Model model){
         String verifiedOtp = service.verifyOtp(email, otp);
-        System.out.println(verifiedOtp);
+        log.info("Verified otp: {}",verifiedOtp);
          model.addAttribute("otp",otp);
         if (verifiedOtp.equals("invalidOtp")){
             return "forgotPasswordPage";
