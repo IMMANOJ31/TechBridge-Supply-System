@@ -4,22 +4,19 @@ import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.PurchaseRepository;
 import com.techbridge.app.service.PurchaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
-    @Autowired
     private PurchaseRepository repo;
 
-//    public List<PurchaseEntity> getPendingPurchases(String status) {
-//        return repo.findByStatus(status);
-//    }
+    public PurchaseServiceImpl(PurchaseRepository repo){
+        this.repo = repo;
+    }
 
     @Transactional
     public void approval(int id) {
