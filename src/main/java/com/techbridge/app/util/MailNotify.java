@@ -15,14 +15,19 @@ public class MailNotify {
     private JavaMailSender mailSender;
     private OtpNotify otpNotify;
 
+    private static final String MAIL_SENT_SUCCESSFULLY = "Mail sent successfully";
+
+    private static final String MAIL_ID = "manoj65293@gmail.com";
+
+
     public MailNotify(JavaMailSender mailSender,OtpNotify otpNotify){
         this.otpNotify = otpNotify;
         this.mailSender = mailSender;
     }
 
-    public String registerMail(String email){
+    public String sendRegisterationMail(String email){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("manoj65293@gmail.com");
+        message.setFrom(MAIL_ID);
         message.setTo(email);
         message.setSubject("Thank You for Registering with TechBridge!");
         message.setText(
@@ -35,19 +40,19 @@ public class MailNotify {
                         "www.techbridge.com"
         );
         mailSender.send(message);
-        return "Mail sent successfully";
+        return MAIL_SENT_SUCCESSFULLY;
     }
 
-    public String LoginMail(String email){
+    public String sendLoginNotification(String email) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("manoj65293@gmail.com");
+        message.setFrom(MAIL_ID);
         message.setTo(email);
         message.setSubject("\uD83D\uDD10 Login Successful - TechBridge Account Notification");
         message.setText(
                 "Dear User,\n\n" +
                         "You have successfully logged in to your TechBridge account. ✅\n\n" +
                         "If this login was done by you, no further action is required.\n" +
-                        "If you did **not** perform this login, we recommend changing your password immediately for security reasons.\n\n" +
+                        "If you did **not** perform this login, please change your password immediately.\n\n" +
                         "📅 Login Time: " + java.time.LocalDateTime.now() + "\n" +
                         "📍 Location: [Your Device/IP]\n\n" +
                         "Stay secure and thank you for using TechBridge!\n\n" +
@@ -56,14 +61,17 @@ public class MailNotify {
                         "support@techbridge.com\n" +
                         "www.techbridge.com"
         );
+
         mailSender.send(message);
-        log.info("Login notification sent to: " + email);
-        return "Mail sent successfully";
+        log.info("Login notification sent to: {}", email);
+
+        return MAIL_SENT_SUCCESSFULLY;
     }
 
-    public String OtpMail(String email){
+
+    public String sendOtpMail(String email){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("manoj65293@gmail.com");
+        message.setFrom(MAIL_ID);
         message.setTo(email);
         message.setSubject("\uD83D\uDD11 Password Reset OTP - TechBridge");
         message.setText(
@@ -81,6 +89,6 @@ public class MailNotify {
         );
         mailSender.send(message);
         log.info(" Password reset OTP mail sent to: " + email);
-        return "Mail sent successfully";
+        return MAIL_SENT_SUCCESSFULLY;
     }
 }

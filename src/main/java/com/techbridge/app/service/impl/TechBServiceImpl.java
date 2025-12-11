@@ -23,6 +23,9 @@ public class TechBServiceImpl implements TechBService {
     private MailNotify send;
     private OtpNotify otpNotify;
 
+    private static final String NO_DATA_FOUND = "no data found";
+
+
     public TechBServiceImpl(TechBRepo repo,BCryptPasswordEncoder encoder,MailNotify send,OtpNotify otpNotify){
         log.info("Service invoked!!!");
         this.repo = repo;
@@ -35,7 +38,7 @@ public class TechBServiceImpl implements TechBService {
     public String  profileRegister(RegistrationDto dto) {
         if (!dto.getPassword().equals(dto.getConfirmPassword())) return "password mismatch";
         if (dto == null) {
-            throw new DataValidationException("no data found");
+            throw new DataValidationException(NO_DATA_FOUND);
         }
         RegistrationEntity exist = repo.existsEmailOrPhone(dto.getEmail(), dto.getPhoneNumber());
         if (exist != null) {
@@ -55,7 +58,7 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String doesUserExist(String emailPhone, String inputPassword) {
         if (emailPhone == null || inputPassword == null ){
-            return "no data found";
+            throw new DataValidationException(NO_DATA_FOUND);
         }
         RegistrationEntity entity = repo.checkMailExist(emailPhone);
 
@@ -83,7 +86,7 @@ public class TechBServiceImpl implements TechBService {
         log.info("Login details method invoked");
 
         if (dto == null) {
-            return "no data found";
+            throw new DataValidationException(NO_DATA_FOUND);
         }
 
         if (!encoder.matches(inputPassword, dto.getPassword())) {
@@ -92,7 +95,7 @@ public class TechBServiceImpl implements TechBService {
         LoginEntity entity = new LoginEntity();
         BeanUtils.copyProperties(dto, entity);
         boolean saved = repo.saveLoginDetails(entity);
-        send.LoginMail(dto.getEmailOrPhone());
+        send.sendLoginNotification((dto.getEmailOrPhone()));
         return saved ? "all good" : "not saved";
     }
 
@@ -100,7 +103,7 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String otpSending(String email) {
         if (email == null || !email.contains("@") || !email.contains(".com")){
-            return "no data found";
+            throw new DataValidationException(NO_DATA_FOUND);
         }
         RegistrationDto dto = mailExist(email);
         if (dto == null){
@@ -144,7 +147,7 @@ public class TechBServiceImpl implements TechBService {
         log.info("Verifiying otp: ",otp);
         log.info("Otp:",dto.toString());
         if (email == null){
-            return "no data found";
+            throw new DataValidationException(NO_DATA_FOUND);
         }
         if (!otp.equals(dto.getOtp())){
             return "missMatch";
@@ -155,7 +158,7 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String passwordUpdate(String email, String password) {
         if (email == null){
-            return "no data found";
+            throw new DataValidationException(NO_DATA_FOUND);
         }
         RegistrationDto dto = mailExist(email);
         dto.setPassword(encoder.encode(password));
@@ -169,7 +172,7 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String saveLoginDetails(LoginDto dto) {
         if (dto == null){
-            return "no data found";
+            throw new DataValidationException(NO_DATA_FOUND);
         }
         LoginEntity entity = new LoginEntity();
         BeanUtils.copyProperties(dto,entity);
