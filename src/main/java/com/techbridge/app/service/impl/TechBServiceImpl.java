@@ -4,38 +4,38 @@ import com.techbridge.app.dto.LoginDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.entity.RegistrationEntity;
+import com.techbridge.app.exception.DataValidationException;
 import com.techbridge.app.repository.TechBRepo;
 import com.techbridge.app.service.TechBService;
 import com.techbridge.app.util.MailNotify;
 import com.techbridge.app.util.OtpNotify;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class TechBServiceImpl implements TechBService {
 
-    public TechBServiceImpl(){
-        System.out.println("Service invoked!!!!!!");
+    private TechBRepo repo;
+    private BCryptPasswordEncoder encoder;
+    private MailNotify send;
+    private OtpNotify otpNotify;
+
+    public TechBServiceImpl(TechBRepo repo,BCryptPasswordEncoder encoder,MailNotify send,OtpNotify otpNotify){
+        log.info("Service invoked!!!");
+        this.repo = repo;
+        this.encoder = encoder;
+        this.send = send;
+        this.otpNotify = otpNotify;
     }
-    @Autowired
-    TechBRepo repo;
-
-    @Autowired
-    BCryptPasswordEncoder encoder;
-
-    @Autowired
-    MailNotify send;
-
-    @Autowired
-    OtpNotify otpNotify;
 
     @Override
     public String  profileRegister(RegistrationDto dto) {
         if (!dto.getPassword().equals(dto.getConfirmPassword())) return "password mismatch";
         if (dto == null) {
-            return "no data found";
+            throw new DataValidationException("no data found");
         }
         RegistrationEntity exist = repo.existsEmailOrPhone(dto.getEmail(), dto.getPhoneNumber());
         if (exist != null) {
@@ -44,10 +44,10 @@ public class TechBServiceImpl implements TechBService {
         dto.setPassword(encoder.encode(dto.getPassword()));
         RegistrationEntity entity = new RegistrationEntity();
         BeanUtils.copyProperties(dto, entity);
-        System.err.println(entity);
+        log.info("Profile register: {}",entity);
         boolean isSaved = repo.saveDetails(entity);
         if (isSaved) {
-//            send.registerMail(dto.getEmail());
+              send.registerMail(dto.getEmail());
             return "User registered successfully";
         } else return "Something went wrong!!!!!!!";
     }
@@ -61,7 +61,8 @@ public class TechBServiceImpl implements TechBService {
 
         if (entity == null) {
             entity = repo.checkPhoneExist(emailPhone);
-        }if (entity == null){
+        }
+        if (entity == null){
             return "User not found";
         }
 
@@ -78,7 +79,7 @@ public class TechBServiceImpl implements TechBService {
         return matches ? dto : null;
     }
     private String loginDetails(LoginDto dto, String inputPassword) {
-        System.out.println("TechBServiceImpl.loginDetails");
+        log.info("Login details method invoked");
 
         if (dto == null) {
             return "no data found";
@@ -90,7 +91,7 @@ public class TechBServiceImpl implements TechBService {
         LoginEntity entity = new LoginEntity();
         BeanUtils.copyProperties(dto, entity);
         boolean saved = repo.saveLoginDetails(entity);
-        // send.LoginMail(dto.getEmailOrPhone());
+        send.LoginMail(dto.getEmailOrPhone());
         return saved ? "all good" : "not saved";
     }
 
@@ -100,20 +101,6 @@ public class TechBServiceImpl implements TechBService {
         if (email == null || !email.contains("@") || !email.contains(".com")){
             return "no data found";
         }
-//        if (email.contains("@") && email.contains(".com")){
-//            RegistrationDto dto = mailExist(email);
-//            if (dto != null){
-//                if (dto.getEmail().equals(email)){
-//                    String otp = otpNotify.otpGenerate();
-//                    dto.setOtp(otp);
-//                    RegistrationEntity entity = new RegistrationEntity();
-//                    BeanUtils.copyProperties(dto,entity);
-//                    System.out.println(entity);
-//                    boolean otpSaved = repo.saveOtp(entity);
-//                    System.out.println(otpSaved);
-//                }
-//            }
-//        }
         RegistrationDto dto = mailExist(email);
         if (dto == null){
             return "User not found";
@@ -128,12 +115,11 @@ public class TechBServiceImpl implements TechBService {
     public RegistrationDto mailExist(String email) {
         RegistrationEntity entity = repo.checkMailExist(email);
         if (entity == null){
-            System.out.println("email = " + email);
+            log.info("Email: {}",email);
             return null;
         }else {
             RegistrationDto dto = new RegistrationDto();
             BeanUtils.copyProperties(entity, dto);
-            System.out.println("TechBServiceImpl.mailExist");
             return dto;
         }
     }
@@ -146,7 +132,7 @@ public class TechBServiceImpl implements TechBService {
         }else {
             RegistrationDto dto = new RegistrationDto();
             BeanUtils.copyProperties(entity,dto);
-            System.out.println("email = " + email + ", phoneNumber = " + phoneNumber);
+            log.info("email: {}",email + "phoneNumber: {}",phoneNumber);
             return dto;
         }
     }
@@ -154,8 +140,8 @@ public class TechBServiceImpl implements TechBService {
     @Override
     public String verifyOtp(String email, String otp) {
         RegistrationDto dto = mailExist(email);
-        System.err.println(otp);
-        System.err.println(dto.toString());
+        log.info("Verifiying otp: ",otp);
+        log.info("Otp:",dto.toString());
         if (email == null){
             return "no data found";
         }
@@ -175,7 +161,7 @@ public class TechBServiceImpl implements TechBService {
         RegistrationEntity entity = new RegistrationEntity();
         BeanUtils.copyProperties(dto,entity);
         boolean b = repo.passwordUpdate(entity);
-        System.out.println(b);
+        log.info("Password updated: {}",b);
         return "password updated";
     }
 
@@ -187,7 +173,7 @@ public class TechBServiceImpl implements TechBService {
         LoginEntity entity = new LoginEntity();
         BeanUtils.copyProperties(dto,entity);
         boolean loginDetails = repo.saveLoginDetails(entity);
-        System.err.println(loginDetails);
+        log.info("Login details: {}",loginDetails);
         return "login data stored!";
     }
 
