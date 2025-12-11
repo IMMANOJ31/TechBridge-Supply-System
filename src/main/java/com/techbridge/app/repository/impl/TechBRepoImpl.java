@@ -3,7 +3,7 @@ package com.techbridge.app.repository.impl;
 import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.TechBRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,18 +12,20 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 @Repository
+@Slf4j
 public class TechBRepoImpl implements TechBRepo {
 
-    public TechBRepoImpl(){
-        System.err.println("Repo invoked");
-    }
-    @Autowired
-    EntityManagerFactory factory;
+    private EntityManagerFactory factory;
 
+    public TechBRepoImpl(EntityManagerFactory factory)
+    {
+        this.factory = factory;
+        log.info("Invoked TechBRepoImpl");
+    }
 
     @Override
     public boolean saveDetails(RegistrationEntity entity) {
-        System.out.println(entity);
+        log.info("Saved Details -> Registration: {}",entity);
         EntityManager manager = null;
         try{
             manager = factory.createEntityManager();
@@ -33,7 +35,9 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
         return true;
     }
@@ -49,9 +53,11 @@ public class TechBRepoImpl implements TechBRepo {
             query.setParameter("phoneId",phoneNumber);
             return (RegistrationEntity) query.getSingleResult();
         }catch (Exception e){
-            System.err.println("No user found");
+            log.info("No user found");
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
         return null;
     }
@@ -69,7 +75,9 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
         return  true;
     }
@@ -86,7 +94,9 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (NoResultException e){
             return null;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -102,7 +112,9 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (NoResultException e){
             return null;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -119,7 +131,9 @@ public class TechBRepoImpl implements TechBRepo {
             e.printStackTrace();
             return false;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -136,7 +150,9 @@ public class TechBRepoImpl implements TechBRepo {
             e.printStackTrace();
             return false;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -152,7 +168,9 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -171,7 +189,9 @@ public class TechBRepoImpl implements TechBRepo {
         }catch (Exception e){
             return false;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
 
     }
