@@ -1,6 +1,7 @@
 package com.techbridge.app.util;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,13 +9,16 @@ import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class MailNotify {
 
-    @Autowired
-    JavaMailSender mailSender;
+    private JavaMailSender mailSender;
+    private OtpNotify otpNotify;
 
-    @Autowired
-    OtpNotify otpNotify;
+    public MailNotify(JavaMailSender mailSender,OtpNotify otpNotify){
+        this.otpNotify = otpNotify;
+        this.mailSender = mailSender;
+    }
 
     public String registerMail(String email){
         SimpleMailMessage message = new SimpleMailMessage();
@@ -53,7 +57,7 @@ public class MailNotify {
                         "www.techbridge.com"
         );
         mailSender.send(message);
-        System.out.println("Login notification sent to: " + email);
+        log.info("Login notification sent to: " + email);
         return "Mail sent successfully";
     }
 
@@ -76,7 +80,7 @@ public class MailNotify {
                         "www.techbridge.com"
         );
         mailSender.send(message);
-        System.out.println(" Password reset OTP mail sent to: " + email);
+        log.info(" Password reset OTP mail sent to: " + email);
         return "Mail sent successfully";
     }
 }

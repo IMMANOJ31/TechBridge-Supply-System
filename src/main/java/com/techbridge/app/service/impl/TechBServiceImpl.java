@@ -78,6 +78,7 @@ public class TechBServiceImpl implements TechBService {
         boolean matches = encoder.matches(inputPassword, dto.getPassword());
         return matches ? dto : null;
     }
+
     private String loginDetails(LoginDto dto, String inputPassword) {
         log.info("Login details method invoked");
 
