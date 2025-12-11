@@ -4,7 +4,6 @@ import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.repository.CustomerRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -17,8 +16,10 @@ import java.util.List;
 @Repository
 public class CustomerRepoImpl implements CustomerRepo {
 
-    @Autowired
-    EntityManagerFactory factory;
+    private EntityManagerFactory factory;
+    public CustomerRepoImpl(EntityManagerFactory factory){
+        this.factory = factory;
+    }
 
     @Override
     public boolean saveDetails(CustomerEntity entity) {
@@ -33,7 +34,9 @@ public class CustomerRepoImpl implements CustomerRepo {
             e.printStackTrace();
             return false;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -48,9 +51,11 @@ public class CustomerRepoImpl implements CustomerRepo {
             return query.getResultList();
         }catch (NoResultException e){
             e.printStackTrace();
-            return null;
+            return Collections.emptyList();
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -65,9 +70,11 @@ public class CustomerRepoImpl implements CustomerRepo {
            return query.getResultList();
         }catch (NoResultException e){
             e.printStackTrace();
-            return null;
+            return Collections.emptyList();
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -220,7 +227,9 @@ public class CustomerRepoImpl implements CustomerRepo {
             manager = factory.createEntityManager();
             return manager.createNamedQuery("pendingOrder", PurchaseEntity.class).getResultList();
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -237,7 +246,9 @@ public class CustomerRepoImpl implements CustomerRepo {
             e.printStackTrace();
             return false;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 
@@ -254,7 +265,9 @@ public class CustomerRepoImpl implements CustomerRepo {
             e.printStackTrace();
             return false;
         }finally {
-            manager.close();
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
         }
     }
 }
