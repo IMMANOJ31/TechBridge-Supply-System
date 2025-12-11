@@ -6,23 +6,27 @@ import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
 import com.techbridge.app.enums.CustomerType;
+import com.techbridge.app.exception.IdValidationException;
 import com.techbridge.app.repository.CustomerRepo;
 import com.techbridge.app.service.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    CustomerRepo repo;
+    private CustomerRepo repo;
+
+    public CustomerServiceImpl(CustomerRepo repo){
+        this.repo = repo;
+    }
+
 
     @Override
     public boolean saveCustomerDetail(CustomerDto dto) {
@@ -31,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         CustomerEntity entity = new CustomerEntity();
         BeanUtils.copyProperties(dto,entity);
-        System.out.println(entity);
+        log.info("Saved customer details: {}",entity);
         repo.saveDetails(entity);
         return true;
     }
@@ -47,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerDtos.add(dto);
         }
         List<CustomerDto> debitors = fetchDebitors(customerDtos);
-        System.out.println("Debitors: " + debitors);
+        log.info("Debitors: {}",debitors);
         return debitors;
     }
 
@@ -74,8 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public RegistrationDto fetchUserById(int id) {
         if (id == 0){
-            System.out.println("id is zero");
-            return null;
+            throw new IdValidationException("Id cannot be zero");
         }
         RegistrationEntity entity = repo.fetchUserById(id);
         RegistrationDto dto = new RegistrationDto();
@@ -86,8 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto fetchCustomerById(int id) {
         if (id == 0){
-            System.out.println("id is zero");
-            return null;
+            throw new IdValidationException("Id cannot be zero");
         }
         CustomerEntity entity = repo.fecthCustomerById(id);
         CustomerDto dto = new CustomerDto();
@@ -98,48 +100,46 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean removeCustomerById(int id) {
         if (id == 0){
-            System.out.println("id is zero");
-            return false;
+            throw new IdValidationException("Id cannot be zero");
         }
         boolean b = repo.removeCustomer(id);
-        System.out.println("Does customer details erased -> "+b);
+        log.info("Does customer details erased -> "+b);
         return true;
     }
 
     @Override
     public boolean removeUserById(int id) {
         if (id == 0){
-            System.out.println("id is zero");
-            return false;
+            throw new IdValidationException("Id cannot be zero");
         }
         boolean remove = repo.removeUser(id);
-        System.out.println("Does user details erased -> "+remove);
+        log.info("Does user details erased -> "+remove);
         return true;
     }
 
     @Override
     public CustomerDto updateCustomerDetails(CustomerDto dto) {
         if (dto == null){
-            System.out.println(dto);
+            log.info("for updating customer detail: {}",dto);
             return null;
         }
         CustomerEntity entity = new CustomerEntity();
         BeanUtils.copyProperties(dto,entity);
         boolean b = repo.CustomerUpdate(entity);
-        System.out.println("Customer details updated -> "+b);
+        log.info("Customer details updated -> "+b);
         return dto;
     }
 
     @Override
     public RegistrationDto updateUserDetails(RegistrationDto dto) {
         if (dto == null){
-            System.out.println(dto);
+            log.info("   ",dto);
             return null;
         }
         RegistrationEntity entity = new RegistrationEntity();
         BeanUtils.copyProperties(dto,entity);
         boolean b = repo.UserUpdate(entity);
-        System.out.println("User details updated -> "+b);
+        log.info("User details updated -> "+b);
         return dto;
     }
 
