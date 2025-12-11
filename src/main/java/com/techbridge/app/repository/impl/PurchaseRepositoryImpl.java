@@ -3,7 +3,6 @@ package com.techbridge.app.repository.impl;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.PurchaseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,13 +15,11 @@ import java.util.List;
 @Repository
 public class PurchaseRepositoryImpl implements PurchaseRepository {
 
-    @Autowired
-    EntityManagerFactory factory;
+    private EntityManagerFactory factory;
 
-//    @Override
-//    public Optional<PurchaseEntity> findById(int id) {
-//        return Optional.empty();
-//    }
+    public PurchaseRepositoryImpl(EntityManagerFactory factory){
+        this.factory = factory;
+    }
 
     @Override
     public PurchaseEntity findById(int id) {
@@ -81,11 +78,6 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
                 manager.close();
             }
         }
-//
-//    @Override
-//    public boolean save(PurchaseEntity entity) {
-//        return false;
-//    }
     }
 
 }

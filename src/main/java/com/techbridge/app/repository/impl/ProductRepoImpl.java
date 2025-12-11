@@ -12,7 +12,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ProductRepoImpl implements ProductRepo {
@@ -88,7 +87,7 @@ public class ProductRepoImpl implements ProductRepo {
             return query.getResultList();
         }catch (NoResultException r){
             r.printStackTrace();
-            return  null;
+            return  Collections.emptyList();
         }finally {
             if (manager != null && manager.isOpen()){
                 manager.close();
