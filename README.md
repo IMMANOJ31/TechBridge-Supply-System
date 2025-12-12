@@ -1,6 +1,8 @@
 **🚀 TechBridge Supply System**
 
-    TechBridge Supply System is a vendor and purchase management application with separate Admin and User modules, purchase workflow, email notifications, OTP-based password reset, and Swagger API documentation. The system is built using Spring MVC, JPA, Hibernate, MySQL, and a Bootstrap-based UI.
+    TechBridge Supply System is a vendor and purchase management application with separate Admin and User modules,
+    purchase workflow, email notifications, OTP-based password reset, and Swagger API documentation. The system is 
+    built using Spring MVC, JPA, Hibernate, MySQL, and a Bootstrap-based UI.
 
 **📌 Overview**
 
