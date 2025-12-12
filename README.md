@@ -1,10 +1,10 @@
-**🚀 TechBridge Supply System**
+🚀 TechBridge Supply System
 
-    TechBridge Supply System is a vendor and purchase management application with separate Admin and User modules,
-    purchase workflow, email notifications, OTP-based password reset, and Swagger API documentation. The system is 
-    built using Spring MVC, JPA, Hibernate, MySQL, and a Bootstrap-based UI.
+    TechBridge Supply System is a vendor and purchase management application with separate Admin and 
+    User modules,purchase workflow, email notifications, OTP-based password reset, and Swagger API 
+    documentation. The system is built using Spring MVC, JPA, Hibernate, MySQL, and a Bootstrap-based UI.
 
-**📌 Overview**
+📌 Overview
 
     This application handles vendor operations and purchase requests with two roles:
 
@@ -12,10 +12,10 @@
 
         User: Can create purchase orders and track status
 
-  The system includes authentication, email notifications, and workflow approvals for purchase operations.
+        The system includes authentication, email notifications, and workflow approvals for purchase operations.
 
-**🎯 Key Features
-🔐 Authentication & Security**
+🎯 Key Features
+🔐 Authentication & Security
 
   Separate Admin and User login
 
@@ -25,7 +25,7 @@
 
   OTP sent via email for password reset
 
-**Email notifications for:**
+Email notifications for:
 
     Registration
 
@@ -33,7 +33,7 @@
 
     OTP delivery
 
-**🛠️ Admin Features**
+🛠️ Admin Features
 
     Add new users
 
@@ -47,7 +47,7 @@
 
     View purchase history
 
-**👤 User Features**
+👤 User Features
 
     Create purchase orders
 
@@ -57,16 +57,16 @@
 
     Update personal info
 
-**📘 API & Documentation**
+📘 API & Documentation
 
     Fully documented REST APIs using Swagger
 
     Swagger UI available at:
     /swagger-ui/
 
-**🏗️ Tech Stack**
+🏗️ Tech Stack
 
-   **Backend**
+   Backend
 
     Spring MVC
 
@@ -78,7 +78,7 @@
 
     Swagger / OpenAPI
 
-  **Frontend**
+  Frontend
 
     HTML
 
@@ -88,7 +88,7 @@
 
     Bootstrap
 
-**Additional Tools**
+Additional Tools
 
     JavaMailSender for email
 
