@@ -1,94 +1,95 @@
-🚀 TechBridge Supply System
+**🚀 TechBridge Supply System**
 
-TechBridge Supply System is a vendor and purchase management application with separate Admin and User modules, purchase workflow, email notifications, OTP-based password reset, and Swagger API documentation. The system is built using Spring MVC, JPA, Hibernate, MySQL, and a Bootstrap-based UI.
+    TechBridge Supply System is a vendor and purchase management application with separate Admin and User modules, purchase workflow, email notifications, OTP-based password reset, and Swagger API documentation. The system is built using Spring MVC, JPA, Hibernate, MySQL, and a Bootstrap-based UI.
 
-📌 Overview
+**📌 Overview**
 
-This application handles vendor operations and purchase requests with two roles:
+    This application handles vendor operations and purchase requests with two roles:
 
-Admin: Full control over users and purchase approvals
+        Admin: Full control over users and purchase approvals
 
-User: Can create purchase orders and track status
+        User: Can create purchase orders and track status
 
-The system includes authentication, email notifications, and workflow approvals for purchase operations.
+  The system includes authentication, email notifications, and workflow approvals for purchase operations.
 
-🎯 Key Features
-🔐 Authentication & Security
+**🎯 Key Features
+🔐 Authentication & Security**
 
-Separate Admin and User login
+  Separate Admin and User login
 
-Password hashing
+  Password hashing
 
-Forgot password feature
+  Forgot password feature
 
-OTP sent via email for password reset
+  OTP sent via email for password reset
 
-Email notifications for:
+**Email notifications for:**
 
-Registration
+    Registration
 
-Login activity
+    Login activity
 
-OTP delivery
+    OTP delivery
 
-🛠️ Admin Features
+**🛠️ Admin Features**
 
-Add new users
+    Add new users
 
-Edit user information
+    Edit user information
 
-Remove users
+    Remove users
 
-View all users
+    View all users
 
-Approve, Hold, or Reject purchase requests
+    Approve, Hold, or Reject purchase requests
 
-View purchase history
+    View purchase history
 
-👤 User Features
+**👤 User Features**
 
-Create purchase orders
+    Create purchase orders
 
-View purchase status (Approved / Rejected / On Hold)
+    View purchase status (Approved / Rejected / On Hold)
 
-Reset password with OTP
+    Reset password with OTP
 
-Update personal info
+    Update personal info
 
-📘 API & Documentation
+**📘 API & Documentation**
 
-Fully documented REST APIs using Swagger
+    Fully documented REST APIs using Swagger
 
-Swagger UI available at:
-/swagger-ui/
+    Swagger UI available at:
+    /swagger-ui/
 
-🏗️ Tech Stack
-Backend
+**🏗️ Tech Stack**
 
-Spring MVC
+   **Backend**
 
-Spring JPA
+    Spring MVC
 
-Hibernate
+    Spring JPA
 
-MySQL
+    Hibernate
 
-Swagger / OpenAPI
+    MySQL
 
-Frontend
+    Swagger / OpenAPI
 
-HTML
+  **Frontend**
 
-CSS
+    HTML
 
-JavaScript
+    CSS
 
-Bootstrap
+    JavaScript
 
-Additional Tools
+    Bootstrap
 
-JavaMailSender for email
+**Additional Tools**
 
-Maven for build
+    JavaMailSender for email
 
-MySQL Workbench
+    Maven for build
+
+    MySQL Workbench
