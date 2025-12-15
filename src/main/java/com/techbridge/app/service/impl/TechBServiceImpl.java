@@ -50,7 +50,7 @@ public class TechBServiceImpl implements TechBService {
         log.info("Profile register: {}",entity);
         boolean isSaved = repo.saveDetails(entity);
         if (isSaved) {
-              send.registerMail(dto.getEmail());
+              send.sendRegisterationMail(dto.getEmail());
             return "User registered successfully";
         } else return "Something went wrong!!!!!!!";
     }

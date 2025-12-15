@@ -37,10 +37,10 @@ public class PurchaseEntity {
     @Column(name = "item_name")
     private String itemName;
     @Column(name = "total_cost")
-    private String totalCost;
+    private Integer totalCost;
     @Column(name = "purchase_price")
-    private String purchasePrice;
-    private int quantity;
+    private Integer purchasePrice;
+    private Integer quantity;
     @Column(name = "due_date")
     private String dueDate;
 

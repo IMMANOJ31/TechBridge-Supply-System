@@ -25,5 +25,27 @@ public class RedirectPage {
         return "forgotPasswordPage";
     }
 
+    @GetMapping("index")
+    public String showHomePage() {
+        return "index";
+    }
+
+    @GetMapping("login")
+    public String showLoginForm() {
+        return "login";
+    }
+
+    @GetMapping("forgotPassword")
+    public String showPasswordPage(){
+        return "forgotPasswordPage";
+    }
+
+    @GetMapping("adminPage")
+    public String adminPage() {
+        return "adminPage";
+    }
+
+
+
 
 }

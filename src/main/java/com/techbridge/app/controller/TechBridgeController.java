@@ -6,7 +6,6 @@ import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.enums.Role;
 import com.techbridge.app.service.TechBService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,28 +22,13 @@ import javax.validation.Valid;
 @RequestMapping("/")
 public class TechBridgeController {
 
-    public TechBridgeController(){
+    private TechBService service;
+
+    public TechBridgeController(TechBService service){
+        this.service = service;
         System.err.println("Controller invoked");
     }
 
-    @Autowired
-    TechBService service;
-
-
-    @GetMapping("index")
-    public String showHomePage() {
-        return "index";
-    }
-
-    @GetMapping("login")
-    public String showLoginForm() {
-        return "login";
-    }
-
-    @GetMapping("forgotPassword")
-    public String showPasswordPage(){
-        return "forgotPasswordPage";
-    }
 
     @GetMapping("register")
     public String showAccountPage(Model model)
@@ -71,7 +55,8 @@ public class TechBridgeController {
     }
 
     @PostMapping("login")
-    public String showLoginPage(@ModelAttribute LoginDto dto, Model model, HttpSession session) {
+    @ResponseBody
+    public ResponseEntity<?> showLoginPage(@ModelAttribute LoginDto dto, Model model, HttpSession session) {
         log.info("Login password: {}",dto.getPassword());
         log.info("Login page: {}",dto);
         String input = dto.getEmailOrPhone().trim();
@@ -81,21 +66,20 @@ public class TechBridgeController {
             case "no data found":
             case "User not found":
                 model.addAttribute("error", "Invalid credentials");
-                return "login";
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist");
             case "Invalid password":
                 model.addAttribute("error", "Incorrect password");
-                return "login";
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
             case "ADMIN":
                 session.setAttribute("loggedInUser",dto);
                 service.saveLoginDetails(dto);
-                return "adminPage";
+                return ResponseEntity.ok("ADMIN");
             case "USER":
                 session.setAttribute("loggedInUser",dto);
                 service.saveLoginDetails(dto);
-                return "userPage";
+                return ResponseEntity.ok("USER");
             default:
-                model.addAttribute("error", "Unexpected error occurred");
-                return "login";
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error");
         }
 
     }

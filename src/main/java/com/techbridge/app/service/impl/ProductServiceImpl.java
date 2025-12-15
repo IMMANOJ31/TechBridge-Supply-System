@@ -38,9 +38,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public PurchaseEntity savePurchaseDetail(PurchaseDto dto) {
         PurchaseEntity purchaseEntity = new PurchaseEntity();
-        BeanUtils.copyProperties(dto,purchaseEntity);
+        BeanUtils.copyProperties(dto, purchaseEntity);
+
+        if (purchaseEntity.getPurchasePrice() != null && purchaseEntity.getQuantity() != null) {
+            purchaseEntity.setTotalCost(purchaseEntity.getPurchasePrice() * purchaseEntity.getQuantity());
+        }
         return productRepo.savePurchase(purchaseEntity);
     }
+
 
     @Override
     public List<PurchaseDto> fetchAllPurchaseList() {
