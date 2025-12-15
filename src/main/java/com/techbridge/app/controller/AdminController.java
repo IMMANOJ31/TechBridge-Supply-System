@@ -29,11 +29,6 @@ public class AdminController {
         this.productService = productService;
     }
 
-    @GetMapping("addCustomer")
-    public String addCustomerPage(){
-        return "addCustomer";
-    }
-
     @GetMapping("viewCustomer")
     public String viewCustomerPage(Model model){
         List<CustomerDto> dtos = service.fetchCustomerDetails();
@@ -86,16 +81,6 @@ public class AdminController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("pageSize", size);
         return "customerList";
-    }
-
-    @GetMapping("logout")
-    public String logout(){
-        return "index";
-    }
-
-    @GetMapping("addUser")
-    public String addUser(){
-        return "addUserPage";
     }
 
     @GetMapping("viewUser")

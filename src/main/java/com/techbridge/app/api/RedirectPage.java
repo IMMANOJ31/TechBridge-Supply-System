@@ -45,7 +45,20 @@ public class RedirectPage {
         return "adminPage";
     }
 
+    @GetMapping("addCustomer")
+    public String addCustomerPage(){
+        return "addCustomer";
+    }
 
+    @GetMapping("logout")
+    public String logout(){
+        return "index";
+    }
+
+    @GetMapping("addUser")
+    public String addUser(){
+        return "addUserPage";
+    }
 
 
 }

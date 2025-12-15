@@ -129,7 +129,6 @@
 
     <div class="user-info">
         <h3>User Info</h3>
-        <a href="addUser">Add User</a>
         <a href="listOfUsers">View Users</a>
     </div>
 
