@@ -8,11 +8,14 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class LoginDto {
+public class LoginDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "Email or phone number is required")
     @Pattern(

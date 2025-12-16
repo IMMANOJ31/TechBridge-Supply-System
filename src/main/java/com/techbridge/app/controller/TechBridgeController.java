@@ -24,9 +24,12 @@ public class TechBridgeController {
 
     private TechBService service;
 
+    private static final String RESET_PASSWORD = "forgotPasswordPage" ;
+    private static final String INPUT_EMAIL = "inputEmail";
+
     public TechBridgeController(TechBService service){
         this.service = service;
-        System.err.println("Controller invoked");
+        log.info("TechBridge controller invoked");
     }
 
 
@@ -56,33 +59,35 @@ public class TechBridgeController {
 
     @PostMapping("login")
     @ResponseBody
-    public ResponseEntity<?> showLoginPage(@ModelAttribute LoginDto dto, Model model, HttpSession session) {
-        log.info("Login password: {}",dto.getPassword());
-        log.info("Login page: {}",dto);
-        String input = dto.getEmailOrPhone().trim();
+    public ResponseEntity<String> showLoginPage(@ModelAttribute LoginDto dto,Model model,HttpSession session) {
 
+        log.info("Login attempt for: {}", dto.getEmailOrPhone());
+
+        String input = dto.getEmailOrPhone().trim();
         String validUser = service.doesUserExist(input, dto.getPassword().trim());
+
         switch (validUser) {
+
             case "no data found":
             case "User not found":
-                model.addAttribute("error", "Invalid credentials");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist");
+
             case "Invalid password":
-                model.addAttribute("error", "Incorrect password");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+
             case "ADMIN":
-                session.setAttribute("loggedInUser",dto);
-                service.saveLoginDetails(dto);
-                return ResponseEntity.ok("ADMIN");
             case "USER":
-                session.setAttribute("loggedInUser",dto);
+                session.setAttribute("loggedInUser", input);
+                session.setAttribute("role", validUser);
                 service.saveLoginDetails(dto);
-                return ResponseEntity.ok("USER");
+                return ResponseEntity.ok(validUser);
+
             default:
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error");
         }
-
     }
+
+
 
     private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {
         log.info("decide login page: {}",registrationDto);
@@ -101,8 +106,8 @@ public class TechBridgeController {
     @PostMapping("sendOtp")
     public String sendOtp(@RequestParam  String email, Model model){
         service.otpSending(email);
-        model.addAttribute("inputEmail",email);
-        return "forgotPasswordPage";
+        model.addAttribute(INPUT_EMAIL,email);
+        return RESET_PASSWORD;
     }
 
     @PostMapping("verifyOtp")
@@ -111,13 +116,13 @@ public class TechBridgeController {
         log.info("Verified otp: {}",verifiedOtp);
          model.addAttribute("otp",otp);
         if (verifiedOtp.equals("invalidOtp")){
-            return "forgotPasswordPage";
+            return RESET_PASSWORD;
         }else if (verifiedOtp.equals("missMatch")){
             model.addAttribute("otpError", "Invalid OTP. Try again");
-            model.addAttribute("inputEmail", email);
-            return "forgotPasswordPage";
+            model.addAttribute(INPUT_EMAIL, email);
+            return RESET_PASSWORD;
         }
-        model.addAttribute("inputEmail",email);
+        model.addAttribute(INPUT_EMAIL,email);
         return "resetPassword";
     }
 
