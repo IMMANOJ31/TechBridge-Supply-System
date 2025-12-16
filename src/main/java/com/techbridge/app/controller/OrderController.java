@@ -1,6 +1,8 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.entity.PurchaseEntity;
+import com.techbridge.app.service.EmailService;
+import com.techbridge.app.service.InvoiceService;
 import com.techbridge.app.service.PurchaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,9 +17,13 @@ import java.util.List;
 public class OrderController {
 
     private PurchaseService purchaseService;
+    private InvoiceService invoiceService;
+    private EmailService emailService;
 
-    public OrderController(PurchaseService purchaseService){
+    public OrderController(PurchaseService purchaseService,InvoiceService invoiceService,EmailService emailService){
         this.purchaseService = purchaseService;
+        this.invoiceService = invoiceService;
+        this.emailService = emailService;
     }
 
 
@@ -29,8 +35,7 @@ public class OrderController {
 
 
     @GetMapping("notifications")
-    public String showNotification(Model model,
-                                   @RequestParam(required = false) String status) {
+    public String showNotification(Model model,@RequestParam(required = false) String status) {
 
         if (status == null || status.isEmpty()) {
             status = "PENDING";
@@ -40,12 +45,14 @@ public class OrderController {
         return "notifications";
     }
 
-
     @PostMapping("approvePurchase")
     public String approvePurchase(@RequestParam int id) {
-        purchaseService.approval(id);
-        return "redirect:notifications";
-    }
+    PurchaseEntity purchase = purchaseService.approval(id);
+    byte[] pdf = invoiceService.generateInvoice(purchase);
+    //emailService.sendInvoice(,pdf,"invoice_" + id + ".pdf");
+    return "redirect:notifications";
+}
+
 
     @PostMapping("rejectPurchase")
     public String rejectPurchase(@RequestParam int id) {

@@ -19,13 +19,18 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Transactional
-    public void approval(int id) {
+    public PurchaseEntity approval(int id) {
+
         PurchaseEntity entity = repo.findById(id);
-        if (entity != null) {
-            entity.setStatus(ApprovalStatus.APPROVED);
-            repo.update(entity);
+
+        if (entity == null) {
+            throw new RuntimeException("Purchase not found with id: " + id);
         }
+        entity.setStatus(ApprovalStatus.APPROVED);
+        repo.update(entity);
+        return entity;
     }
+
 
     @Transactional
     public void reject(int id) {

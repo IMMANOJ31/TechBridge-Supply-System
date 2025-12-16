@@ -8,7 +8,7 @@ public interface PurchaseService {
 
 //    List<PurchaseEntity> getPendingPurchases(String status);
 
-    void approval(int id);
+    PurchaseEntity approval(int id);
 
     void reject(int id);
 
