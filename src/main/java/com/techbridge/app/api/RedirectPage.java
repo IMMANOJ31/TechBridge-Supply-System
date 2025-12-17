@@ -60,5 +60,20 @@ public class RedirectPage {
         return "addUserPage";
     }
 
+    @GetMapping("purchaseDashboard")
+    public String purchaseDashboard(){
+        return "purchaseDashboard";
+    }
+
+    @GetMapping("salesPage")
+    public String salesPage() {
+        return "salesPage";
+    }
+
+    @GetMapping("userPage")
+    public String returnToUserPage(){
+        return "userPage";
+    }
+
 
 }

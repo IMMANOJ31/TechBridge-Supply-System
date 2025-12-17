@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Controller
 @Slf4j
@@ -59,34 +61,29 @@ public class TechBridgeController {
 
     @PostMapping("login")
     @ResponseBody
-    public ResponseEntity<String> showLoginPage(@ModelAttribute LoginDto dto,Model model,HttpSession session) {
+    public ResponseEntity<?> showLoginPage(@ModelAttribute LoginDto dto,HttpSession session) {
 
-        log.info("Login attempt for: {}", dto.getEmailOrPhone());
+        String result = service.doesUserExist(dto.getEmailOrPhone().trim(),dto.getPassword().trim());
 
-        String input = dto.getEmailOrPhone().trim();
-        String validUser = service.doesUserExist(input, dto.getPassword().trim());
+        switch (result) {
 
-        switch (validUser) {
+            case "ADMIN":
+            case "USER":
+                dto.setRole(Role.valueOf(result));
+                dto.setLoggedDate(LocalDate.now());
+                dto.setLoginTime(LocalTime.now());
 
-            case "no data found":
-            case "User not found":
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist");
+                session.setAttribute("loggedInUser", dto);
+
+                return ResponseEntity.ok(result);
 
             case "Invalid password":
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
 
-            case "ADMIN":
-            case "USER":
-                session.setAttribute("loggedInUser", input);
-                session.setAttribute("role", validUser);
-                service.saveLoginDetails(dto);
-                return ResponseEntity.ok(validUser);
-
             default:
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-
 
 
     private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {

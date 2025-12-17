@@ -179,7 +179,7 @@
                 <input type="number" id="quantity" name="quantity" min="1" value="1" required class="form-control">
 
                 <label class="mt-3">Total Cost</label>
-                <input type="number" id="totalCost" step="0.01" readonly class="form-control">
+                <input type="number" id="totalCost" name="totalCost" step="0.01" readonly class="form-control">
 
                 <label class="mt-3">Due Date</label>
                 <input type="date" name="dueDate" required class="form-control">
@@ -222,6 +222,21 @@ document.addEventListener("DOMContentLoaded", () => {
     qty.addEventListener("input", updateTotal);
     price.addEventListener("input", updateTotal);
 });
+</script>
+
+<script>
+    const priceInput = document.getElementById("purchasePrice");
+        const qtyInput = document.getElementById("quantity");
+        const totalInput = document.getElementById("totalCost");
+
+        function calculateTotal() {
+            const price = parseFloat(priceInput.value) || 0;
+            const qty = parseInt(qtyInput.value) || 0;
+            totalInput.value = (price * qty).toFixed(2);
+        }
+
+        priceInput.addEventListener("input", calculateTotal);
+        qtyInput.addEventListener("input", calculateTotal);
 </script>
 
 </body>

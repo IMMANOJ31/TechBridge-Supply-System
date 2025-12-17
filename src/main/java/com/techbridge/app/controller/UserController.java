@@ -51,20 +51,6 @@ public class UserController {
         return "redirect:/purchaseDashboard";
     }
 
-    @GetMapping("purchaseDashboard")
-    public String purchaseDashboard(){
-        return "purchaseDashboard";
-    }
-
-    @GetMapping("salesPage")
-    public String salesPage() {
-        return "salesPage";
-    }
-
-    @GetMapping("userPage")
-    public String returnToUserPage(){
-        return "userPage";
-    }
 
     @GetMapping("purchaseListPage")
     public String purchaseList(Model model){

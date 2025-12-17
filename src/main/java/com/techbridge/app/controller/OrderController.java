@@ -49,7 +49,7 @@ public class OrderController {
     public String approvePurchase(@RequestParam int id) {
     PurchaseEntity purchase = purchaseService.approval(id);
     byte[] pdf = invoiceService.generateInvoice(purchase);
-    //emailService.sendInvoice(,pdf,"invoice_" + id + ".pdf");
+//    emailService.sendInvoice(,pdf,"invoice_" + id + ".pdf");
     return "redirect:notifications";
 }
 
