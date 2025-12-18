@@ -1,7 +1,7 @@
 package com.techbridge.app.api;
 
 
-import org.omg.CORBA.PUBLIC_MEMBER;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class RedirectPage {
 
     public RedirectPage(){
-        System.err.println("Redirect pages");
+        log.info("Redirect pages inkoved");
     }
 
     @GetMapping("registration")

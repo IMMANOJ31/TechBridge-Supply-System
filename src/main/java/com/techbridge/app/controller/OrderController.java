@@ -16,6 +16,8 @@ import java.util.List;
 @RequestMapping("/")
 public class OrderController {
 
+    private static final String REDIRECT_TO_NOTIFICATION = "redirect:notifications";
+
     private PurchaseService purchaseService;
     private InvoiceService invoiceService;
     private EmailService emailService;
@@ -50,19 +52,19 @@ public class OrderController {
     PurchaseEntity purchase = purchaseService.approval(id);
     byte[] pdf = invoiceService.generateInvoice(purchase);
 //    emailService.sendInvoice(,pdf,"invoice_" + id + ".pdf");
-    return "redirect:notifications";
+    return REDIRECT_TO_NOTIFICATION;
 }
 
 
     @PostMapping("rejectPurchase")
     public String rejectPurchase(@RequestParam int id) {
         purchaseService.reject(id);
-        return "redirect:notifications";
+        return REDIRECT_TO_NOTIFICATION;
     }
 
     @PostMapping("holdPurchase")
     public String holdPurchase(@RequestParam int id) {
         purchaseService.hold(id);
-        return "redirect:notifications";
+        return REDIRECT_TO_NOTIFICATION;
     }
 }
