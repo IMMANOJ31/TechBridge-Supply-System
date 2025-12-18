@@ -60,4 +60,12 @@ public class UserController {
         return "purchaseList";
     }
 
+    @GetMapping("salesPage")
+    public String productList(Model model){
+        List<ProductDto> productDtos = productService.fetchAllProductList();
+        model.addAttribute("products",productDtos);
+        return "salesPages";
+    }
+
+
 }

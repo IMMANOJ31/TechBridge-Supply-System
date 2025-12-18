@@ -65,11 +65,6 @@ public class RedirectPage {
         return "purchaseDashboard";
     }
 
-    @GetMapping("salesPage")
-    public String salesPage() {
-        return "salesPage";
-    }
-
     @GetMapping("userPage")
     public String returnToUserPage(){
         return "userPage";

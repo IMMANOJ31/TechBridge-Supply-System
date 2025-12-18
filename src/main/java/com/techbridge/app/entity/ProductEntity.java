@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Data @AllArgsConstructor @NoArgsConstructor
 
 @NamedQueries({
-        @NamedQuery(name = "fetchProduct",query = "select p.productGroup from ProductEntity p")
+        @NamedQuery(name = "fetchProduct",query = "select p.productGroup from ProductEntity p"),
+        @NamedQuery(name = "fetchingAllProducts", query = "select r.productGroup from ProductEntity r")
 })
 public class ProductEntity {
 

@@ -19,4 +19,6 @@ public interface ProductRepo {
     List<PurchaseEntity> findByStatus(ApprovalStatus approvalStatus);
 
     PurchaseEntity findById(int id);
+
+    List<ProductEntity> fetchAllProducts();
 }

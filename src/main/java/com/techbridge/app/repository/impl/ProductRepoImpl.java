@@ -4,6 +4,7 @@ import com.techbridge.app.entity.ProductEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.repository.ProductRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class ProductRepoImpl implements ProductRepo {
 
     private final EntityManagerFactory factory;
@@ -124,6 +126,23 @@ public class ProductRepoImpl implements ProductRepo {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<ProductEntity> fetchAllProducts() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            Query query = manager.createNamedQuery("fetchingAllProducts");
+            return query.getResultList();
+        }catch (NoResultException e){
+            log.error("No product found");
+            return Collections.emptyList();
         }finally {
             if (manager != null && manager.isOpen()){
                 manager.close();

@@ -16,10 +16,10 @@ public class PurchaseDto {
     private String productCode;
     private String itemName;
     private String openingValue;
-    private String totalCost;
+    private Integer totalCost;
     private String openingBalance;
-    private String purchasePrice;
-    private int quantity;
+    private Integer purchasePrice;
+    private Integer quantity;
     private String dueDate;
     private ApprovalStatus status;
 }

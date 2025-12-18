@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -62,6 +63,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<PurchaseEntity> getPendingOrders() {
         return productRepo.findByStatus(ApprovalStatus.PENDING);
+    }
+
+    @Override
+    public List<ProductDto> fetchAllProductList() {
+        List<ProductEntity> productEntities = productRepo.fetchAllProducts();
+        List<ProductDto> productDtoList = new ArrayList<>();
+        for (ProductEntity entity : productEntities){
+            ProductDto productDto = new ProductDto();
+            BeanUtils.copyProperties(entity,productDto);
+            productDtoList.add(productDto);
+        }
+        return productDtoList;
+
     }
 
 }

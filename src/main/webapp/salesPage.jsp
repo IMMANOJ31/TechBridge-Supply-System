@@ -130,10 +130,15 @@
             <!-- LEFT COLUMN -->
             <div class="col-md-6">
                 <label>Customer Name</label>
-                <input type="text" name="customerName" class="form-control" required>
+                <input type="text" name="customerName" required class="form-control"></input>
 
                 <label class="mt-3">Product Name</label>
-                <input type="text" name="productName" class="form-control" required>
+                <select name="productName" class="form-control" required>
+                    <option value="">-- Select Product --</option>
+                    <c:forEach var="product" items="${products}">
+                        <option>${product.name}</option>
+                    </c:forEach>
+                </select>
 
                 <label class="mt-3"> Brand </label>
                 <input type="text" name="brand" class="form-control" required>

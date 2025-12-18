@@ -21,4 +21,5 @@ public interface ProductService {
 
     List<PurchaseEntity> getPendingOrders();
 
+    List<ProductDto> fetchAllProductList();
 }
