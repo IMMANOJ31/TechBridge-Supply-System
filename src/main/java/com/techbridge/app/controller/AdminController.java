@@ -1,10 +1,12 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
+import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
+import com.techbridge.app.service.PurchaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +26,12 @@ public class AdminController {
 
     private  ProductService productService;
 
-    public AdminController(CustomerService service,ProductService productService){
+    private PurchaseService purchaseService;
+
+    public AdminController(CustomerService service,ProductService productService,PurchaseService purchaseService){
         this.service = service;
         this.productService = productService;
+        this.purchaseService = purchaseService;
     }
 
     @GetMapping("viewCustomer")
@@ -147,5 +152,18 @@ public class AdminController {
         session.setAttribute("loggedInUser", session.getAttribute("loggedInUser"));
         return "adminPage";
     }
+
+    @GetMapping("adminPage")
+    public String adminPage(Model model) {
+        List<PurchaseEntity> pendingOrders =purchaseService.findByStatus("PENDING");
+        //List<UserDto> userList = userService.findAllUsers();
+        List<CustomerDto> customerList = service.findAllCustomers();
+
+        model.addAttribute("pendingOrders", pendingOrders);
+        //model.addAttribute("userList", userList);
+        model.addAttribute("customerList", customerList);
+        return "adminPage";
+    }
+
 
 }

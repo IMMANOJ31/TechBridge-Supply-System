@@ -16,6 +16,5 @@ public interface PurchaseService {
 
     List<PurchaseEntity> findByStatus(String status);
 
-
     PurchaseEntity getByProductCode(String productCode);
 }

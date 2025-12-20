@@ -41,11 +41,6 @@ public class RedirectPage {
         return "forgotPasswordPage";
     }
 
-    @GetMapping("adminPage")
-    public String adminPage() {
-        return "adminPage";
-    }
-
     @GetMapping("addCustomer")
     public String addCustomerPage(){
         return "addCustomer";

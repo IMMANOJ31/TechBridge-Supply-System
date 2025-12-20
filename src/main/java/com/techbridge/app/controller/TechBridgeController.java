@@ -1,6 +1,7 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.LoginDto;
+import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.enums.Role;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -129,4 +131,5 @@ public class TechBridgeController {
         model.addAttribute("msg","Password reseted successfully");
         return "login";
     }
+
 }

@@ -31,7 +31,6 @@ public interface CustomerService {
 
     List<PurchaseEntity> getPendingPurchases();
 
-    boolean approval(int id);
 
-    boolean reject(int id);
+    List<CustomerDto> findAllCustomers();
 }

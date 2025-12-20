@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -149,13 +150,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean approval(int id) {
-        return repo.markAsApproved(id);
-    }
-
-    @Override
-    public boolean reject(int id) {
-        return repo.markAsRejected(id);
+    public List<CustomerDto> findAllCustomers() {
+        return repo.fetchAllCustomers();
     }
 
 

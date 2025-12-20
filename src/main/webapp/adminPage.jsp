@@ -9,13 +9,20 @@
     <title>Admin Dashboard</title>
 
     <style>
+        /* ===== GLOBAL LAYOUT FIX ===== */
+        html, body {
+            height: 100%;
+        }
+
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
-            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* ===== HEADER ===== */
         header {
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(10px);
@@ -34,11 +41,9 @@
             color: #007f7f;
         }
 
-        /* NOTIFICATION (redirect version) */
         .notification {
             position: relative;
             margin-right: 25px;
-            cursor: pointer;
             text-decoration: none;
         }
 
@@ -56,6 +61,11 @@
             border-radius: 50%;
             color: white;
             font-size: 0.75rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1; /* THIS pushes footer down */
         }
 
         .section-container {
@@ -88,11 +98,14 @@
             border-radius: 20px;
         }
 
+        /* ===== FOOTER (FIXED) ===== */
         footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
+            padding: 18px;
             background: rgba(255,255,255,0.5);
+            color: #007f7f;
+            font-weight: 600;
+            margin-top: auto; /* CRITICAL LINE */
         }
     </style>
 </head>
@@ -103,11 +116,8 @@
     <h1>TechBridge Admin</h1>
 
     <div style="display: flex; align-items: center; gap: 20px;">
-
-        <!-- 🔔 NOTIFICATION (Redirect to page) -->
         <a href="notifications" class="notification">
             <span class="bell">🔔</span>
-
             <c:if test="${not empty pendingOrders}">
                 <span class="badge">${fn:length(pendingOrders)}</span>
             </c:if>
@@ -115,32 +125,64 @@
 
         <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
         <a href="${pageContext.request.contextPath}/logout">Logout</a>
-
     </div>
 </header>
 
-<div class="section-container">
+<!-- ===== MAIN CONTENT WRAPPER ===== -->
+<div class="main-content">
 
-    <div class="customer-info">
-        <h3>Customer Info</h3>
-        <a href="addCustomer">Add Customer</a>
-        <a href="listOfCustomers">View Customers</a>
+    <div class="section-container">
+        <div class="customer-info">
+            <h3>Customer Info</h3>
+            <a href="addCustomer">Add Customer</a>
+            <a href="listOfCustomers">View Customers</a>
+        </div>
+
+        <div class="user-info">
+            <h3>User Info</h3>
+            <a href="listOfUsers">View Users</a>
+        </div>
     </div>
 
-    <div class="user-info">
-        <h3>User Info</h3>
-        <a href="listOfUsers">View Users</a>
+    <div class="dashboard">
+        <h2>Dashboard</h2>
+        <p>This section can display analytics, reports, or summaries.</p>
     </div>
 
-</div>
+    <div style="display:flex; gap:25px; margin:40px;">
 
-<div class="dashboard">
-    <h2>Dashboard</h2>
-    <p>This section can display analytics, reports, or summaries.</p>
+        <div class="customer-info">
+            <h4>Total Users</h4>
+            <p style="font-size:24px; font-weight:bold;">
+                <c:out value="${fn:length(userList)}" default="0"/>
+            </p>
+            <small>(Coming soon)</small>
+        </div>
+
+
+        <div class="customer-info">
+            <h4>Pending Approvals</h4>
+            <p style="font-size:24px; font-weight:bold;">
+                <c:out value="${fn:length(pendingOrders)}" default="0"/>
+            </p>
+        </div>
+
+
+        <div class="customer-info">
+            <h4>Total Customers</h4>
+            <p style="font-size:24px; font-weight:bold;">
+                <c:out value="${fn:length(customerList)}" default="0"/>
+            </p>
+        </div>
+
+
+    </div>
+
+
 </div>
 
 <footer>
-    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+    © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
 </body>

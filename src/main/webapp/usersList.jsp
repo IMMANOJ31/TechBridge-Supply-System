@@ -1,16 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>View Users</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
-        /* SAME THEME AS FORGOT PASSWORD PAGE */
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -62,7 +61,7 @@
         }
 
         table thead {
-            background: rgba(255,255,255,0.7) !important;
+            background: rgba(255,255,255,0.7);
         }
 
         table tbody tr:hover {
@@ -74,28 +73,6 @@
             margin-top: 25px;
         }
 
-        .pagination a, .pagination strong {
-            margin: 0 5px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #007f7f;
-            font-weight: 600;
-            border: 1px solid #007f7f;
-            background: rgba(255,255,255,0.6);
-            transition: all 0.3s ease;
-        }
-
-        .pagination a:hover {
-            background: #007f7f;
-            color: white;
-        }
-
-        .pagination strong {
-            background: #007f7f;
-            color: white;
-        }
-
         footer {
             background: rgba(255,255,255,0.45);
             padding: 14px;
@@ -103,7 +80,19 @@
             font-weight: 600;
             color: #007f7f;
             margin-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* icon buttons */
+        .action-btn {
+            background: none;
+            border: none;
+            color: #007f7f;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            color: #005f5f;
         }
     </style>
 </head>
@@ -115,7 +104,6 @@
     <a href="index">Home</a>
 </header>
 
-
 <div class="card-container">
     <h2>List of Users</h2>
 
@@ -126,7 +114,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Action</th>
+            <th style="width:150px;">Action</th>
         </tr>
         </thead>
 
@@ -137,10 +125,30 @@
                 <td>${dto.lastName}</td>
                 <td>${dto.email}</td>
                 <td>${dto.phoneNumber}</td>
-                <td>
-                    <a href="viewUser?id=${dto.id}"><i class="bi bi-eye"></i></a>
-                    <a href="editUser?id=${dto.id}" class="ms-3"><i class="bi bi-pencil-square"></i></a>
-                    <a href="deleteUser?id=${dto.id}" class="ms-3"><i class="bi bi-trash"></i></a>
+                <td class="text-center">
+
+                    <!-- VIEW -->
+                    <a href="viewUser?id=${dto.id}" class="action-btn">
+                        <i class="bi bi-eye"></i>
+                    </a>
+
+                    <!-- EDIT -->
+                    <a href="editUser?id=${dto.id}" class="action-btn ms-3">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+
+                    <!-- DELETE (POST – FIXED) -->
+                    <form action="deleteUser" method="post"
+                          style="display:inline;"
+                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+
+                        <input type="hidden" name="id" value="${dto.id}"/>
+
+                        <button type="submit" class="action-btn ms-3">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+
                 </td>
             </tr>
         </c:forEach>

@@ -10,11 +10,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
     <style>
+        /* ===== GLOBAL LAYOUT FIX ===== */
+        html, body {
+            height: 100%;
+        }
+
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #d9f3ff, #b7e8ff, #b8f3e6);
-            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* HEADER */
@@ -36,6 +42,11 @@
             color: #007f7f;
         }
 
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1; /* CRITICAL */
+        }
+
         /* MAIN CARD */
         .main-card {
             margin: 40px auto;
@@ -55,11 +66,14 @@
         .btn-reject { background-color:#dc3545; color:white; }
         .btn-hold { background-color:#ffc107; color:black; }
 
+        /* FOOTER */
         footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            opacity: 0.9;
+            padding: 18px;
+            background: rgba(255,255,255,0.45);
+            color: #007f7f;
+            font-weight: 600;
+            margin-top: auto; /* CRITICAL */
         }
     </style>
 </head>
@@ -71,77 +85,86 @@
 
     <div style="display: flex; align-items: center; gap: 20px;">
         <div>Welcome, <strong>${sessionScope.loggedInUser.emailOrPhone}</strong></div>
-        <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline-dark btn-sm">Logout</a>
+        <a href="${pageContext.request.contextPath}/logout"
+           class="btn btn-outline-dark btn-sm">Logout</a>
     </div>
 </header>
 
-<div class="main-card">
-    <h3 class="mb-3">Pending Purchase Requests</h3>
+<!-- ===== MAIN CONTENT WRAPPER ===== -->
+<div class="main-content">
 
-    <table class="table table-bordered table-striped text-center">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Customer</th>
-                <th>Product</th>
-                <th>Model</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+    <div class="main-card">
+        <h3 class="mb-3">Pending Purchase Requests</h3>
 
-        <tbody>
-        <c:forEach var="order" items="${data}">
-            <tr>
-                <td>${order.id}</td>
-                <td>${order.customerName}</td>
-                <td>${order.itemName}</td>
-                <td>${order.model}</td>
-                <td>₹${order.purchasePrice}</td>
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Model</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-                <td>
-                    <c:choose>
-                        <c:when test="${order.status == 'APPROVED'}">
-                            <span class="badge bg-success">Approved</span>
-                        </c:when>
-                        <c:when test="${order.status == 'REJECTED'}">
-                            <span class="badge bg-danger">Rejected</span>
-                        </c:when>
-                        <c:when test="${order.status == 'HOLD'}">
-                            <span class="badge bg-warning text-dark">On Hold</span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="badge bg-secondary">Pending</span>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
+            <tbody>
+            <c:forEach var="order" items="${data}">
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.customerName}</td>
+                    <td>${order.itemName}</td>
+                    <td>${order.model}</td>
+                    <td>
+                        ₹ <c:out value="${order.purchasePrice}" default="0"/>
+                    </td>
 
-                <td>
-                    <form action="approvePurchase" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="${order.id}">
-                        <button class="btn btn-sm btn-approve">Approve</button>
-                    </form>
 
-                    <form action="rejectPurchase" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="${order.id}">
-                        <button class="btn btn-sm btn-reject">Reject</button>
-                    </form>
+                    <td>
+                        <c:choose>
+                            <c:when test="${order.status == 'APPROVED'}">
+                                <span class="badge bg-success">Approved</span>
+                            </c:when>
+                            <c:when test="${order.status == 'REJECTED'}">
+                                <span class="badge bg-danger">Rejected</span>
+                            </c:when>
+                            <c:when test="${order.status == 'HOLD'}">
+                                <span class="badge bg-warning text-dark">On Hold</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge bg-secondary">Pending</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
 
-                    <form action="holdPurchase" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="${order.id}">
-                        <button class="btn btn-sm btn-hold">Hold</button>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
+                    <td>
+                        <form action="approvePurchase" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="${order.id}">
+                            <button class="btn btn-sm btn-approve">Approve</button>
+                        </form>
 
-    </table>
+                        <form action="rejectPurchase" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="${order.id}">
+                            <button class="btn btn-sm btn-reject">Reject</button>
+                        </form>
+
+                        <form action="holdPurchase" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="${order.id}">
+                            <button class="btn btn-sm btn-hold">Hold</button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+
+        </table>
+    </div>
+
 </div>
 
 <footer>
-    &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
+    © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
 </body>

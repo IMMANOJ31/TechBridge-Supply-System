@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class PurchaseDto {
+    private int id;
     private VoucherType voucherType;
     private String customerName;
     private String productGroup;
