@@ -1,6 +1,7 @@
 package com.techbridge.app.repository.impl;
 
 import com.techbridge.app.dto.CustomerDto;
+import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
@@ -278,6 +279,23 @@ public class CustomerRepoImpl implements CustomerRepo {
         try{
             manager = factory.createEntityManager();
             Query query = manager.createNamedQuery("getAllCustomerForAdmin");
+            return query.getResultList();
+        }catch (NoResultException r){
+            r.printStackTrace();
+            return Collections.emptyList();
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<RegistrationDto> fetchAllUsers() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            Query query = manager.createNamedQuery("fetchTheUserForAdmin");
             return query.getResultList();
         }catch (NoResultException r){
             r.printStackTrace();

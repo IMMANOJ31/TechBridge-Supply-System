@@ -154,9 +154,8 @@
         <div class="customer-info">
             <h4>Total Users</h4>
             <p style="font-size:24px; font-weight:bold;">
-                <c:out value="${fn:length(userList)}" default="0"/>
+                <c:out value="${userList}" default="0"/>
             </p>
-            <small>(Coming soon)</small>
         </div>
 
 
@@ -171,7 +170,7 @@
         <div class="customer-info">
             <h4>Total Customers</h4>
             <p style="font-size:24px; font-weight:bold;">
-                <c:out value="${fn:length(customerList)}" default="0"/>
+                <c:out value="${customerList}" default="0"/>
             </p>
         </div>
 

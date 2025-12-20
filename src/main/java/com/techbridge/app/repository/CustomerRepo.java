@@ -1,6 +1,7 @@
 package com.techbridge.app.repository;
 
 import com.techbridge.app.dto.CustomerDto;
+import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
@@ -35,4 +36,6 @@ public interface CustomerRepo {
  boolean markAsRejected(int id);
 
  List<CustomerDto> fetchAllCustomers();
+
+ List<RegistrationDto> fetchAllUsers();
 }

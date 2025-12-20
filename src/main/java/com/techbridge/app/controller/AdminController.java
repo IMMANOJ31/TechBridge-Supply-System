@@ -1,7 +1,6 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.dto.CustomerDto;
-import com.techbridge.app.dto.PurchaseDto;
 import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.service.CustomerService;
@@ -156,11 +155,11 @@ public class AdminController {
     @GetMapping("adminPage")
     public String adminPage(Model model) {
         List<PurchaseEntity> pendingOrders =purchaseService.findByStatus("PENDING");
-        //List<UserDto> userList = userService.findAllUsers();
+        List<RegistrationDto> userList = service.findAllUsers();
         List<CustomerDto> customerList = service.findAllCustomers();
 
         model.addAttribute("pendingOrders", pendingOrders);
-        //model.addAttribute("userList", userList);
+        model.addAttribute("userList", userList);
         model.addAttribute("customerList", customerList);
         return "adminPage";
     }

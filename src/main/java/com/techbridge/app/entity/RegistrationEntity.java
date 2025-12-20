@@ -19,7 +19,8 @@ import javax.persistence.*;
         @NamedQuery(name = "saveOtp",query = "UPDATE RegistrationEntity r SET r.otp = :otp WHERE r.email = :email"),
         @NamedQuery(name = "getByRole",query = "from RegistrationEntity where role = 'USER'"),
         @NamedQuery(name = "getUserById",query = "from RegistrationEntity where id =: id"),
-        @NamedQuery(name = "removeUser",query = "DELETE from RegistrationEntity where id =: id")
+        @NamedQuery(name = "removeUser",query = "DELETE from RegistrationEntity where id =: id"),
+        @NamedQuery(name = "fetchTheUserForAdmin",query = "SELECT COUNT(u) FROM RegistrationEntity u WHERE u.role = 'USER'")
 }
 )
 public class RegistrationEntity {

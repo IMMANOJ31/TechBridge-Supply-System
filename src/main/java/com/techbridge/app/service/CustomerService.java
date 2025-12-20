@@ -33,4 +33,6 @@ public interface CustomerService {
 
 
     List<CustomerDto> findAllCustomers();
+
+    List<RegistrationDto> findAllUsers();
 }
