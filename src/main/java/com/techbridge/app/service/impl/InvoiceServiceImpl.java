@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
-    public byte[] generateInvoice(PurchaseEntity purchaseEntity) {
+    public byte[] generateInvoiceForPurchase(PurchaseEntity purchaseEntity) {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 

@@ -10,9 +10,12 @@ public interface PurchaseService {
 
     PurchaseEntity approval(int id);
 
-    void reject(int id);
+    PurchaseEntity reject(int id);
 
-    void hold(int id);
+    PurchaseEntity hold(int id);
 
     List<PurchaseEntity> findByStatus(String status);
+
+
+    PurchaseEntity getByProductCode(String productCode);
 }

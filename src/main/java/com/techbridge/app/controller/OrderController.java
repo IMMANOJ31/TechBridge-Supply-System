@@ -20,12 +20,10 @@ public class OrderController {
 
     private PurchaseService purchaseService;
     private InvoiceService invoiceService;
-    private EmailService emailService;
 
-    public OrderController(PurchaseService purchaseService,InvoiceService invoiceService,EmailService emailService){
+    public OrderController(PurchaseService purchaseService,InvoiceService invoiceService){
         this.purchaseService = purchaseService;
         this.invoiceService = invoiceService;
-        this.emailService = emailService;
     }
 
 
@@ -50,21 +48,22 @@ public class OrderController {
     @PostMapping("approvePurchase")
     public String approvePurchase(@RequestParam int id) {
     PurchaseEntity purchase = purchaseService.approval(id);
-    byte[] pdf = invoiceService.generateInvoice(purchase);
-//    emailService.sendInvoice(,pdf,"invoice_" + id + ".pdf");
+    byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
     return REDIRECT_TO_NOTIFICATION;
 }
 
 
     @PostMapping("rejectPurchase")
     public String rejectPurchase(@RequestParam int id) {
-        purchaseService.reject(id);
+        PurchaseEntity reject = purchaseService.reject(id);
+        byte[] pdf = invoiceService.generateInvoiceForPurchase(reject);
         return REDIRECT_TO_NOTIFICATION;
     }
 
     @PostMapping("holdPurchase")
     public String holdPurchase(@RequestParam int id) {
-        purchaseService.hold(id);
+        PurchaseEntity hold = purchaseService.hold(id);
+        byte[] pdf = invoiceService.generateInvoiceForPurchase(hold);
         return REDIRECT_TO_NOTIFICATION;
     }
 }

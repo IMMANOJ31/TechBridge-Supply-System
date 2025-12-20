@@ -58,6 +58,24 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
     }
 
     @Override
+    public PurchaseEntity fetchTheProductCode(String productCode) {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            Query query = manager.createNamedQuery("byProductCode");
+            query.setParameter("proCode",productCode);
+            return (PurchaseEntity) query.getSingleResult();
+        }catch (NoResultException n){
+            n.printStackTrace();
+            return null;
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
+
+    @Override
     public List<PurchaseEntity> findByStatus(String status) {
         EntityManager manager = null;
         try {

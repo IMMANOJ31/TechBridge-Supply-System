@@ -33,25 +33,35 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
     @Transactional
-    public void reject(int id) {
+    public PurchaseEntity reject(int id) {
         PurchaseEntity entity = repo.findById(id);
-        if (entity != null) {
-            entity.setStatus(ApprovalStatus.REJECTED);
-            repo.update(entity);
+        if (entity == null) {
+            throw new RuntimeException("Purchase not found with id: " + id);
         }
+        entity.setStatus(ApprovalStatus.REJECTED);
+        repo.update(entity);
+        return entity;
     }
 
     @Transactional
-    public void hold(int id) {
+    public PurchaseEntity hold(int id) {
         PurchaseEntity entity = repo.findById(id);
-        if (entity != null) {
-            entity.setStatus(ApprovalStatus.HOLD);
-            repo.update(entity);
+        if (entity == null) {
+            throw new RuntimeException("Purchase not found with id: " + id);
         }
+        entity.setStatus(ApprovalStatus.HOLD);
+        repo.update(entity);
+        return entity;
     }
 
     @Override
     public List<PurchaseEntity> findByStatus(String status) {
         return repo.findByStatus(status);
     }
+
+    @Override
+    public PurchaseEntity getByProductCode(String productCode) {
+        return repo.fetchTheProductCode(productCode);
+    }
+
 }

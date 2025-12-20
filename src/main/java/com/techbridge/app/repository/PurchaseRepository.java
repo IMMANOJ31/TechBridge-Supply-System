@@ -15,4 +15,6 @@ public interface PurchaseRepository {
     PurchaseEntity findById(int id);
 
     boolean update(PurchaseEntity entity);
+
+    PurchaseEntity fetchTheProductCode(String productCode);
 }

@@ -3,14 +3,16 @@ package com.techbridge.app.controller;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.repository.ProductRepo;
 import com.techbridge.app.service.InvoiceService;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.techbridge.app.service.PurchaseService;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/invoice")
@@ -20,20 +22,26 @@ public class InvoiceController {
 
     private InvoiceService invoiceService;
 
-    public InvoiceController(ProductRepo productRepo,InvoiceService invoiceService){
+    private PurchaseService purchaseService;
+
+    public InvoiceController(ProductRepo productRepo,InvoiceService invoiceService,PurchaseService purchaseService){
         this.repo = productRepo;
         this.invoiceService = invoiceService;
+        this.purchaseService = purchaseService;
     }
 
-    @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> downloadInvoice(@PathVariable int id) throws Exception {
+    @GetMapping("/downloadInvoice")
+    public void downloadInvoice(@RequestParam("productCode") String productCode,HttpServletResponse response) throws IOException {
 
-        PurchaseEntity purchase = repo.findById(id);
-        byte[] pdf = invoiceService.generateInvoice(purchase);
+        PurchaseEntity purchase = purchaseService.getByProductCode(productCode);
+        byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment", "invoice_" + id + ".pdf");
-        return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition","attachment; filename=Invoice_" + productCode + ".pdf");
+
+        response.getOutputStream().write(pdf);
+        response.getOutputStream().flush();
     }
+
+
 }

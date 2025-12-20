@@ -188,6 +188,7 @@
             <th>Total Cost</th>
             <th>Due Date</th>
             <th>Status</th>
+            <th>Invoice</th>
         </tr>
         </thead>
         <tbody>
@@ -207,6 +208,23 @@
                         <td>${p.totalCost}</td>
                         <td>${p.dueDate}</td>
                         <td>${p.status}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${p.status eq 'PENDING'}">
+                                    <span style="color: gray;">Invoice not available</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="<c:url value='/downloadInvoice'>
+                                                <c:param name='productCode' value='${p.productCode}'/>
+                                             </c:url>">
+                                        Download
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+
+
+
                     </tr>
                 </c:forEach>
             </c:when>
