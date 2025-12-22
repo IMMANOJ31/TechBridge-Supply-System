@@ -48,7 +48,7 @@ public class OrderController {
     @PostMapping("approvePurchase")
     public String approvePurchase(@RequestParam int id) {
     PurchaseEntity purchase = purchaseService.approval(id);
-    byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
+    invoiceService.generateInvoiceForPurchase(purchase);
     return REDIRECT_TO_NOTIFICATION;
 }
 
@@ -56,14 +56,14 @@ public class OrderController {
     @PostMapping("rejectPurchase")
     public String rejectPurchase(@RequestParam int id) {
         PurchaseEntity reject = purchaseService.reject(id);
-        byte[] pdf = invoiceService.generateInvoiceForPurchase(reject);
+        invoiceService.generateInvoiceForPurchase(reject);
         return REDIRECT_TO_NOTIFICATION;
     }
 
     @PostMapping("holdPurchase")
     public String holdPurchase(@RequestParam int id) {
         PurchaseEntity hold = purchaseService.hold(id);
-        byte[] pdf = invoiceService.generateInvoiceForPurchase(hold);
+        invoiceService.generateInvoiceForPurchase(hold);
         return REDIRECT_TO_NOTIFICATION;
     }
 }
