@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,23 +132,30 @@
               <label>Customer Name</label>
               <select name="customerName" required class="form-control">
                   <option value="">-- Select Customer --</option>
-                  <c:forEach var="customer" items="${debitors}">
-                      <option value="${customer.customerName}">
-                          ${customer.fullName}
-                      </option>
+                  <c:if test="${not empty debitors}">
+                      <c:forEach var="customer" items="${debitors}">
+                          <option value="${customer.customerName}">
+                              ${customer.customerName}
+                          </option>
+                      </c:forEach>
+                  </c:if>
               </select>
 
 
 
                 <label class="mt-3">Product Name</label>
-                    <select name="productName" class="form-control" required>
-                        <option value="">-- Select Product --</option>
-                        <c:forEach var="product" items="${products}">
-                            <option value="${product.productGroup}">
-                                ${product.productGroup}
-                            </option>
-                        </c:forEach>
-                    </select>
+                   <select name="customerName" required class="form-control">
+                       <option value="">-- Select Customer --</option>
+
+                       <c:if test="${not empty debitors}">
+                           <c:forEach var="customer" items="${debitors}">
+                               <option value="${customer}">
+                                   ${customer}
+                               </option>
+                           </c:forEach>
+                       </c:if>
+                   </select>
+
 
                 <label class="mt-3"> Brand </label>
                 <input type="text" name="brand" class="form-control" required>
