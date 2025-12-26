@@ -132,15 +132,10 @@
               <label>Customer Name</label>
               <select name="customerName" required class="form-control">
                   <option value="">-- Select Customer --</option>
-
-                  <c:forEach var="dto" items="${debitors}">
-                      <c:if test="${not empty dto.customerName}">
-                          <option value="${dto.customerName}">
-                              ${dto.customerName}
-                          </option>
-                      </c:if>
-                  </c:forEach>
-
+                  <c:forEach var="customer" items="${debitors}">
+                      <option value="${customer.customerName}">
+                          ${customer.fullName}
+                      </option>
               </select>
 
 
