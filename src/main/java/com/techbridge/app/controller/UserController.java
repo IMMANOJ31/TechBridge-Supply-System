@@ -60,11 +60,13 @@ public class UserController {
         return "purchaseList";
     }
 
-    @GetMapping("salesPage")
+    @GetMapping("saveSalesOrder")
     public String productList(Model model){
         List<ProductDto> productDtos = productService.fetchAllProductList();
+        List<CustomerDto> debitors = customerService.fetchDebitors();
         model.addAttribute("products",productDtos);
-        return "salesPages";
+        model.addAttribute("debitors",debitors);
+        return "salesPage";
     }
 
 

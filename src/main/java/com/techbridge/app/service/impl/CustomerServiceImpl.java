@@ -159,5 +159,10 @@ public class CustomerServiceImpl implements CustomerService {
         return repo.fetchAllUsers();
     }
 
+    @Override
+    public List<CustomerDto> fetchDebitors() {
+        return repo.getDebitors();
+    }
+
 
 }

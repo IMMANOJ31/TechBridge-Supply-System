@@ -38,4 +38,6 @@ public interface CustomerRepo {
  List<CustomerDto> fetchAllCustomers();
 
  List<RegistrationDto> fetchAllUsers();
+
+ List<CustomerDto> getDebitors();
 }

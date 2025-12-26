@@ -306,4 +306,21 @@ public class CustomerRepoImpl implements CustomerRepo {
             }
         }
     }
+
+    @Override
+    public List<CustomerDto> getDebitors() {
+        EntityManager manager = null;
+        try {
+            manager = factory.createEntityManager();
+            Query query = manager.createNamedQuery("fetchingAllDebitors");
+            return query.getResultList();
+        }catch (NoResultException r){
+            r.printStackTrace();
+            return Collections.emptyList();
+        }finally {
+            if (manager != null && manager.isOpen()){
+                manager.close();
+            }
+        }
+    }
 }

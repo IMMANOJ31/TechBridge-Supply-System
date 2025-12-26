@@ -218,7 +218,7 @@
         const selectedValue = document.getElementById("orderDropdown").value;
 
         if (selectedValue === "sales") {
-            window.location.href = "salesPage?voucherType=Sales";
+            window.location.href = "saveSalesOrder?voucherType=Sales";
         }
         else if (selectedValue === "purchase") {
             window.location.href = "purchaseDashboard";

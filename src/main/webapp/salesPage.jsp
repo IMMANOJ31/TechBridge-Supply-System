@@ -129,16 +129,31 @@
 
             <!-- LEFT COLUMN -->
             <div class="col-md-6">
-                <label>Customer Name</label>
-                <input type="text" name="customerName" required class="form-control"></input>
+              <label>Customer Name</label>
+              <select name="customerName" required class="form-control">
+                  <option value="">-- Select Customer --</option>
+
+                  <c:forEach var="dto" items="${debitors}">
+                      <c:if test="${not empty dto.customerName}">
+                          <option value="${dto.customerName}">
+                              ${dto.customerName}
+                          </option>
+                      </c:if>
+                  </c:forEach>
+
+              </select>
+
+
 
                 <label class="mt-3">Product Name</label>
-                <select name="productName" class="form-control" required>
-                    <option value="">-- Select Product --</option>
-                    <c:forEach var="product" items="${products}">
-                        <option>${product.name}</option>
-                    </c:forEach>
-                </select>
+                    <select name="productName" class="form-control" required>
+                        <option value="">-- Select Product --</option>
+                        <c:forEach var="product" items="${products}">
+                            <option value="${product.productGroup}">
+                                ${product.productGroup}
+                            </option>
+                        </c:forEach>
+                    </select>
 
                 <label class="mt-3"> Brand </label>
                 <input type="text" name="brand" class="form-control" required>
