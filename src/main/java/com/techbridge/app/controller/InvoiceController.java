@@ -31,7 +31,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/downloadInvoice")
-    public void downloadInvoice(@RequestParam("productCode") String productCode,HttpServletResponse response) throws IOException {
+    public String downloadInvoice(@RequestParam("productCode") String productCode,HttpServletResponse response) throws IOException {
 
         PurchaseEntity purchase = purchaseService.getByProductCode(productCode);
         byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
@@ -41,6 +41,8 @@ public class InvoiceController {
 
         response.getOutputStream().write(pdf);
         response.getOutputStream().flush();
+
+        return "purchaseList";
     }
 
 
