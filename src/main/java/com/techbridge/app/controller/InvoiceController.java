@@ -4,6 +4,7 @@ import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.repository.ProductRepo;
 import com.techbridge.app.service.InvoiceService;
 import com.techbridge.app.service.PurchaseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @Controller
 @RequestMapping("/invoice")
 public class InvoiceController {
@@ -32,7 +34,7 @@ public class InvoiceController {
 
     @GetMapping("/downloadInvoice")
     public String downloadInvoice(@RequestParam("productCode") String productCode,HttpServletResponse response) throws IOException {
-
+        log.info("Invoice invoked");
         PurchaseEntity purchase = purchaseService.getByProductCode(productCode);
         byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
 
