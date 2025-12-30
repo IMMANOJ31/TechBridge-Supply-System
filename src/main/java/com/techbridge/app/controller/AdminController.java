@@ -21,6 +21,8 @@ import java.util.List;
 @RequestMapping("/")
 public class AdminController {
 
+    private static final String REDIRECTING_TO_ADMIN = "adminPage";
+
     private CustomerService service;
 
     private  ProductService productService;
@@ -44,7 +46,7 @@ public class AdminController {
     public String saveCustomerDetails(@Valid CustomerDto dto){
         service.saveCustomerDetail(dto);
         log.info("Saved customer details: {}",dto);
-        return "adminPage";
+        return REDIRECTING_TO_ADMIN;
     }
 
     @GetMapping("listOfUsers")
@@ -149,7 +151,7 @@ public class AdminController {
         List<PurchaseEntity> pending = productService.getPendingOrders();
         model.addAttribute("pendingOrders", pending);
         session.setAttribute("loggedInUser", session.getAttribute("loggedInUser"));
-        return "adminPage";
+        return REDIRECTING_TO_ADMIN;
     }
 
     @GetMapping("adminPage")
@@ -161,7 +163,7 @@ public class AdminController {
         model.addAttribute("pendingOrders", pendingOrders);
         model.addAttribute("userList", userList);
         model.addAttribute("customerList", customerList);
-        return "adminPage";
+        return REDIRECTING_TO_ADMIN;
     }
 
 
