@@ -19,7 +19,8 @@ import javax.persistence.*;
         @NamedQuery(name = "pendingOrder",query = "Select p from PurchaseEntity p where p.status = 'PENDING'"),
         @NamedQuery(name = "approved",query = "Update PurchaseEntity p set p.status = 'APPROVED' where p.id =: id"),
         @NamedQuery(name = "rejected",query = "Update PurchaseEntity p set p.status = 'REJECTED' where p.id =: id"),
-        @NamedQuery(name = "findByStatus",query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status")
+        @NamedQuery(name = "findByStatus",query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status"),
+        @NamedQuery(name = "byProductCode",query = "SELECT p FROM PurchaseEntity p WHERE p.productCode =: proCode")
 })
 public class PurchaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

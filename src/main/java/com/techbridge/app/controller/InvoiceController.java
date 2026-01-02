@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Slf4j
 @Controller
-@RequestMapping("/invoice")
+@RequestMapping("purchase")
 public class InvoiceController {
 
     private ProductRepo repo;
@@ -32,20 +32,40 @@ public class InvoiceController {
         this.purchaseService = purchaseService;
     }
 
+//    @GetMapping("/downloadInvoice")
+//    public String downloadInvoice(@RequestParam("productCode") String productCode,HttpServletResponse response) throws IOException {
+//        log.info("Invoice invoked");
+//        PurchaseEntity purchase = purchaseService.getByProductCode(productCode);
+//        byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
+//
+//        response.setContentType("application/pdf");
+//        response.setHeader("Content-Disposition","attachment; filename=Invoice_" + productCode + ".pdf");
+//
+//        response.getOutputStream().write(pdf);
+//        response.getOutputStream().flush();
+//
+//        return "purchaseList";
+//    }
+
     @GetMapping("/downloadInvoice")
-    public String downloadInvoice(@RequestParam("productCode") String productCode,HttpServletResponse response) throws IOException {
+    public void downloadInvoice(@RequestParam("productCode") String productCode, HttpServletResponse response) throws IOException {
+
         log.info("Invoice invoked");
+
         PurchaseEntity purchase = purchaseService.getByProductCode(productCode);
         byte[] pdf = invoiceService.generateInvoiceForPurchase(purchase);
 
+        log.info("products: "+purchase);
+
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition","attachment; filename=Invoice_" + productCode + ".pdf");
+        response.setHeader(
+                "Content-Disposition",
+                "attachment; filename=Invoice_" + productCode + ".pdf");
 
         response.getOutputStream().write(pdf);
         response.getOutputStream().flush();
-
-        return "purchaseList";
     }
+
 
 
 }
