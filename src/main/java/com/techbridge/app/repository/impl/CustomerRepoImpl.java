@@ -5,13 +5,11 @@ import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.entity.RegistrationEntity;
+import com.techbridge.app.enums.CustomerType;
 import com.techbridge.app.repository.CustomerRepo;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -308,19 +306,23 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public List<CustomerDto> getDebitors() {
+    public List<CustomerEntity> getDebitors() {
         EntityManager manager = null;
         try {
             manager = factory.createEntityManager();
-            Query query = manager.createNamedQuery("fetchingAllDebitors");
+
+            TypedQuery<CustomerEntity> query =
+                    manager.createNamedQuery("fetchingAllDebitors", CustomerEntity.class);
+
+            query.setParameter("type", CustomerType.Debitors);
+
             return query.getResultList();
-        }catch (NoResultException r){
-            r.printStackTrace();
-            return Collections.emptyList();
-        }finally {
-            if (manager != null && manager.isOpen()){
+
+        } finally {
+            if (manager != null && manager.isOpen()) {
                 manager.close();
             }
         }
     }
+
 }

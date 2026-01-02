@@ -3,6 +3,7 @@ package com.techbridge.app.controller;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.ProductDto;
 import com.techbridge.app.dto.PurchaseDto;
+import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
@@ -63,7 +64,7 @@ public class UserController {
     @GetMapping("saveSalesOrder")
     public String productList(Model model){
         List<ProductDto> productDtos = productService.fetchAllProductList();
-        List<CustomerDto> debitors = customerService.fetchDebitors();
+        List<CustomerEntity> debitors = customerService.fetchDebitors();
         model.addAttribute("products",productDtos);
         model.addAttribute("debitors",debitors);
         return "salesPage";

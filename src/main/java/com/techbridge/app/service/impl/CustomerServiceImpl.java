@@ -160,7 +160,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> fetchDebitors() {
+    public List<CustomerEntity> fetchDebitors() {
         return repo.getDebitors();
     }
 

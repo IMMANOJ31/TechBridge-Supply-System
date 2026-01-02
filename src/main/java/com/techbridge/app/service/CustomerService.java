@@ -36,5 +36,5 @@ public interface CustomerService {
 
     List<RegistrationDto> findAllUsers();
 
-    List<CustomerDto> fetchDebitors();
+    List<CustomerEntity> fetchDebitors();
 }

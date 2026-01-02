@@ -39,5 +39,5 @@ public interface CustomerRepo {
 
  List<RegistrationDto> fetchAllUsers();
 
- List<CustomerDto> getDebitors();
+ List<CustomerEntity> getDebitors();
 }

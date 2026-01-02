@@ -16,7 +16,7 @@ import javax.persistence.*;
         @NamedQuery(name = "getCustomerById",query = "FROM CustomerEntity c WHERE c.id = :id"),
         @NamedQuery(name = "removeCustomer",query = "Delete from CustomerEntity x where x.id =: id"),
         @NamedQuery(name = "getAllCustomerForAdmin",query = "SELECT COUNT(c) FROM CustomerEntity c "),
-        @NamedQuery(name = "fetchingAllDebitors",query = "SELECT customerName FROM CustomerEntity c WHERE c.customerType = 'Debitors'")
+        @NamedQuery(name = "fetchingAllDebitors",query = "SELECT c FROM CustomerEntity c WHERE c.customerType = :type")
 })
 public class CustomerEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
