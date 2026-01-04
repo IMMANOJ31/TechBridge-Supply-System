@@ -33,6 +33,7 @@ public class UserController {
     public String showPurchasePage(@RequestParam(defaultValue = "Purchase") String voucherType,
                                    @RequestParam(required = false) String customerName,
                                    Model model) {
+        log.info("Purchase page invked");
         List<String> productGroups = productService.getAllProductGroups();
         List<CustomerDto> customers = customerService.fetchCustomerDetails();
 
@@ -46,6 +47,7 @@ public class UserController {
 
     @PostMapping("purchaseOrder")
     public String savePurchase(@ModelAttribute PurchaseDto dto) {
+        log.info("saving purchase invoked");
         dto.setStatus(ApprovalStatus.PENDING);
         PurchaseEntity purchaseEntity = productService.savePurchaseDetail(dto);
         log.info("Saved: {}",purchaseEntity);
@@ -55,6 +57,7 @@ public class UserController {
 
     @GetMapping("purchaseListPage")
     public String purchaseList(Model model){
+        log.info("Purchase list invoked");
         List<PurchaseDto> purchaseEntity = productService.fetchAllPurchaseList();
         log.info("Purchase List: {}",purchaseEntity);
         model.addAttribute("purchaseEntity",purchaseEntity);
@@ -63,6 +66,7 @@ public class UserController {
 
     @GetMapping("saveSalesOrder")
     public String productList(Model model){
+        log.info("Product list invoked");
         List<ProductDto> productDtos = productService.fetchAllProductList();
         List<CustomerEntity> debitors = customerService.fetchDebitors();
         model.addAttribute("products",productDtos);
