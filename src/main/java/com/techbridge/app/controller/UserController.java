@@ -3,11 +3,13 @@ package com.techbridge.app.controller;
 import com.techbridge.app.dto.CustomerDto;
 import com.techbridge.app.dto.ProductDto;
 import com.techbridge.app.dto.PurchaseDto;
+import com.techbridge.app.dto.SalesDto;
 import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
+import com.techbridge.app.service.SalesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +26,12 @@ public class UserController {
 
     private final CustomerService customerService;
 
-    public UserController(ProductService productService,CustomerService customerService){
+    private final SalesService salesService;
+
+    public UserController(ProductService productService, CustomerService customerService, SalesService salesService){
         this.productService = productService;
         this.customerService = customerService;
+        this.salesService = salesService;
     }
 
     @GetMapping("purchaseOrder")
@@ -71,6 +76,12 @@ public class UserController {
         List<CustomerEntity> debitors = customerService.fetchDebitors();
         model.addAttribute("products",productDtos);
         model.addAttribute("debitors",debitors);
+        return "salesPage";
+    }
+
+    @PostMapping("saveSalesOrder")
+    public String salesOrder(@ModelAttribute SalesDto salesDto){
+        salesService.save(salesDto);
         return "salesPage";
     }
 

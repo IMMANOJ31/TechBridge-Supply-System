@@ -49,7 +49,7 @@
 
         .main-wrapper {
             padding-top: 110px;
-            padding-bottom: 80px;
+            padding-bottom: 100px; /* space for fixed footer */
         }
 
         /* Glass Card */
@@ -66,13 +66,12 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
         }
 
-        /* Typography */
         h2, h4 {
-            color: #1a1a1a !important;   /* Dark text */
+            color: #1a1a1a !important;
         }
 
         p {
-            color: #2c2c2c !important;   /* Slightly lighter dark text */
+            color: #2c2c2c !important;
         }
 
         footer {
@@ -89,21 +88,17 @@
 
 <body>
 
-<!-- NAVBAR -->
+<!-- FIXED NAVBAR -->
 <nav class="navbar glass-nav navbar-expand-lg fixed-top">
     <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
         <span class="navbar-brand fw-bold">Vendor Laptop Portal</span>
-
-        <a href="login" class="btn glass-btn">
-            Login
-        </a>
+        <a href="login" class="btn glass-btn">Login</a>
     </div>
 </nav>
 
-<!-- MAIN CONTENT -->
+<!-- SCROLLABLE CONTENT -->
 <div class="container main-wrapper">
 
-    <!-- HERO CARD -->
     <div class="glass-card p-5 text-center mb-5">
         <h2 class="fw-bold">Welcome to TechBridge</h2>
         <p>Manage your laptop procurement efficiently</p>
@@ -114,7 +109,6 @@
         </button>
     </div>
 
-    <!-- LAPTOP CARDS -->
     <div class="row g-4">
 
         <div class="col-md-4">
@@ -145,16 +139,13 @@
         </div>
 
     </div>
-
 </div>
 
-<!-- FOOTER -->
-<footer class="text-center py-3 mt-4">
+<!-- FIXED FOOTER -->
+<footer class="text-center py-3 fixed-bottom">
     &copy; 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

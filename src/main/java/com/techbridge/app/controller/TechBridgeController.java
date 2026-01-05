@@ -61,9 +61,12 @@ public class TechBridgeController {
 
     @PostMapping("login")
     @ResponseBody
-    public ResponseEntity<?> showLoginPage(@ModelAttribute LoginDto dto,HttpSession session) {
+    public ResponseEntity<?> showLoginPage(@ModelAttribute LoginDto dto, HttpSession session) {
 
-        String result = service.doesUserExist(dto.getEmailOrPhone().trim(),dto.getPassword().trim());
+        String result = service.doesUserExist(
+                dto.getEmailOrPhone().trim(),
+                dto.getPassword().trim()
+        );
 
         switch (result) {
 
@@ -74,16 +77,25 @@ public class TechBridgeController {
                 dto.setLoginTime(LocalTime.now());
 
                 session.setAttribute("loggedInUser", dto);
-
                 return ResponseEntity.ok(result);
 
             case "Invalid password":
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+                return ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body("INVALID_PASSWORD");
+
+            case "User not found":
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("INVALID_USERNAME");
 
             default:
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("INVALID_USERNAME");
         }
     }
+
 
     private String decideLoginPage(RegistrationDto registrationDto,LoginDto dto) {
         log.info("decide login page: {}",registrationDto);

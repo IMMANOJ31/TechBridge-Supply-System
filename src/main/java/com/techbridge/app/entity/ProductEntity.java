@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "fetchProduct",query = "select p.productGroup from ProductEntity p"),
-        @NamedQuery(name = "fetchingAllProducts", query = "from ProductEntity")
+        @NamedQuery(name = "fetchingAllProducts", query = "from ProductEntity ")
 })
 public class ProductEntity {
 

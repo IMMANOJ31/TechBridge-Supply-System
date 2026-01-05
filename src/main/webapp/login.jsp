@@ -10,12 +10,11 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Axios (ONLY ADDITION) -->
+    <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- 🔒 YOUR STYLE BLOCK (UNCHANGED) -->
     <style>
-        /* Background with smooth gradient */
         body {
             margin: 0;
             min-height: 100vh;
@@ -41,6 +40,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 120px;
+            padding-bottom: 80px;
         }
         .glass-card {
             width: 420px;
@@ -68,34 +68,35 @@
     <a href="index" class="glass-btn">Home</a>
 </nav>
 
-<div id="errorBox" class="alert alert-danger py-2 d-none"></div>
-
-
-<!-- LOGIN CARD -->
+<!-- LOGIN -->
 <div class="main-wrapper">
     <div class="glass-card">
 
         <h3 class="text-center mb-4">Login</h3>
 
-        <!-- EXISTING ERROR SUPPORT -->
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger py-2">${error}</div>
-        </c:if>
-
-        <!-- 🔽 ONLY CHANGE: id added -->
         <form id="loginForm">
 
+            <!-- USERNAME -->
             <label class="form-label">Email / Phone</label>
             <input type="text" id="emailOrPhone" name="emailOrPhone"
-                   class="form-control mb-3"
+                   class="form-control"
                    placeholder="Enter your email or phone" required>
 
-            <label class="form-label">Password</label>
+            <small id="usernameError" class="text-danger d-none">
+                Invalid email or phone
+            </small>
+
+            <!-- PASSWORD -->
+            <label class="form-label mt-3">Password</label>
             <input type="password" id="password" name="password"
-                   class="form-control mb-4"
+                   class="form-control"
                    placeholder="Enter password" required>
 
-            <button type="submit" class="login-btn">Login</button>
+            <small id="passwordError" class="text-danger d-none">
+                Incorrect password
+            </small>
+
+            <button type="submit" class="login-btn mt-4">Login</button>
 
             <p class="text-center mt-3">
                 <a href="forgotPassword" style="color:black; text-decoration:underline;">
@@ -109,14 +110,18 @@
 </div>
 
 <!-- FOOTER -->
-<footer>
+<footer class="text-center py-3 fixed-bottom">
     © 2025 Vendor Laptop Portal | Powered by TechBridge Solutions
 </footer>
 
-<!-- 🔽 AXIOS SCRIPT (NO STYLE IMPACT) -->
+<!-- ✅ UPDATED AXIOS LOGIC -->
 <script>
     document.getElementById("loginForm").addEventListener("submit", function (e) {
         e.preventDefault();
+
+        // reset errors
+        document.getElementById("usernameError").classList.add("d-none");
+        document.getElementById("passwordError").classList.add("d-none");
 
         const params = new URLSearchParams();
         params.append("emailOrPhone", document.getElementById("emailOrPhone").value);
@@ -131,12 +136,16 @@
                 }
             })
             .catch(error => {
-                alert(error.response?.data || "Invalid credentials");
+                const msg = error.response?.data;
+
+                if (msg === "INVALID_USERNAME") {
+                    document.getElementById("usernameError").classList.remove("d-none");
+                } else if (msg === "INVALID_PASSWORD") {
+                    document.getElementById("passwordError").classList.remove("d-none");
+                }
             });
     });
 </script>
-
-
 
 </body>
 </html>

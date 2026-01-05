@@ -145,12 +145,12 @@
 
                 <label class="mt-3">Product Name</label>
                    <select name="customerName" required class="form-control">
-                       <option value="">-- Select Customer --</option>
+                       <option value="">-- Select Product --</option>
 
                        <c:if test="${not empty debitors}">
-                           <c:forEach var="customer" items="${debitors}">
-                               <option value="${customer}">
-                                   ${customer}
+                           <c:forEach var="product" items="${products}">
+                               <option value="${products}">
+                                   ${products}
                                </option>
                            </c:forEach>
                        </c:if>
