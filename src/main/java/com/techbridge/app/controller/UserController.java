@@ -82,7 +82,7 @@ public class UserController {
     @PostMapping("saveSalesOrder")
     public String salesOrder(@ModelAttribute SalesDto salesDto){
         salesService.save(salesDto);
-        return "salesPage";
+        return "userPage";
     }
 
 

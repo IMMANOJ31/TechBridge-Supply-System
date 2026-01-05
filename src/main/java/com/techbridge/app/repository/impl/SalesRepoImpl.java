@@ -13,6 +13,10 @@ public class SalesRepoImpl implements SalesRepo {
 
     private EntityManagerFactory  factory;
 
+    public SalesRepoImpl(EntityManagerFactory factory){
+        this.factory = factory;
+    }
+
     @Override
     public boolean dataSaved(SalesEntity salesEntity) {
         EntityManager  manager = null;
