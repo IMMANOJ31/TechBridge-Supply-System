@@ -1,7 +1,6 @@
 package com.techbridge.app.controller;
 
 import com.techbridge.app.entity.PurchaseEntity;
-import com.techbridge.app.service.EmailService;
 import com.techbridge.app.service.InvoiceService;
 import com.techbridge.app.service.PurchaseService;
 import lombok.extern.slf4j.Slf4j;
