@@ -37,6 +37,7 @@ public class AdminController {
 
     @GetMapping("viewCustomer")
     public String viewCustomerPage(Model model){
+        log.info("View customer page");
         List<CustomerDto> dtos = service.fetchCustomerDetails();
         model.addAttribute("listOfCustomers",dtos);
         return "viewCustomer";
@@ -44,6 +45,7 @@ public class AdminController {
 
     @PostMapping("saveCustomer")
     public String saveCustomerDetails(@Valid CustomerDto dto){
+        log.info("Save customer details");
         service.saveCustomerDetail(dto);
         log.info("Saved customer details: {}",dto);
         return REDIRECTING_TO_ADMIN;
@@ -51,6 +53,7 @@ public class AdminController {
 
     @GetMapping("listOfUsers")
     public String  viewUserPage(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "10")int size, Model model){
+        log.info("View user page");
         List<RegistrationDto>  dtoList = service.fetchUserDetails();
 
         int totalUsers = dtoList.size();
@@ -71,6 +74,7 @@ public class AdminController {
 
     @GetMapping("listOfCustomers")
     public String viewCustomersPage(@RequestParam(defaultValue = "1")int page,@RequestParam(defaultValue = "10")int size,Model model){
+       log.info("View customers page");
         List<CustomerDto> dtoList = service.fetchCustomerDetails();
 
         int totalCustomers = dtoList.size();
@@ -91,6 +95,7 @@ public class AdminController {
 
     @GetMapping("viewUser")
     public String showUserProfile(@RequestParam int id, Model model){
+        log.info("User profile");
         RegistrationDto dto = service.fetchUserById(id);
         model.addAttribute("dto",dto);
         return "userProfile";
@@ -98,6 +103,7 @@ public class AdminController {
 
     @GetMapping("customerProfile")
     public String showCustomerPage(@RequestParam int id,Model model){
+        log.info("Customer page");
         CustomerDto dto = service.fetchCustomerById(id);
         model.addAttribute("dto",dto);
         return "customerProfilePage";
@@ -105,24 +111,28 @@ public class AdminController {
 
     @PostMapping("deleteCustomer")
     public String deleteCustomer(@RequestParam int id){
+        log.info("Remove customer");
         service.removeCustomerById(id);
         return "redirect:customerList";
     }
 
     @PostMapping("deleteUser")
     public String deleteUser(@RequestParam int id) {
+        log.info("Remove user");
         service.removeUserById(id);
         return "redirect:usersList";
     }
 
     @GetMapping("editCustomer")
     public String showCustomerUpdatePage(@RequestParam int id,Model model){
+        log.info("Customer update page");
         CustomerDto dto = service.fetchCustomerById(id);
         model.addAttribute("dto",dto);
         return "updateCustomer";
     }
     @PostMapping("editCustomer")
     public String updateCustomer(@Valid CustomerDto dto, RedirectAttributes redirectAttributes){
+        log.info("Update customer");
         CustomerDto customerDto = service.updateCustomerDetails(dto);
         if (customerDto != null){
             redirectAttributes.addFlashAttribute("successMessage","Customer updated successfully");
@@ -132,6 +142,7 @@ public class AdminController {
 
     @GetMapping("editUser")
     public String showUserUpdatePage(@RequestParam int id, Model model){
+        log.info("User update page");
         RegistrationDto dto = service.fetchUserById(id);
         model.addAttribute("dto",dto);
         return "updateUser";
@@ -139,6 +150,7 @@ public class AdminController {
 
     @PostMapping("editUser")
     public String updateUser(@Valid RegistrationDto dto, RedirectAttributes redirectAttributes) {
+        log.info("User edit");
         RegistrationDto registrationDto = service.updateUserDetails(dto);
         if (registrationDto != null) {
             redirectAttributes.addFlashAttribute("successMessage", "User updated successfully");
@@ -148,6 +160,7 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String showAdminPage(Model model, HttpSession session) {
+        log.info("Admin page");
         List<PurchaseEntity> pending = productService.getPendingOrders();
         model.addAttribute("pendingOrders", pending);
         session.setAttribute("loggedInUser", session.getAttribute("loggedInUser"));
@@ -156,6 +169,7 @@ public class AdminController {
 
     @GetMapping("adminPage")
     public String adminPage(Model model) {
+        log.info("Admin page");
         List<PurchaseEntity> pendingOrders =purchaseService.findByStatus("PENDING");
         List<RegistrationDto> userList = service.findAllUsers();
         List<CustomerDto> customerList = service.findAllCustomers();
