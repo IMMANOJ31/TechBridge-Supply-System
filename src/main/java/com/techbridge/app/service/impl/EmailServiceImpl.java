@@ -1,6 +1,7 @@
 package com.techbridge.app.service.impl;
 
 import com.techbridge.app.service.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 
 @Service
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     private JavaMailSender mailSender;
@@ -18,6 +20,7 @@ public class EmailServiceImpl implements EmailService {
     }
     @Override
     public void sendInvoice(String toEmail, byte[] pdf, String fileName) {
+        log.info("email service invoked");
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
