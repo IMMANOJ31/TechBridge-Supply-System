@@ -116,11 +116,10 @@ public class InvoiceServiceImpl implements InvoiceService {
             content.setFont(PDType1Font.HELVETICA, 12);
             content.beginText();
             content.newLineAtOffset(50, 730);
-            content.showText("123 Corporate Park, Bangalore, India");
+            content.showText("Xworkz ODC, Bengaluru, India");
             content.newLineAtOffset(0, -15);
             content.showText("Email: support@techbridge.com | Phone: +91 9876543210");
             content.newLineAtOffset(0, -15);
-            content.showText("GSTIN: 29ABCDE1234F2Z5");
             content.endText();
 
             // ===================== INVOICE TITLE ======================
