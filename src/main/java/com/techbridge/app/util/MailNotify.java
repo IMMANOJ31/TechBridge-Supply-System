@@ -91,4 +91,27 @@ public class MailNotify {
         log.info(" Password reset OTP mail sent to: " + email);
         return MAIL_SENT_SUCCESSFULLY;
     }
+
+    public String sendSalesConfirmationMail(String email,String customerName,int salesId){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(MAIL_ID);
+        message.setTo(email);
+        message.setSubject("Sales Order Confirmation – TechBridge");
+
+        String mailBody =
+                "Dear " + customerName + ",\n\n" +
+                        "Thank you for your purchase from TechBridge.\n\n" +
+                        "We are pleased to inform you that your sales order (sales ID: " + salesId + ") " +
+                        "has been successfully processed and recorded in our system.\n\n" +
+                        "Our team is preparing your items for dispatch as per the standard processing timeline. " +
+                        "You will receive further updates once the shipment is scheduled.\n\n" +
+                        "If you have any questions or require assistance, please feel free to contact our support team at support@techbridge.com.\n\n" +
+                        "Warm regards,\n" +
+                        "TechBridge Sales Team\n" +
+                        "www.techbridge.com";
+
+        message.setText(mailBody);
+        mailSender.send(message);
+        return MAIL_SENT_SUCCESSFULLY;
+    }
 }

@@ -10,6 +10,7 @@ import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
 import com.techbridge.app.service.ProductService;
 import com.techbridge.app.service.SalesService;
+import com.techbridge.app.util.MailNotify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +29,13 @@ public class UserController {
 
     private final SalesService salesService;
 
-    public UserController(ProductService productService, CustomerService customerService, SalesService salesService){
+    private final MailNotify mailNotify;
+
+    public UserController(ProductService productService, CustomerService customerService, SalesService salesService, MailNotify mailNotify){
         this.productService = productService;
         this.customerService = customerService;
         this.salesService = salesService;
+        this.mailNotify = mailNotify;
     }
 
     @GetMapping("purchaseOrder")
@@ -82,6 +86,8 @@ public class UserController {
     @PostMapping("saveSalesOrder")
     public String salesOrder(@ModelAttribute SalesDto salesDto){
         salesService.save(salesDto);
+        String confirmationMail = mailNotify.sendSalesConfirmationMail(salesDto.getEmail(), salesDto.getCustomerName(), salesDto.getId());
+        log.info("Sales mail: {}",confirmationMail);
         return "userPage";
     }
 
