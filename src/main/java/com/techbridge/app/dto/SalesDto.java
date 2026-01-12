@@ -31,6 +31,8 @@ public class SalesDto {
     @Size(min = 1, max = 30, message = "Model must be between 1 and 30 characters")
     private String model;
 
+    private String email;
+
     @NotBlank(message = "Selling price is required")
     @Pattern(
             regexp = "^\\d+(\\.\\d{1,2})?$",

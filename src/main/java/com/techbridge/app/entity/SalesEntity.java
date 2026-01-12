@@ -24,4 +24,5 @@ public class SalesEntity {
     private String totalAmount;
     @Column(name = "sales_date")
     private String salesDate;
+    private String email;
 }

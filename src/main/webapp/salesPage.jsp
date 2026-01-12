@@ -157,6 +157,9 @@
                    </select>
 
 
+                <label class="mt-3">Email</label>
+                <input type="email" name="email" class="form-control" required>
+
                 <label class="mt-3"> Brand </label>
                 <input type="text" name="brand" class="form-control" required>
 
