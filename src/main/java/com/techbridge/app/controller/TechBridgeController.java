@@ -5,6 +5,7 @@ import com.techbridge.app.dto.RegistrationDto;
 import com.techbridge.app.entity.LoginEntity;
 import com.techbridge.app.enums.Role;
 import com.techbridge.app.service.TechBService;
+import com.techbridge.app.util.MailNotify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,11 @@ public class TechBridgeController {
 
     private static final String RESET_PASSWORD = "forgotPasswordPage" ;
     private static final String INPUT_EMAIL = "inputEmail";
+    private final MailNotify mailNotify;
 
-    public TechBridgeController(TechBService service){
+    public TechBridgeController(TechBService service, MailNotify mailNotify){
         this.service = service;
+        this.mailNotify = mailNotify;
         log.info("TechBridge controller invoked");
     }
 
@@ -114,6 +117,7 @@ public class TechBridgeController {
     @PostMapping("sendOtp")
     public String sendOtp(@RequestParam  String email, Model model){
         service.otpSending(email);
+        mailNotify.sendOtpMail(email);
         model.addAttribute(INPUT_EMAIL,email);
         return RESET_PASSWORD;
     }

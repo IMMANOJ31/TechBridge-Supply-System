@@ -117,7 +117,6 @@ public class MailNotify {
 
             helper.setText(mailBody);
 
-            // Attach PDF
             helper.addAttachment(pdfFile.getName(), pdfFile);
 
             mailSender.send(mimeMessage);
