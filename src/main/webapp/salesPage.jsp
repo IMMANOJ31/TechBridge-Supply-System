@@ -144,17 +144,18 @@
 
 
                 <label class="mt-3">Product Name</label>
-                   <select name="customerName" required class="form-control">
-                       <option value="">-- Select Product --</option>
+                <select name="productName" required class="form-control">
+                    <option value="">-- Select Product --</option>
 
-                       <c:if test="${not empty debitors}">
-                           <c:forEach var="product" items="${products}">
-                               <option value="${products}">
-                                   ${products}
-                               </option>
-                           </c:forEach>
-                       </c:if>
-                   </select>
+                    <c:if test="${not empty products}">
+                        <c:forEach var="product" items="${products}">
+                            <option value="${product.productGroup}">
+                                ${product.productGroup}
+                            </option>
+                        </c:forEach>
+                    </c:if>
+                </select>
+
 
 
                 <label class="mt-3">Email</label>
