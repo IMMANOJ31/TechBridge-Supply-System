@@ -66,5 +66,14 @@ public class RedirectPage {
         return "userPage";
     }
 
+    @GetMapping("salesDashboard")
+    public String salesDashboard() {
+        return "salesDashboard";
+    }
+
+    @GetMapping("viewSales")
+    public String viewSalesPage(){
+        return "viewSales";
+    }
 
 }

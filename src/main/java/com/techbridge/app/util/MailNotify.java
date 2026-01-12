@@ -92,7 +92,7 @@ public class MailNotify {
         return MAIL_SENT_SUCCESSFULLY;
     }
 
-    public String sendSalesConfirmationMail(String email,String customerName,int salesId){
+    public String sendSalesConfirmationMail(String email,String customerName){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(MAIL_ID);
         message.setTo(email);
@@ -101,7 +101,7 @@ public class MailNotify {
         String mailBody =
                 "Dear " + customerName + ",\n\n" +
                         "Thank you for your purchase from TechBridge.\n\n" +
-                        "We are pleased to inform you that your sales order (sales ID: " + salesId + ") " +
+                        "We are pleased to inform you that your sales order" +
                         "has been successfully processed and recorded in our system.\n\n" +
                         "Our team is preparing your items for dispatch as per the standard processing timeline. " +
                         "You will receive further updates once the shipment is scheduled.\n\n" +

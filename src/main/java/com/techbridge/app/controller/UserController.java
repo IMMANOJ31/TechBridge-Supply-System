@@ -86,10 +86,12 @@ public class UserController {
     @PostMapping("saveSalesOrder")
     public String salesOrder(@ModelAttribute SalesDto salesDto){
         salesService.save(salesDto);
-        String confirmationMail = mailNotify.sendSalesConfirmationMail(salesDto.getEmail(), salesDto.getCustomerName(), salesDto.getId());
-        log.info("Sales mail: {}",confirmationMail);
+        mailNotify.sendSalesConfirmationMail(salesDto.getEmail(), salesDto.getCustomerName());
         return "userPage";
     }
+
+
+
 
 
 }
