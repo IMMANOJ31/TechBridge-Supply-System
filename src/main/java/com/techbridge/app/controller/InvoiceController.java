@@ -1,15 +1,15 @@
 package com.techbridge.app.controller;
 
+import com.techbridge.app.dto.SalesDto;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.service.InvoiceService;
 import com.techbridge.app.service.PurchaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 @Slf4j
@@ -47,6 +47,7 @@ public class InvoiceController {
         response.getOutputStream().write(pdf);
         response.getOutputStream().flush();
     }
+
 
 
 

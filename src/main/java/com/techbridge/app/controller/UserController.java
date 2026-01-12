@@ -8,6 +8,7 @@ import com.techbridge.app.entity.CustomerEntity;
 import com.techbridge.app.entity.PurchaseEntity;
 import com.techbridge.app.enums.ApprovalStatus;
 import com.techbridge.app.service.CustomerService;
+import com.techbridge.app.service.InvoiceService;
 import com.techbridge.app.service.ProductService;
 import com.techbridge.app.service.SalesService;
 import com.techbridge.app.util.MailNotify;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -31,11 +33,14 @@ public class UserController {
 
     private final MailNotify mailNotify;
 
-    public UserController(ProductService productService, CustomerService customerService, SalesService salesService, MailNotify mailNotify){
+    private final InvoiceService invoiceService;
+
+    public UserController(ProductService productService, CustomerService customerService, SalesService salesService, MailNotify mailNotify, InvoiceService invoiceService){
         this.productService = productService;
         this.customerService = customerService;
         this.salesService = salesService;
         this.mailNotify = mailNotify;
+        this.invoiceService = invoiceService;
     }
 
     @GetMapping("purchaseOrder")
@@ -86,12 +91,9 @@ public class UserController {
     @PostMapping("saveSalesOrder")
     public String salesOrder(@ModelAttribute SalesDto salesDto){
         salesService.save(salesDto);
-        mailNotify.sendSalesConfirmationMail(salesDto.getEmail(), salesDto.getCustomerName());
+        File invoicePdf = invoiceService.generateInvoicePdfForSales(salesDto);
+        mailNotify.sendSalesConfirmationMail(salesDto.getEmail(), salesDto.getCustomerName(),invoicePdf);
         return "userPage";
     }
-
-
-
-
 
 }

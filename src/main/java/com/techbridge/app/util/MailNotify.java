@@ -5,7 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 
 @Component
@@ -92,26 +96,38 @@ public class MailNotify {
         return MAIL_SENT_SUCCESSFULLY;
     }
 
-    public String sendSalesConfirmationMail(String email,String customerName){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(MAIL_ID);
-        message.setTo(email);
-        message.setSubject("Sales Order Confirmation – TechBridge");
+    public String sendSalesConfirmationMail(String email, String customerName, File pdfFile) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-        String mailBody =
-                "Dear " + customerName + ",\n\n" +
-                        "Thank you for your purchase from TechBridge.\n\n" +
-                        "We are pleased to inform you that your sales order" +
-                        "has been successfully processed and recorded in our system.\n\n" +
-                        "Our team is preparing your items for dispatch as per the standard processing timeline. " +
-                        "You will receive further updates once the shipment is scheduled.\n\n" +
-                        "If you have any questions or require assistance, please feel free to contact our support team at support@techbridge.com.\n\n" +
-                        "Warm regards,\n" +
-                        "TechBridge Sales Team\n" +
-                        "www.techbridge.com";
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true); // true = multipart
 
-        message.setText(mailBody);
-        mailSender.send(message);
-        return MAIL_SENT_SUCCESSFULLY;
+            helper.setFrom(MAIL_ID);
+            helper.setTo(email);
+            helper.setSubject("Sales Order Confirmation – TechBridge");
+
+            String mailBody =
+                    "Dear " + customerName + ",\n\n" +
+                            "Thank you for your purchase from TechBridge.\n\n" +
+                            "Your sales order has been successfully processed.\n\n" +
+                            "Please find your invoice attached as a PDF.\n\n" +
+                            "Warm regards,\n" +
+                            "TechBridge Sales Team\n" +
+                            "www.techbridge.com";
+
+            helper.setText(mailBody);
+
+            // Attach PDF
+            helper.addAttachment(pdfFile.getName(), pdfFile);
+
+            mailSender.send(mimeMessage);
+
+            return "MAIL_SENT_SUCCESSFULLY";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "MAIL_SENDING_FAILED";
+        }
     }
+
 }
