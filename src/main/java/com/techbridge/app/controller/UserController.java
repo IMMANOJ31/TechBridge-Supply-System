@@ -93,6 +93,7 @@ public class UserController {
         salesService.save(salesDto);
         File invoicePdf = invoiceService.generateInvoicePdfForSales(salesDto);
         mailNotify.sendSalesConfirmationMail(salesDto.getEmail(), salesDto.getCustomerName(),invoicePdf);
+        log.info("Sales mail sent");
         return "userPage";
     }
 
